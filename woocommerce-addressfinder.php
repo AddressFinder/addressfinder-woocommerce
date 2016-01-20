@@ -21,18 +21,16 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	function add_addressfinder_widget( $checkout ) {
 		$path = plugin_dir_path( __FILE__ );
-    $af_key_nz = esc_attr( get_option( 'af-key' ) );
-    $af_key_au = esc_attr( get_option( 'af-key-au' ) );
-    $addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
+		$af_key_nz = esc_attr( get_option( 'af-key' ) );
+		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
+		$addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
 		echo "<script>var afKey = '{$af_key_nz}';\n var afKeyAu = '{$af_key_au}';\n {$addressfinder_js}</script>";
 	}
 
 	add_filter( 'woocommerce_get_sections_checkout', 'add_addressfinder_settings' );
 	function add_addressfinder_settings( $sections ) {
-
 		$sections['addressfinder'] = __( 'AddressFinder', 'text-domain' );
 		return $sections;
-
 	}
 
 	add_filter( 'woocommerce_get_settings_checkout', 'addressfinder_settings', 10, 1 );

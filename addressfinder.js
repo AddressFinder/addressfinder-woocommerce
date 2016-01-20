@@ -1,5 +1,7 @@
 var addressWidget = function(prefix){
   var widget;
+  var widgetNZ;
+  var widgetAU;
 
   var nullWidget = {
     enable: function() { },
@@ -7,7 +9,6 @@ var addressWidget = function(prefix){
     on: function() { }
   }
 
-  var widgetNZ;
   if (afKey) {
     widgetNZ = new AddressFinder.Widget(
         document.getElementById(prefix + 'address_1'),
@@ -16,10 +17,10 @@ var addressWidget = function(prefix){
         );
 
     widgetNZ.onSelect = selectNewZealand;
-  } else { widgetNZ = nullWidget; }
+  } else {
+    widgetNZ = nullWidget;
+  }
 
-
-  var widgetAU;
   if (afKeyAu) {
     widgetAU = new AddressFinder.Widget(
         document.getElementById(prefix + 'address_1'),
@@ -28,7 +29,9 @@ var addressWidget = function(prefix){
         );
 
     widgetAU.onSelect = selectAustralia;
-  } else { widgetAU = nullWidget; }
+  } else {
+    widgetAU = nullWidget;
+  }
 
 
   var countryCheck = function(clear){
@@ -169,6 +172,7 @@ var initAF = function(prefix){
     addressWidget("shipping_");
   }
 };
+
 (function(f){
   var script = document.createElement('script');
   script.src = 'https://api.addressfinder.io/assets/v3/widget.js';

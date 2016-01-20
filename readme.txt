@@ -1,16 +1,16 @@
 /**
  * Plugin Name: WooCommerce AddressFinder
- * Plugin URI: http://woothemes.com/products/woocommerce-extension/
+ * Plugin URI: http://woothemes.com/products/woocommerce-addressfinder/
  * Description: WooCommerce AddressFinder plugin to autocomplete addresses in New Zealand and Australia
  * Version: 1.0.2
- * Author: Abletech
- * Author URI: https://addressfinder.nz/docs/woocommerce
+ * Author: WooThemes
+ * Author URI: http://woothemes.com
  * Developer: Abletech
  * Developer URI: https://abletech.nz
  * Text Domain: woocommerce-addressfinder
  * Domain Path: /languages
  *
- * Copyright: © 2016 Abletech Ltd.
+ * Copyright: © 2009-2015 WooThemes.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
