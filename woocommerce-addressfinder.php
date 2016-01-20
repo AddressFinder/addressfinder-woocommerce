@@ -2,7 +2,7 @@
 /*
 Plugin Name: AddressFinder
 Plugin URI: https://github.com/Abletech/woocommerce-addressfinder
-Version: 1.0.1
+Version: 1.0.2
 Author: Abletech
 Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
  */
@@ -24,7 +24,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     $af_key_nz = esc_attr( get_option( 'af-key' ) );
     $af_key_au = esc_attr( get_option( 'af-key-au' ) );
     $addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
-		echo "<script>var afKey = '{ $af_key_nz }';\n var afKeyAu = '{ $af_key_au }';\n { $addressfinder_js }</script>";
+		echo "<script>var afKey = '{$af_key_nz}';\n var afKeyAu = '{$af_key_au}';\n {$addressfinder_js}</script>";
 	}
 
 	add_filter( 'woocommerce_get_sections_checkout', 'add_addressfinder_settings' );
