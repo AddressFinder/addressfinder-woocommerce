@@ -110,12 +110,6 @@ var selectNewZealand = function(prefix, value, item) {
     document.getElementById(prefix + 'city').value = city;
     document.getElementById(prefix + 'postcode').value = item.postcode;
   }
-  /* remove Suburb */
-  var suburb = item.post_suburb || item.suburb;
-  if(addressLines[addressLines.length-1] == suburb){
-    addressLines.pop();
-    document.getElementById(prefix + 'city').value = suburb;
-  }
   /* set address2 */
   if(addressLines.length > 1){
     document.getElementById(prefix + 'address_2').value = addressLines.pop();
@@ -152,8 +146,8 @@ var selectAustralia = function(prefix, value, item) {
 
   // Set fields to new values
   if (item.address_line_2 != null) {
-    document.getElementById(prefix + 'address_1').value = item.address_line_2;
-    document.getElementById(prefix + 'address_2').value = item.address_line_1;
+    document.getElementById(prefix + 'address_1').value = item.address_line_1;
+    document.getElementById(prefix + 'address_2').value = item.address_line_2;
   } else {
     document.getElementById(prefix + 'address_1').value = item.address_line_1;
   }
