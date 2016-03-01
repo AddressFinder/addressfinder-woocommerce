@@ -1,40 +1,42 @@
-/**
- * Plugin Name: WooCommerce AddressFinder
- * Plugin URI: https://addressfinder.nz/docs/woocommerce/
- * Description: WooCommerce AddressFinder plugin to autocomplete addresses in New Zealand and Australia
- * Version: 1.0.5
- * Author: Abletech
- * Author URI: https://abletech.nz
- * Developer: Abletech
- * Developer URI: https://abletech.nz
- * Text Domain: woocommerce-addressfinder
- * Domain Path: /languages
- *
- * Copyright: © 2009-2015 WooThemes.
- * License: GNU General Public License v3.0
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- */
-
-=== Plugin Name ===
+=== WooCommerce AddressFinder ===
 Contributors: Abletech
-Tags: woocommerce, addressfinder, address, australia, new zealand
+Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia
 Requires at least: 4.1
 Tested up to: 4.4.1
 Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-WC requires at least: 2.3
-WC tested up to: 2.5
+
+The WooCommerce AddressFinder plugin provides address autocomplete for addresses in New Zealand and Australia.
+
 
 == Description ==
 
-WooCommerce AddressFinder plugin to autocomplete addresses in New Zealand and Australia
+= WooCommerce AddressFinder Plugin =
+With AddressFinder behind webforms, users enjoy speed and businesses enjoy accuracy.
 
-https://addressfinder.com.au
-https://addressfinder.nz
+* [AddressFinder Australia](https://addressfinder.com.au/)
+* [AddressFinder New Zealand](https://addressfinder.nz/)
+
+= What is the WooCommerce plugin? =
+
+The WooCommerce plugin provides the following features:
+
+* Autocomplete billing and shipping address in checkout page
+* Autocomplete address in my account page
+* Only enabled when country is selected as New Zealand or Australia
+
+= Compatibility =
+
+WooCommerce AddressFinder requires:
+
+* Wordpress v4.1 or higher
+* WooCommerce v2.3 or higher
+
 
 == Installation ==
 
+= Installing the WooCommerce AddressFinder Plugin =
 This section describes how to install the plugin and get it working.
 
 1. Use the Wordpress Admin Menu, select Plugins -> Add New
@@ -43,8 +45,56 @@ This section describes how to install the plugin and get it working.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 1. Use the WooCommerce -> Settings -> Checkout screen to input your AdressFinder API keys (you can find these keys at https://portal.addressfinder.io/
 
+Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/) page.
+
+
+== Frequently Asked Questions ==
+
+= What is the WooCommerce plugin? =
+
+The WooCommerce plugin provides the following features:
+
+* Autocomplete billing and shipping address in checkout page
+* Autocomplete address in my account page
+* Only enabled when country is selected as New Zealand or Australia
+
+= Which AddressFinder plan is right for you? =
+
+AddressFinder offers both free and paid plans, we recommend you start with the free plan which gives you up to 1000 completed address searches per month. Sign up for a Free Plan now and then follow the "Download and install" instructions below.
+
+If you need more than 1000 address searches per month from day one then sign up for a Pro Plan now, these start from $1,500 per annum (No credit card required we will invoice you).
+
+If your usage grows beyond a free plan it is easy to upgrade to a Pro Plan on the AddressFinder portal.
+
+You can read more about AddressFinder plans here:
+
+* [AddressFinder New Zealand Plans](https://addressfinder.nz/plans/)
+* [AddressFinder Australia Plans](https://addressfinder.com.au/plans/)
+
+
+== Screenshots ==
+
+1. Autocomplete billing and shipping address in checkout page.
+1. In the Admin section of your wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on AddressFinder.
+1. Find your AddressFinder API key at [https://portal.addressfinder.io]([https://portal.addressfinder.io])
+1. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for AddressFinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
+
+
+== Changelog ==
+= 1.0.5 =
+* Fix fault with New Zealand city field
+* Ignore WooCommerce placeholder instruction. Instead populate address_1 and address_2 as per Australian standards
+= 1.0.3 =
+* Initial release, enjoy!
+
+
+== Upgrade Notice ==
+= 1.0.5 =
+* Nothing to do here, just install and go.
+
+
 == Contributors ==
 
-Jordan Carter (https://github.com/jordandcarter)
-Andrew Pett   (https://github.com/aspett)
-Nigel Ramsay  (https://github.com/nigelramsay)
+* Jordan Carter (https://github.com/jordandcarter)
+* Andrew Pett   (https://github.com/aspett)
+* Nigel Ramsay  (https://github.com/nigelramsay)
