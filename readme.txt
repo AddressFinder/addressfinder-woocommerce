@@ -36,14 +36,27 @@ WooCommerce AddressFinder requires:
 
 == Installation ==
 
-= Installing the WooCommerce AddressFinder Plugin =
+= Demonstration video =
+
+Follow the instructions below, or watch the [installation video](https://vimeo.com/abletech/addressfinder-woocommerce).
+
+= Installation instructions =
+
 This section describes how to install the plugin and get it working.
 
 1. Use the Wordpress Admin Menu, select Plugins -> Add New
 1. Search for `woocommerce-addressfinder`
 1. Press the Install Now button
 1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the WooCommerce -> Settings -> Checkout screen to input your AdressFinder API keys (you can find these keys at https://portal.addressfinder.io/
+1. Use the WooCommerce -> Settings -> Checkout screen to input your AddressFinder API keys.
+1. Done
+
+New users can register for a free account at one of these links:
+
+[Free Account for Australia](https://portal.addressfinder.io/signup/au/free)
+[Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free)
+
+Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/).
 
 Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/) page.
 
