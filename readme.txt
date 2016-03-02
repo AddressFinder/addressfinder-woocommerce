@@ -1,30 +1,40 @@
 === WooCommerce AddressFinder ===
 Contributors: Abletech
-Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia
+Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
 Tested up to: 4.4.1
 Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-The WooCommerce AddressFinder plugin provides address autocomplete for addresses in New Zealand and Australia.
-
+Enables autocomplete of Shipping and Billing Addresses for New Zealand and Australian WooCommerce stores.
 
 == Description ==
 
-= WooCommerce AddressFinder Plugin =
-With AddressFinder behind webforms, users enjoy speed and businesses enjoy accuracy.
+The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
+delivery and billing address fields of your online store.
 
-* [AddressFinder Australia](https://addressfinder.com.au/)
-* [AddressFinder New Zealand](https://addressfinder.nz/)
+= Get Verified Addresses =
 
-= What is the WooCommerce plugin? =
+No more mistakes. Save addresses straight from your webform to your database.
 
-The WooCommerce plugin provides the following features:
+= Access the latest addresses =
 
-* Autocomplete billing and shipping address in checkout page
-* Autocomplete address in my account page
-* Only enabled when country is selected as New Zealand or Australia
+Leave the hard work to us. Access addresses frequently refreshed from multiple sources.
+
+= No software required =
+
+AddressFinder is a JavaScript widget and API. This plugin requires ZERO programming
+ability.
+
+= Supported Countries =
+
+* [Australia](https://addressfinder.com.au/)
+* [New Zealand](https://addressfinder.nz/)
+
+= Demonstration Video =
+
+[vimeo http://vimeo.com/157373924]
 
 = Compatibility =
 
