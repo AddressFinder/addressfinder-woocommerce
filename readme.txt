@@ -53,8 +53,8 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a free account at one of these links:
 
-[Free Account for Australia](https://portal.addressfinder.io/signup/au/free)
-[Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free)
+* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free)
+* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free)
 
 Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/).
 
