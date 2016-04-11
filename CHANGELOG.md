@@ -1,3 +1,7 @@
+# AddressFinder 1.0.7 (April 12, 2016) #
+
+* Minor fixes
+
 # AddressFinder 1.0.6 (April 11, 2016) #
 
 * Add a default z-index style to handle sites that use positioned elements
