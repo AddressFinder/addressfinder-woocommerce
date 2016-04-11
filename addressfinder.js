@@ -95,7 +95,6 @@
 
     var suburb = '';
 
-    console.log(item);
     window.item = item;
 
     /* split and trim */
