@@ -1,3 +1,9 @@
+// The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
+// delivery and billing address fields of your online store.
+//
+// https://wordpress.org/plugins/addressfinder-woo/
+//
+// VERSION: 1.0.6
 (function(){
   var addressWidget = function(prefix){
     var widget;
