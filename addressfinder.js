@@ -3,7 +3,7 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.0.7
+// VERSION: 1.0.8
 (function(){
   var addressWidget = function(prefix){
     var widget;
