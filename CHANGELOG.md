@@ -1,3 +1,7 @@
+# AddressFinder 1.0.8 (April 23, 2016) #
+
+* Clean up WooCommerce settings page
+
 # AddressFinder 1.0.7 (April 12, 2016) #
 
 * Minor fixes
