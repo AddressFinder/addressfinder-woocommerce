@@ -29,12 +29,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		echo "<style>{$addressfinder_css}</style>";
 	}
 
-	add_filter( 'woocommerce_get_sections_checkout', 'add_addressfinder_settings' );
-	function add_addressfinder_settings( $sections ) {
-		$sections['addressfinder'] = __( 'AddressFinder', 'text-domain' );
-		return $sections;
-	}
-
 	add_filter( 'woocommerce_get_settings_checkout', 'addressfinder_settings', 10, 1 );
 	function addressfinder_settings( $settings ) {
 		$settings[] = array( 'name' => __( 'AddressFinder Settings', 'text-domain' ),
