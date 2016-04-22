@@ -1,3 +1,7 @@
+# AddressFinder 1.0.9 (April 23, 2016) #
+
+* Confirm compatibility with Wordpress 4.5
+
 # AddressFinder 1.0.8 (April 23, 2016) #
 
 * Clean up WooCommerce settings page

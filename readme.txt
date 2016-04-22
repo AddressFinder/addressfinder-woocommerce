@@ -2,8 +2,8 @@
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
-Tested up to: 4.4.1
-Stable tag: 1.0.8
+Tested up to: 4.5.0
+Stable tag: 1.0.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -104,15 +104,23 @@ You can read more about AddressFinder plans here:
 
 
 == Changelog ==
+= 1.0.9 =
+* Confirm compatibility with Wordpress 4.5
+= 1.0.8 =
+* Clean up WooCommerce settings page
+= 1.0.7 =
+* Minor fixes
+= 1.0.6 =
+* Add a default z-index style to handle sites that use positioned elements
+* Load AddressFinder widget later to improve compatibility with the multistep-checkout-wizard plugin
 = 1.0.5 =
 * Fix fault with New Zealand city field
 * Ignore WooCommerce placeholder instruction. Instead populate address_1 and address_2 as per Australian standards
 = 1.0.3 =
 * Initial release, enjoy!
 
-
 == Upgrade Notice ==
-= 1.0.5 =
+= 1.0.9 =
 * Nothing to do here, just install and go.
 
 
