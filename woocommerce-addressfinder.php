@@ -24,7 +24,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$af_key_nz = esc_attr( get_option( 'af-key' ) );
 		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
 		$addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
-		echo "<script>var afKey = '{$af_key_nz}';\n var afKeyAu = '{$af_key_au}';\n {$addressfinder_js}</script>";
+		echo "<script>var nz = { key: '{$af_key_nz}', code: 'NZ', onSelectFn: 'selectNewZealand' };\n var au = { key: '{$af_key_au}', code: 'AU', onSelectFn: 'selectAustralia' };\n {$addressfinder_js}</script>";
 		$addressfinder_css = file_get_contents( $path . 'addressfinder.css' );
 		echo "<style>{$addressfinder_css}</style>";
 	}
