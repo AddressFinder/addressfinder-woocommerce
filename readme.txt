@@ -2,7 +2,7 @@
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
-Tested up to: 4.5.0
+Tested up to: 4.5
 Stable tag: 1.0.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,12 +63,12 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a free account at one of these links:
 
-* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free)
-* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free)
+* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme)
+* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme)
 
 Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/).
 
-Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/) page.
+Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme) page.
 
 
 == Frequently Asked Questions ==
@@ -91,8 +91,8 @@ If your usage grows beyond a free plan it is easy to upgrade to a Pro Plan on th
 
 You can read more about AddressFinder plans here:
 
-* [AddressFinder New Zealand Plans](https://addressfinder.nz/plans/)
-* [AddressFinder Australia Plans](https://addressfinder.com.au/plans/)
+* [AddressFinder New Zealand Plans](https://addressfinder.nz/plans/?rc=woo_readme)
+* [AddressFinder Australia Plans](https://addressfinder.com.au/plans/?rc=woo_readme)
 
 
 == Screenshots ==
