@@ -30,13 +30,13 @@
     }
 
     if (nz.key) {
-      widgetNZ = hydrate(prefix, nz.key, nz.code, selectNewZealand);
+      widgetNZ = hydrate(prefix, nz.key, nz.code, eval(nz.onSelectFn));
     } else {
       widgetNZ = nullWidget;
     }
 
     if (au.key) {
-      widgetAU = hydrate(prefix, au.key, au.code, selectAustralia);
+      widgetAU = hydrate(prefix, au.key, au.code, eval(au.onSelectFn));
     } else {
       widgetAU = nullWidget;
     }
