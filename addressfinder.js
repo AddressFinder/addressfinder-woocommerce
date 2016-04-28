@@ -29,14 +29,14 @@
       on: function() { }
     }
 
-    if (afKey) {
-      widgetNZ = hydrate(prefix, afKey, 'NZ', selectNewZealand);
+    if (nz.key) {
+      widgetNZ = hydrate(prefix, nz.key, 'NZ', selectNewZealand);
     } else {
       widgetNZ = nullWidget;
     }
 
-    if (afKeyAu) {
-      widgetAU = hydrate(prefix, afKeyAu, 'AU', selectAustralia);
+    if (au.key) {
+      widgetAU = hydrate(prefix, au.key, 'AU', selectAustralia);
     } else {
       widgetAU = nullWidget;
     }
