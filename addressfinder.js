@@ -158,8 +158,12 @@
 
     // Set fields to new values
     if (item.address_line_2 != null) {
-      document.getElementById(prefix + 'address_1').value = item.address_line_1;
-      document.getElementById(prefix + 'address_2').value = item.address_line_2;
+      if (checkFieldPresent(prefix + 'address_2')) {
+        document.getElementById(prefix + 'address_1').value = item.address_line_1;
+        document.getElementById(prefix + 'address_2').value = item.address_line_2;
+      } else {
+        document.getElementById(prefix + 'address_1').value = item.address_line_1 + ', ' + item.address_line_2;
+      }
     } else {
       document.getElementById(prefix + 'address_1').value = item.address_line_1;
     }
