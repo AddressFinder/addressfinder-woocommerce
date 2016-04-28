@@ -123,7 +123,7 @@
       document.getElementById(prefix + 'postcode').value = item.postcode;
     }
     /* set address2 */
-    if(addressLines.length > 1){
+    if(addressLines.length > 1 && checkFieldPresent(prefix, 'address_2')){
       document.getElementById(prefix + 'address_2').value = addressLines.pop();
     }
     /* set address1 */
