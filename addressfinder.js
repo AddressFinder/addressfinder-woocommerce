@@ -83,7 +83,9 @@
 
   var clearFields = function(prefix) {
     document.getElementById(prefix + 'address_1').value = '';
-    document.getElementById(prefix + 'address_2').value = '';
+    if (checkFieldPresent(prefix, 'address_2')) {
+      document.getElementById(prefix + 'address_2').value = '';
+    }
     document.getElementById(prefix + 'city').value = '';
     document.getElementById(prefix + 'postcode').value = '';
 
