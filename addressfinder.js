@@ -5,6 +5,19 @@
 //
 // VERSION: 1.0.9
 (function(){
+
+  var hydrate = function(prefix, key, code, onSelectFn) {
+    widget = new AddressFinder.Widget(
+      document.getElementById(prefix + "address_1"),
+      key,
+      code
+    );
+
+    widget.onSelect = onSelectFn;
+
+    return widget;
+  }
+
   var addressWidget = function(prefix){
     var widget;
     var widgetNZ;
@@ -17,25 +30,13 @@
     }
 
     if (afKey) {
-      widgetNZ = new AddressFinder.Widget(
-          document.getElementById(prefix + 'address_1'),
-          afKey,
-          'NZ'
-          );
-
-      widgetNZ.onSelect = selectNewZealand;
+      widgetNZ = hydrate(prefix, afKey, 'NZ', selectNewZealand);
     } else {
       widgetNZ = nullWidget;
     }
 
     if (afKeyAu) {
-      widgetAU = new AddressFinder.Widget(
-          document.getElementById(prefix + 'address_1'),
-          afKeyAu,
-          'AU'
-          );
-
-      widgetAU.onSelect = selectAustralia;
+      widgetAU = hydrate(prefix, afKeyAu, 'AU', selectAustralia);
     } else {
       widgetAU = nullWidget;
     }
