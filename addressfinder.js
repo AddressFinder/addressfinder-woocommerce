@@ -77,6 +77,10 @@
     widgetAU.on("result:select", function(value, item)  { widget.onSelect(prefix, value, item ) });
   };
 
+  var checkFieldPresent = function(prefix, field) {
+    return !!document.getElementById(prefix + field)
+  }
+
   var clearFields = function(prefix) {
     document.getElementById(prefix + 'address_1').value = '';
     document.getElementById(prefix + 'address_2').value = '';
