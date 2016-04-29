@@ -177,11 +177,12 @@
   };
 
   var initAF = function(){
-    if(document.getElementById("billing_address_1")){
-      addressWidget("billing_");
-    }
-    if(document.getElementById("shipping_address_1")){
-      addressWidget("shipping_");
+    var types = ["billing_", "shipping_"];
+
+    for (var i = 0; i < types.length; i++) {
+      if(document.getElementById(types[i] + "address_1")) {
+        addressWidget(types[i]);
+      }
     }
   };
 
