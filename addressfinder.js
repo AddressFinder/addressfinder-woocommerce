@@ -5,78 +5,72 @@
 //
 // VERSION: 1.0.9
 (function(){
-
-  var hydrate = function(prefix, key, code, onSelectFn) {
-    widget = new AddressFinder.Widget(
+  var initialiseWidget = function(prefix, key, code, onSelectFn) {
+    var widget = new AddressFinder.Widget(
       document.getElementById(prefix + "address_1"),
       key,
       code
     );
 
-    widget.onSelect = onSelectFn;
+    widget.on("result:select", onSelectFn);
+
+    widget._getPosition = function(){
+      var coords = jQuery(this.element).offset();
+      coords.top += jQuery(this.element).outerHeight();
+      return coords;
+    }
 
     return widget;
   }
 
-  var addressWidget = function(prefix){
-    var widget, widgets, widgetNZ, widgetAU;
-
+  var bindToAddressPanel = function(panelPrefix){
     var nullWidget = {
       enable: function() { },
       disable: function() { },
       on: function() { }
     }
 
-    if (nz.key) {
-      widgetNZ = hydrate(prefix, nz.key, nz.code, eval(nz.onSelectFn));
-    } else {
-      widgetNZ = nullWidget;
+    var widgets = {};
+
+    if(AddressFinderConfig['key_nz']){
+      widgets.nz = initialiseWidget(panelPrefix, AddressFinderConfig['key_nz'], 'nz', selectNewZealand);
+    }
+    else {
+      widgets.nz = nullWidget;
     }
 
-    if (au.key) {
-      widgetAU = hydrate(prefix, au.key, au.code, eval(au.onSelectFn));
-    } else {
-      widgetAU = nullWidget;
+    if(AddressFinderConfig['key_au']){
+      widgets.au = initialiseWidget(panelPrefix, AddressFinderConfig['key_au'], 'au', selectAustralia);
+      widgets.au.prefix = panelPrefix;
+    }
+    else {
+      widgets.au = nullWidget;
     }
 
+    widgets.nz.prefix = panelPrefix;
+    widgets.au.prefix = panelPrefix;
 
-    var countryCheck = function(clear){
-      clear = clear === undefined ? true : clear;
-
-      if (clear) { clearFields(prefix); }
-
+    var countryChangeHandler = function(clear){
       if(jQuery(this).val() == "NZ"){
-        widgetNZ.enable();
-        widget = widgetNZ;
+        widgets.nz.enable();
       } else {
-        widgetNZ.disable();
+        widgets.nz.disable();
       }
 
       if(jQuery(this).val() == "AU"){
-        widgetAU.enable();
-        widget = widgetAU;
+        widgets.au.enable();
       } else {
-        widgetAU.disable();
+        widgets.au.disable();
+      }
+
+      clear = clear === undefined ? true : clear;
+
+      if (clear) {
+        clearFields(widgets.au.prefix);
       }
     };
 
-    jQuery("#" + prefix + "country").change(countryCheck);
-    countryCheck.bind(jQuery("#" + prefix + "country"))(false);
-
-    var _getPosition = function(){
-      var coords = jQuery(this.element).offset();
-      coords.top += jQuery(this.element).outerHeight();
-      return coords;
-    }
-
-    widgets = [widgetNZ, widgetAU];
-
-    for (var i = 0; i < widgets.length; i++) {
-      var curr = widgets[i];
-
-      curr._getPosition = _getPosition;
-      curr.on("result:select", function(value, item)  { widget.onSelect(prefix, value, item ) });
-    }
+    jQuery("#" + panelPrefix + "country").change(countryChangeHandler);
   };
 
   var checkFieldPresent = function(prefix, field) {
@@ -84,12 +78,18 @@
   }
 
   var clearFields = function(prefix) {
-    document.getElementById(prefix + 'address_1').value = '';
-    if (checkFieldPresent(prefix, 'address_2')) {
-      document.getElementById(prefix + 'address_2').value = '';
+    var fields = [
+      'address_1',
+      'address_2',
+      'city',
+      'postcode'
+    ];
+
+    for (var i = 0; i < fields.length; i++) {
+      if (checkFieldPresent(prefix, fields[i])) {
+        document.getElementById(prefix + fields[i]).value = "";
+      }
     }
-    document.getElementById(prefix + 'city').value = '';
-    document.getElementById(prefix + 'postcode').value = '';
 
     selectState(prefix, null);
   }
@@ -103,27 +103,31 @@
     }
   }
 
-  var selectNewZealand = function(prefix, value, item) {
+  var selectNewZealand = function(address, metaData) {
+    var prefix = this.prefix;
+
     /* clear address fields */
     clearFields(prefix);
 
     var suburb = '';
 
-    window.item = item;
+    // window.item = item;
 
     /* split and trim */
-    var address = item.postal || item.a;
+    var address = metaData.postal || metaData.a;
     var addressLines = address.split(',');
     for(var i=0; i<addressLines.length; i++){
       addressLines[i] = addressLines[i].replace(/^\s+|\s+$/g,'');
     }
+
     /* remove City/Postcode */
-    var city = item.mailtown || item.city;
-    if(addressLines[addressLines.length-1] == city + ' ' + item.postcode){
+    var city = metaData.mailtown || metaData.city;
+    if(addressLines[addressLines.length-1] == city + ' ' + metaData.postcode){
       addressLines.pop();
       document.getElementById(prefix + 'city').value = city;
-      document.getElementById(prefix + 'postcode').value = item.postcode;
+      document.getElementById(prefix + 'postcode').value = metaData.postcode;
     }
+
     /* set address2 */
     if(addressLines.length > 1 && checkFieldPresent(prefix, 'address_2')){
       document.getElementById(prefix + 'address_2').value = addressLines.pop();
@@ -149,40 +153,42 @@
       "Wellington Region": "WE",
       "West Coast Region": "WC",
       "No Region (Chatham Islands)": null
-    }[item.region]
+    }[metaData.region]
 
     selectState(prefix, region_code);
   };
 
-  var selectAustralia = function(prefix, value, item) {
+  var selectAustralia = function(address, metaData) {
+    var prefix = this.prefix;
+
     // Clear fields currently
     clearFields(prefix);
 
     // Set fields to new values
-    if (item.address_line_2 != null) {
-      if (checkFieldPresent(prefix + 'address_2')) {
-        document.getElementById(prefix + 'address_1').value = item.address_line_1;
-        document.getElementById(prefix + 'address_2').value = item.address_line_2;
+    if (metaData.address_line_2 != null) {
+      if (checkFieldPresent(prefix, 'address_2')) {
+        document.getElementById(prefix + 'address_1').value = metaData.address_line_1;
+        document.getElementById(prefix + 'address_2').value = metaData.address_line_2;
       } else {
-        document.getElementById(prefix + 'address_1').value = item.address_line_1 + ', ' + item.address_line_2;
+        document.getElementById(prefix + 'address_1').value = metaData.address_line_1 + ', ' + metaData.address_line_2;
       }
     } else {
-      document.getElementById(prefix + 'address_1').value = item.address_line_1;
+      document.getElementById(prefix + 'address_1').value = metaData.address_line_1;
     }
 
-    document.getElementById(prefix + 'city').value = item.locality_name || '';
+    document.getElementById(prefix + 'city').value = metaData.locality_name || '';
 
-    selectState(prefix, item.state_territory);
-    document.getElementById(prefix + 'postcode').value = item.postcode;
+    selectState(prefix, metaData.state_territory);
+    document.getElementById(prefix + 'postcode').value = metaData.postcode;
   };
 
-  var initAF = function(){
-    var types = ["billing_", "shipping_"];
+  var initialisePlugin = function(){
+    if(document.getElementById('billing_address_1')){
+      bindToAddressPanel('billing_');
+    }
 
-    for (var i = 0; i < types.length; i++) {
-      if(document.getElementById(types[i] + "address_1")) {
-        addressWidget(types[i]);
-      }
+    if(document.getElementById('shipping_address_1')){
+      bindToAddressPanel('shipping_');
     }
   };
 
@@ -191,10 +197,10 @@
     script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
     script.onreadystatechange = function() {
       if (script.readyState === 'complete' || script.readyState === 'loaded'){
-        initAF();
+        initialisePlugin();
       }
     };
-    script.onload = initAF;
+    script.onload = initialisePlugin;
     document.body.appendChild(script);
   });
 })();
