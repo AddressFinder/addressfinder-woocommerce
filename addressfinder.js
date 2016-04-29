@@ -19,9 +19,7 @@
   }
 
   var addressWidget = function(prefix){
-    var widget;
-    var widgetNZ;
-    var widgetAU;
+    var widget, widgets, widgetNZ, widgetAU;
 
     var nullWidget = {
       enable: function() { },
@@ -71,11 +69,14 @@
       return coords;
     }
 
-    widgetNZ._getPosition = _getPosition;
-    widgetAU._getPosition = _getPosition;
+    widgets = [widgetNZ, widgetAU];
 
-    widgetNZ.on("result:select", function(value, item)  { widget.onSelect(prefix, value, item ) });
-    widgetAU.on("result:select", function(value, item)  { widget.onSelect(prefix, value, item ) });
+    for (var i = 0; i < widgets.length; i++) {
+      var curr = widgets[i];
+
+      curr._getPosition = _getPosition;
+      curr.on("result:select", function(value, item)  { widget.onSelect(prefix, value, item ) });
+    }
   };
 
   var checkFieldPresent = function(prefix, field) {
