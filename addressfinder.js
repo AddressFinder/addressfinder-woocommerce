@@ -167,20 +167,41 @@
     // Set fields to new values
     if (metaData.address_line_2 != null) {
       if (checkFieldPresent(prefix, 'address_2')) {
-        document.getElementById(prefix + 'address_1').value = metaData.address_line_1;
-        document.getElementById(prefix + 'address_2').value = metaData.address_line_2;
+        setFieldValue(prefix + 'address_1', metaData.address_line_1);
+        setFieldValue(prefix + 'address_2', metaData.address_line_2);
       } else {
-        document.getElementById(prefix + 'address_1').value = metaData.address_line_1 + ', ' + metaData.address_line_2;
+        var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
+        setFieldValue(prefix + 'address_1', combinedAddressLine1And2);
       }
     } else {
-      document.getElementById(prefix + 'address_1').value = metaData.address_line_1;
+      setFieldValue(prefix + 'address_1', metaData.address_line_1);
     }
 
-    document.getElementById(prefix + 'city').value = metaData.locality_name || '';
+    setFieldValue(prefix + 'city', metaData.locality_name || '');
 
     selectState(prefix, metaData.state_territory);
-    document.getElementById(prefix + 'postcode').value = metaData.postcode;
+    setFieldValue(prefix + 'postcode', metaData.postcode);
   };
+
+  var setFieldValue = function(elementId, value) {
+    var field = document.getElementById(elementId);
+
+    if (field) {
+      field.value = value;
+      return;
+    }
+
+    var errorMessage = "AddressFinder Error - unable to find an element with id: " + elementId;
+
+    if (AddressFinder.debug) {
+      alert(errorMessage);
+      return;
+    }
+
+    if (window.console) {
+      console.log(errorMessage);
+    }
+  }
 
   var initialisePlugin = function(){
     if(document.getElementById('billing_address_1')){
