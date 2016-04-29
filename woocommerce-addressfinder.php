@@ -23,19 +23,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$path = plugin_dir_path( __FILE__ );
 		$af_key_nz = esc_attr( get_option( 'af-key' ) );
 		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
+		$af_debug = esc_attr( get_option( 'af-debug' ) );
 		$addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
 		echo "<script>\nvar AddressFinderConfig = {};\n";
 
 		if($af_key_nz) {
-			echo "AddressFinderConfig['key_nz'] = '{$af_key_nz}';\n";
+			echo "AddressFinderConfig.key_nz = '{$af_key_nz}';\n";
 		}
 
 		if($af_key_au) {
-			echo "AddressFinderConfig['key_au'] = '{$af_key_au}';\n";
+			echo "AddressFinderConfig.key_au = '{$af_key_au}';\n";
 		}
 
-		if($af_debug) {
-			echo "AddressFinderConfig['debug'] = true;\n";
+		if($af_debug == 'yes') {
+			echo "AddressFinderConfig.debug = true;\n";
 		}
 
 		echo "\n{$addressfinder_js}\n</script>";
@@ -66,6 +67,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'id'       => 'af-key-au',
 			'type'     => 'text',
 			'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+		);
+
+		$settings[] = array(
+			'name'     => __( 'Debug Mode', 'text-domain' ),
+			'id'       => 'af-debug',
+			'type'     => 'checkbox',
+			'desc'     => __( 'Show error messages when expected fields are missing', 'text-domain' ),
 		);
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );

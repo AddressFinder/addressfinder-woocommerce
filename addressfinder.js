@@ -71,6 +71,9 @@
     };
 
     jQuery("#" + panelPrefix + "country").change(countryChangeHandler);
+
+    // Run the countryChangeHandler first to enable/disable the currently selected country
+    countryChangeHandler.bind(jQuery("#" + panelPrefix + "country"))(false);
   };
 
   var checkFieldPresent = function(prefix, field) {
@@ -97,9 +100,9 @@
   var selectState = function(prefix, value) {
     var select = jQuery("select#" + prefix + "state");
     if (select.length > 0) {
-      jQuery(select).select2().val(value).trigger("change")
+      jQuery(select).select2().val(value).trigger("change");
     } else {
-      jQuery("input#" + prefix + "state").val(value);
+      setFieldValue(prefix + "state", value);
     }
   }
 
@@ -107,11 +110,7 @@
     var prefix = this.prefix;
 
     /* clear address fields */
-    clearFields(prefix);
-
-    var suburb = '';
-
-    // window.item = item;
+    // clearFields(prefix);
 
     /* split and trim */
     var address = metaData.postal || metaData.a;
@@ -124,16 +123,20 @@
     var city = metaData.mailtown || metaData.city;
     if(addressLines[addressLines.length-1] == city + ' ' + metaData.postcode){
       addressLines.pop();
-      document.getElementById(prefix + 'city').value = city;
-      document.getElementById(prefix + 'postcode').value = metaData.postcode;
+      setFieldValue(prefix + 'city', city);
+      setFieldValue(prefix + 'postcode', metaData.postcode);
     }
 
     /* set address2 */
     if(addressLines.length > 1 && checkFieldPresent(prefix, 'address_2')){
-      document.getElementById(prefix + 'address_2').value = addressLines.pop();
+      setFieldValue(prefix + 'address_2', addressLines.pop());
     }
+    else {
+      setFieldValue(prefix + 'address_2', "");
+    }
+
     /* set address1 */
-    document.getElementById(prefix + 'address_1').value = addressLines.join(", ");
+    setFieldValue(prefix + 'address_1', addressLines.join(", "));
 
     var region_code = {
       "Auckland Region": "AL",
@@ -161,9 +164,6 @@
   var selectAustralia = function(address, metaData) {
     var prefix = this.prefix;
 
-    // Clear fields currently
-    clearFields(prefix);
-
     // Set fields to new values
     if (metaData.address_line_2 != null) {
       if (checkFieldPresent(prefix, 'address_2')) {
@@ -175,6 +175,7 @@
       }
     } else {
       setFieldValue(prefix + 'address_1', metaData.address_line_1);
+      setFieldValue(prefix + 'address_2', '');
     }
 
     setFieldValue(prefix + 'city', metaData.locality_name || '');
@@ -193,7 +194,7 @@
 
     var errorMessage = "AddressFinder Error - unable to find an element with id: " + elementId;
 
-    if (AddressFinder.debug) {
+    if (AddressFinderConfig.debug) {
       alert(errorMessage);
       return;
     }
