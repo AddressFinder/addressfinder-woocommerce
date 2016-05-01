@@ -104,6 +104,9 @@ You can read more about AddressFinder plans here:
 
 
 == Changelog ==
+= 1.0.10 =
+* Added debug flag to admin screen
+* Improve handling of missing form fields
 = 1.0.9 =
 * Confirm compatibility with Wordpress 4.5
 = 1.0.8 =
