@@ -41,7 +41,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		echo "\n{$addressfinder_js}\n</script>";
 
-		// echo "<script>var nz = { key: '{$af_key_nz}', code: 'NZ', onSelectFn: 'selectNewZealand' };\n var au = { key: '{$af_key_au}', code: 'AU', onSelectFn: 'selectAustralia' };\n {$addressfinder_js}</script>";
 		$addressfinder_css = file_get_contents( $path . 'addressfinder.css' );
 		echo "<style>{$addressfinder_css}</style>";
 	}
