@@ -1,3 +1,8 @@
+# AddressFinder 1.0.10 (May 2, 2016) #
+
+* Added debug flag to admin screen
+* Improve handling of missing form fields
+
 # AddressFinder 1.0.9 (April 23, 2016) #
 
 * Confirm compatibility with Wordpress 4.5
