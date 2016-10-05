@@ -1,3 +1,7 @@
+# AddressFinder 1.0.11 (October 5, 2016) #
+
+* Confirm compatibility with Wordpress 4.6 series
+
 # AddressFinder 1.0.10 (May 2, 2016) #
 
 * Added debug flag to admin screen
