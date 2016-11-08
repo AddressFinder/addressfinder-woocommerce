@@ -139,8 +139,8 @@
     setFieldValue(prefix + 'address_1', addressLines.join(", "));
 
     var region_code = {
-      "Auckland Region": "AL",
-      "Bay of Plenty Region": "BP",
+      "Auckland Region": "AK",
+      "Bay Of Plenty Region": "BP",
       "Canterbury Region": "CT",
       "Gisborne Region": "GI",
       "Hawke's Bay Region": "HB",
