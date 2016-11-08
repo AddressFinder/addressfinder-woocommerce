@@ -3,7 +3,7 @@ Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
 Tested up to: 4.6.1
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -104,6 +104,10 @@ You can read more about AddressFinder plans here:
 
 
 == Changelog ==
+= 1.0.12 =
+* Region code mappings fix
+= 1.0.11 =
+* Confirm compatibility with Wordpress 4.6 series
 = 1.0.10 =
 * Added debug flag to admin screen
 * Improve handling of missing form fields
@@ -123,7 +127,7 @@ You can read more about AddressFinder plans here:
 * Initial release, enjoy!
 
 == Upgrade Notice ==
-= 1.0.9 =
+= 1.0.12 =
 * Nothing to do here, just install and go.
 
 
