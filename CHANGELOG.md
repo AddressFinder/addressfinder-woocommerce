@@ -1,3 +1,7 @@
+# AddressFinder 1.0.12 (November 9, 2016) #
+
+* Region code mappings fix
+
 # AddressFinder 1.0.11 (October 5, 2016) #
 
 * Confirm compatibility with Wordpress 4.6 series

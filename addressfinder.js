@@ -3,7 +3,7 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.0.11
+// VERSION: 1.0.12
 (function(){
   var initialiseWidget = function(prefix, key, code, onSelectFn) {
     var widget = new AddressFinder.Widget(
@@ -139,8 +139,8 @@
     setFieldValue(prefix + 'address_1', addressLines.join(", "));
 
     var region_code = {
-      "Auckland Region": "AL",
-      "Bay of Plenty Region": "BP",
+      "Auckland Region": "AK",
+      "Bay Of Plenty Region": "BP",
       "Canterbury Region": "CT",
       "Gisborne Region": "GI",
       "Hawke's Bay Region": "HB",
