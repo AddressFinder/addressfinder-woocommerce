@@ -1,3 +1,7 @@
+# AddressFinder 1.0.13 (November 9, 2016) #
+
+* Minor fixes
+
 # AddressFinder 1.0.12 (November 9, 2016) #
 
 * Region code mappings fix
