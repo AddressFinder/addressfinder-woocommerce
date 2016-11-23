@@ -1,3 +1,7 @@
+# AddressFinder 1.0.13 (November 23, 2016) #
+
+* Support checkout pages without country fields
+
 # AddressFinder 1.0.12 (November 9, 2016) #
 
 * Region code mappings fix
