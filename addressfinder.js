@@ -70,10 +70,16 @@
       }
     };
 
-    jQuery("#" + panelPrefix + "country").change(countryChangeHandler);
+    var countryElement = jQuery("#" + panelPrefix + "country");
 
-    // Run the countryChangeHandler first to enable/disable the currently selected country
-    countryChangeHandler.bind(jQuery("#" + panelPrefix + "country"))(false);
+    // Sometimes there is no countryElement. Not calling the changeHandler means
+    // that it can remain enabled.
+    if(countryElement[0]){
+      countryElement.change(countryChangeHandler);
+
+      // Run the countryChangeHandler first to enable/disable the currently selected country
+      countryChangeHandler.bind(countryElement)(false);
+    }
   };
 
   var checkFieldPresent = function(prefix, field) {

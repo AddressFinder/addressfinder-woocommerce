@@ -105,7 +105,7 @@ You can read more about AddressFinder plans here:
 
 == Changelog ==
 = 1.0.13 =
-* Minor fixes
+* Support checkout pages without country fields
 = 1.0.12 =
 * Region code mappings fix
 = 1.0.11 =
