@@ -3,7 +3,7 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.0.13
+// VERSION: 1.0.14
 (function(){
   var initialiseWidget = function(prefix, key, code, onSelectFn) {
     var widget = new AddressFinder.Widget(
