@@ -1,6 +1,10 @@
-# AddressFinder 1.0.13 (November 23, 2016) #
+# AddressFinder 1.0.14 (November 24, 2016) #
 
 * Support checkout pages without country fields
+
+# AddressFinder 1.0.13 (November 9, 2016) #
+
+* Z-index fix
 
 # AddressFinder 1.0.12 (November 9, 2016) #
 
