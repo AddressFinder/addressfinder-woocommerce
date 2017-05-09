@@ -1,0 +1,23 @@
+{
+  "name": "addressfinder-woocommerce",
+  "version": "1.1.0",
+  "description": "An address verification tool for woocommerce stores serving New Zealand and Australian customers",
+  "main": "src/index.js",
+  "repository": "git@github.com:AbleTech/addressfinder-woocommerce.git",
+  "author": "@Abletech",
+  "license": "MIT",
+  "devDependencies": {
+    "concat": "^1.0.3",
+    "eslint": "^3.19.0",
+    "uglify-js": "^3.0.1",
+    "watch": "^1.0.2"
+  },
+  "scripts": {
+    "lint": "eslint src/*.js",
+    "concat": "concat src/*.js -o dist/addressfinder.js",
+    "minify": "uglify-js -m dist/addressfinder.js -o dist/addressfinder.min.js",
+    "build": "npm run lint && npm run concat",
+    "build:production": "npm run build && npm run minify",
+    "watch": "watch 'npm run build' src/"
+  }
+}
