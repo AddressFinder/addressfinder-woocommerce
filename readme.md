@@ -17,7 +17,7 @@ This project uses npm scripts to lint, concat, and minify the JS used in this Wo
  2. `npm install` or `yarn`
 
 Once your dependencies are installed, please install EditorConfig in your development environment to avoid whitespace changes.
-See (editorconfig.org)[http://editorconfig.org] for more.
+See [editorconfig.org](http://editorconfig.org) for more.
 
 ### Building the JS
 
