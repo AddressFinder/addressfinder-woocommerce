@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint src/*.js",
     "concat": "concat src/*.js -o dist/addressfinder.js",
-    "minify": "uglify-js -m dist/addressfinder.js -o dist/addressfinder.min.js",
+    "minify": "uglifyjs dist/addressfinder.js -m -o dist/addressfinder.min.js",
     "build": "npm run lint && npm run concat",
     "build:production": "npm run build && npm run minify",
     "watch": "watch 'npm run build' src/"
