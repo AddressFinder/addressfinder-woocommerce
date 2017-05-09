@@ -1,4 +1,5 @@
 === WooCommerce AddressFinder ===
+
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
@@ -104,6 +105,10 @@ You can read more about AddressFinder plans here:
 
 
 == Changelog ==
+= 1.1.0 =
+* Moved to NPM for script development
+* Minified output script
+* Removed superfluous CSS
 = 1.0.14 =
 * Support checkout pages without country fields
 = 1.0.13 =
@@ -131,12 +136,15 @@ You can read more about AddressFinder plans here:
 * Initial release, enjoy!
 
 == Upgrade Notice ==
-= 1.0.14 =
+= 1.1.0 =
 * Nothing to do here, just install and go.
 
 
 == Contributors ==
 
-* Jordan Carter (https://github.com/jordandcarter)
-* Andrew Pett   (https://github.com/aspett)
-* Nigel Ramsay  (https://github.com/nigelramsay)
+* Jordan Carter   (https://github.com/jordandcarter)
+* Andrew Pett     (https://github.com/aspett)
+* Nigel Ramsay    (https://github.com/nigelramsay)
+* Fiona Sanggang  (https://github.com/fsanggang)
+* Ross Jourdain   (https://github.com/rossjourdain)
+* Shaun O'Connell (https://github.com/ndorfin)

@@ -1,3 +1,9 @@
+# AddressFinder 1.1.0 (May 9, 2017) #
+
+* Move to NPM for development
+* Remove superfluous CSS
+* Use a minified script
+
 # AddressFinder 1.0.14 (November 24, 2016) #
 
 * Support checkout pages without country fields
