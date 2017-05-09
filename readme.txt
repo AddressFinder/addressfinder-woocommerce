@@ -145,4 +145,6 @@ You can read more about AddressFinder plans here:
 * Jordan Carter   (https://github.com/jordandcarter)
 * Andrew Pett     (https://github.com/aspett)
 * Nigel Ramsay    (https://github.com/nigelramsay)
+* Fiona Sanggang  (https://github.com/fsanggang)
+* Ross Jourdain   (https://github.com/rossjourdain)
 * Shaun O'Connell (https://github.com/ndorfin)
