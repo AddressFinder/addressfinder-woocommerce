@@ -6,7 +6,7 @@
 // VERSION: 1.1.0
 (function($, AFC){
   var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
-    var widget = new AddressFinder.Widget(
+    var widget = new window.AddressFinder.Widget(
       document.getElementById(prefix + 'address_1'),
       key,
       code,
