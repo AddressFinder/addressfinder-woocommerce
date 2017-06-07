@@ -4,9 +4,9 @@
 // https://wordpress.org/plugins/addressfinder-woo/
 //
 // VERSION: 1.1.0
-(function($, AFC, AF){
+(function($, AFC){
   var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
-    var widget = new AF.Widget(
+    var widget = new AddressFinder.Widget(
       document.getElementById(prefix + 'address_1'),
       key,
       code,
@@ -231,4 +231,4 @@
     document.body.appendChild(script);
   });
 
-})(window.jQuery, window.AddressFinderConfig, window.AddressFinder);
+})(window.jQuery, window.AddressFinderConfig);
