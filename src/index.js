@@ -5,12 +5,12 @@
 //
 // VERSION: 1.1.0
 (function($, AFC, AF){
-  var initialiseWidget = function(prefix, key, code, onSelectFn, options) {
+  var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
     var widget = new AF.Widget(
       document.getElementById(prefix + 'address_1'),
       key,
       code,
-      options
+      widgetOptions
     );
 
     widget.on('result:select', onSelectFn);
@@ -34,13 +34,13 @@
     var widgets = {};
 
     if (AFC['key_nz']){
-      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, AFC['options'] || null);
+      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, AFC['widget_options']);
     } else {
       widgets.nz = nullWidget;
     }
 
     if (AFC['key_au']){
-      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, AFC['options'] || null);
+      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, AFC['widget_options']);
       widgets.au.prefix = panelPrefix;
     } else {
       widgets.au = nullWidget;
