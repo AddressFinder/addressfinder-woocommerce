@@ -56,11 +56,11 @@ Follow the instructions below, or watch the [installation video](https://vimeo.c
 This section describes how to install the plugin and get it working.
 
 1. Use the Wordpress Admin Menu, select Plugins -> Add New
-1. Search for `woocommerce-addressfinder`
-1. Press the Install Now button
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the WooCommerce -> Settings -> Checkout screen to input your AddressFinder API keys.
-1. Done
+2. Search for `woocommerce-addressfinder`
+3. Press the Install Now button
+4. Activate the plugin through the 'Plugins' screen in WordPress
+5. Use the WooCommerce -> Settings -> Checkout screen to input your AddressFinder API keys.
+6. Done
 
 New users can register for a free account at one of these links:
 
