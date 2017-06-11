@@ -3,13 +3,14 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.1.0
-(function($, AFC, AF){
-  var initialiseWidget = function(prefix, key, code, onSelectFn) {
-    var widget = new AF.Widget(
+// VERSION: 1.1.1
+(function($, AFC){
+  var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
+    var widget = new window.AddressFinder.Widget(
       document.getElementById(prefix + 'address_1'),
       key,
-      code
+      code,
+      widgetOptions
     );
 
     widget.on('result:select', onSelectFn);
@@ -23,6 +24,24 @@
     return widget;
   };
 
+  var safeParseJSONObject = function(jsonObject) {
+    if(jsonObject == undefined){
+      return null;
+    }
+
+    try {
+      jsonObject = JSON.parse(jsonObject);
+    } catch (e) {
+      if (AFC.debug) {
+        alert('Invalid widget option: ' + jsonObject);
+      }
+
+      return null;
+    }
+
+    return jsonObject;
+  };
+
   var bindToAddressPanel = function(panelPrefix){
     var nullWidget = {
       enable: function() { },
@@ -32,14 +51,16 @@
 
     var widgets = {};
 
+    var parsedOptions = safeParseJSONObject(AFC['widget_options']);
+
     if (AFC['key_nz']){
-      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand);
+      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, parsedOptions);
     } else {
       widgets.nz = nullWidget;
     }
 
     if (AFC['key_au']){
-      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia);
+      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, parsedOptions);
       widgets.au.prefix = panelPrefix;
     } else {
       widgets.au = nullWidget;
@@ -230,4 +251,4 @@
     document.body.appendChild(script);
   });
 
-})(window.jQuery, window.AddressFinderConfig, window.AddressFinder);
+})(window.jQuery, window.AddressFinderConfig);
