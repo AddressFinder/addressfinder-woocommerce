@@ -30,8 +30,8 @@ ability.
 
 = Supported Countries =
 
-* [Australia](https://addressfinder.com.au/)
-* [New Zealand](https://addressfinder.nz/)
+* [Australia](https://addressfinder.com.au/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
+* [New Zealand](https://addressfinder.nz/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
 
 = Demonstration Video =
 
@@ -64,12 +64,12 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a free account at one of these links:
 
-* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme)
-* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme)
+* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Free%20Plans)
+* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Free%20Plans)
 
-Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/).
+Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
 
-Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme) page.
+Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Woocommerce%20Plugin&utm_content=Register%20for%20a%20free%20account) page.
 
 
 == Frequently Asked Questions ==
@@ -82,6 +82,19 @@ The WooCommerce plugin provides the following features:
 * Autocomplete address in my account page
 * Only enabled when country is selected as New Zealand or Australia
 
+= How do I remove the "Powered by AddressFinder" line?
+
+If you are on a paid plan, you can disable the "byline" by setting a
+widget option. Use the WooCommerce -> Settings -> Checkout screen, and
+add the following to the _Widget Options_ box:
+
+```
+{"byline": false}
+```
+
+Then reload the checkout page, and the "Powered by AddressFinder" byline
+will disappear.
+
 = Which AddressFinder plan is right for you? =
 
 AddressFinder offers both free and paid plans, we recommend you start with the free plan which gives you up to 1000 completed address searches per month. Sign up for a Free Plan now and then follow the "Download and install" instructions below.
@@ -92,15 +105,19 @@ If your usage grows beyond a free plan it is easy to upgrade to a Pro Plan on th
 
 You can read more about AddressFinder plans here:
 
-* [AddressFinder New Zealand Plans](https://addressfinder.nz/plans/?rc=woo_readme)
-* [AddressFinder Australia Plans](https://addressfinder.com.au/plans/?rc=woo_readme)
+* [AddressFinder New Zealand Plans](https://addressfinder.nz/plans/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Plans&utm_content=Which%20AddressFinder%20plan%20is%20right%20for%20you)
+* [AddressFinder Australia Plans](https://addressfinder.com.au/plans/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Plans&utm_content=Which%20AddressFinder%20plan%20is%20right%20for%20you)
+
+= Many more FAQ questions and answers
+
+The AddressFinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=AddressFinder%20FAQ%20NZ) with many questions answered.
 
 
 == Screenshots ==
 
 1. Autocomplete billing and shipping address in checkout page.
-1. In the Admin section of your wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on AddressFinder.
-1. Find your AddressFinder API key at [https://portal.addressfinder.io]([https://portal.addressfinder.io])
+1. In the Admin section of your Wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on AddressFinder.
+1. Find your AddressFinder API key at [https://portal.addressfinder.io](https://portal.addressfinder.io/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20AddressFinder%20API%20key&utm_content=Screenshots)
 1. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for AddressFinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
 
 
