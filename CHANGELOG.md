@@ -1,4 +1,9 @@
-#AddressFinder 1.1.1 (June 9, 2017)
+# AddressFinder 1.1.2 (June 12, 2017)
+
+* Minor fixes
+
+# AddressFinder 1.1.1 (June 9, 2017)
+
 * Allows users to add additional options to adjust default behaviour of the widget
 
 # AddressFinder 1.1.0 (May 9, 2017) #
