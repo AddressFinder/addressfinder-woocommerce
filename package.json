@@ -1,6 +1,6 @@
 {
   "name": "addressfinder-woocommerce",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An address verification tool for woocommerce stores serving New Zealand and Australian customers",
   "main": "src/index.js",
   "repository": "git@github.com:AbleTech/addressfinder-woocommerce.git",

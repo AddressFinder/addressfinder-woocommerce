@@ -88,9 +88,7 @@ If you are on a paid plan, you can disable the "byline" by setting a
 widget option. Use the WooCommerce -> Settings -> Checkout screen, and
 add the following to the _Widget Options_ box:
 
-```
-{"byline": false}
-```
+`{"byline": false}`
 
 Then reload the checkout page, and the "Powered by AddressFinder" byline
 will disappear.
