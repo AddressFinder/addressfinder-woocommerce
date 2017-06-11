@@ -3,47 +3,66 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.0.14
-(function(){
-  var initialiseWidget = function(prefix, key, code, onSelectFn) {
-    var widget = new AddressFinder.Widget(
-      document.getElementById(prefix + "address_1"),
+// VERSION: 1.1.1
+(function($, AFC){
+  var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
+    var widget = new window.AddressFinder.Widget(
+      document.getElementById(prefix + 'address_1'),
       key,
-      code
+      code,
+      widgetOptions
     );
 
-    widget.on("result:select", onSelectFn);
+    widget.on('result:select', onSelectFn);
 
     widget._getPosition = function(){
-      var coords = jQuery(this.element).offset();
-      coords.top += jQuery(this.element).outerHeight();
+      var coords = $(this.element).offset();
+      coords.top += $(this.element).outerHeight();
       return coords;
-    }
+    };
 
     return widget;
-  }
+  };
+
+  var safeParseJSONObject = function(jsonObject) {
+    if(jsonObject == undefined){
+      return null;
+    }
+
+    try {
+      jsonObject = JSON.parse(jsonObject);
+    } catch (e) {
+      if (AFC.debug) {
+        alert('Invalid widget option: ' + jsonObject);
+      }
+
+      return null;
+    }
+
+    return jsonObject;
+  };
 
   var bindToAddressPanel = function(panelPrefix){
     var nullWidget = {
       enable: function() { },
       disable: function() { },
       on: function() { }
-    }
+    };
 
     var widgets = {};
 
-    if(AddressFinderConfig['key_nz']){
-      widgets.nz = initialiseWidget(panelPrefix, AddressFinderConfig['key_nz'], 'nz', selectNewZealand);
-    }
-    else {
+    var parsedOptions = safeParseJSONObject(AFC['widget_options']);
+
+    if (AFC['key_nz']){
+      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, parsedOptions);
+    } else {
       widgets.nz = nullWidget;
     }
 
-    if(AddressFinderConfig['key_au']){
-      widgets.au = initialiseWidget(panelPrefix, AddressFinderConfig['key_au'], 'au', selectAustralia);
+    if (AFC['key_au']){
+      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, parsedOptions);
       widgets.au.prefix = panelPrefix;
-    }
-    else {
+    } else {
       widgets.au = nullWidget;
     }
 
@@ -51,13 +70,13 @@
     widgets.au.prefix = panelPrefix;
 
     var countryChangeHandler = function(clear){
-      if(jQuery(this).val() == "NZ"){
+      if ($(this).val() == 'NZ'){
         widgets.nz.enable();
       } else {
         widgets.nz.disable();
       }
 
-      if(jQuery(this).val() == "AU"){
+      if ($(this).val() == 'AU'){
         widgets.au.enable();
       } else {
         widgets.au.disable();
@@ -70,7 +89,7 @@
       }
     };
 
-    var countryElement = jQuery("#" + panelPrefix + "country");
+    var countryElement = $('#' + panelPrefix + 'country');
 
     // Sometimes there is no countryElement. Not calling the changeHandler means
     // that it can remain enabled.
@@ -83,8 +102,8 @@
   };
 
   var checkFieldPresent = function(prefix, field) {
-    return !!document.getElementById(prefix + field)
-  }
+    return !!document.getElementById(prefix + field);
+  };
 
   var clearFields = function(prefix) {
     var fields = [
@@ -96,23 +115,23 @@
 
     for (var i = 0; i < fields.length; i++) {
       if (checkFieldPresent(prefix, fields[i])) {
-        document.getElementById(prefix + fields[i]).value = "";
+        document.getElementById(prefix + fields[i]).value = '';
       }
     }
 
     selectState(prefix, null);
-  }
+  };
 
   var selectState = function(prefix, value) {
-    var select = jQuery("select#" + prefix + "state");
+    var select = $('select#' + prefix + 'state');
     if (select.length > 0) {
-      jQuery(select).select2().val(value).trigger("change");
+      $(select).select2().val(value).trigger('change');
     } else {
-      setFieldValue(prefix + "state", value);
+      setFieldValue(prefix + 'state', value);
     }
-  }
+  };
 
-  var selectNewZealand = function(address, metaData) {
+  var selectNewZealand = function(a, metaData) {
     var prefix = this.prefix;
 
     /* clear address fields */
@@ -138,31 +157,31 @@
       setFieldValue(prefix + 'address_2', addressLines.pop());
     }
     else {
-      setFieldValue(prefix + 'address_2', "");
+      setFieldValue(prefix + 'address_2', '');
     }
 
     /* set address1 */
-    setFieldValue(prefix + 'address_1', addressLines.join(", "));
+    setFieldValue(prefix + 'address_1', addressLines.join(', '));
 
     var region_code = {
-      "Auckland Region": "AK",
-      "Bay Of Plenty Region": "BP",
-      "Canterbury Region": "CT",
-      "Gisborne Region": "GI",
-      "Hawke's Bay Region": "HB",
-      "Manawatu-Wanganui Region": "MW",
-      "Marlborough Region": "MB",
-      "Nelson Region": "NS",
-      "Northland Region": "NL",
-      "Otago Region": "OT",
-      "Southland Region": "SL",
-      "Taranaki Region": "TK",
-      "Tasman Region": "TM",
-      "Waikato Region": "WA",
-      "Wellington Region": "WE",
-      "West Coast Region": "WC",
-      "No Region (Chatham Islands)": null
-    }[metaData.region]
+      'Auckland Region': 'AK',
+      'Bay Of Plenty Region': 'BP',
+      'Canterbury Region': 'CT',
+      'Gisborne Region': 'GI',
+      'Hawke\'s Bay Region': 'HB',
+      'Manawatu-Wanganui Region': 'MW',
+      'Marlborough Region': 'MB',
+      'Nelson Region': 'NS',
+      'Northland Region': 'NL',
+      'Otago Region': 'OT',
+      'Southland Region': 'SL',
+      'Taranaki Region': 'TK',
+      'Tasman Region': 'TM',
+      'Waikato Region': 'WA',
+      'Wellington Region': 'WE',
+      'West Coast Region': 'WC',
+      'No Region (Chatham Islands)': null
+    }[metaData.region];
 
     selectState(prefix, region_code);
   };
@@ -198,29 +217,29 @@
       return;
     }
 
-    var errorMessage = "AddressFinder Error - unable to find an element with id: " + elementId;
+    var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
 
-    if (AddressFinderConfig.debug) {
+    if (AFC.debug) {
       alert(errorMessage);
       return;
     }
 
     if (window.console) {
-      console.log(errorMessage);
+      window.console.log(errorMessage);
     }
-  }
+  };
 
   var initialisePlugin = function(){
-    if(document.getElementById('billing_address_1')){
+    if (document.getElementById('billing_address_1')){
       bindToAddressPanel('billing_');
     }
 
-    if(document.getElementById('shipping_address_1')){
+    if (document.getElementById('shipping_address_1')){
       bindToAddressPanel('shipping_');
     }
   };
 
-  jQuery(document).ready(function(){
+  $(document).ready(function(){
     var script = document.createElement('script');
     script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
     script.onreadystatechange = function() {
@@ -231,4 +250,5 @@
     script.onload = initialisePlugin;
     document.body.appendChild(script);
   });
-})();
+
+})(window.jQuery, window.AddressFinderConfig);
