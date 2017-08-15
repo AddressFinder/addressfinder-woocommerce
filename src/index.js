@@ -5,15 +5,15 @@
 //
 // VERSION: 1.1.2
 (function($, AFC){
-  var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
-    var widget = new window.AddressFinder.Widget(
-      document.getElementById(prefix + 'address_1'),
-      key,
-      code,
-      widgetOptions
-    );
+  // var initialiseWidget = function(prefix, key, code, onSelectFn, widgetOptions) {
+  //   var widget = new window.AddressFinder.Widget(
+  //     document.getElementById(prefix + 'address_1'),
+  //     key,
+  //     code,
+  //     widgetOptions
+  //   );
 
-    widget.on('result:select', onSelectFn);
+    // widget.on('result:select', onSelectFn);
 
     widget._getPosition = function(){
       var coords = $(this.element).offset();
@@ -24,23 +24,23 @@
     return widget;
   };
 
-  var safeParseJSONObject = function(jsonObject) {
-    if(jsonObject == undefined){
-      return null;
-    }
-
-    try {
-      jsonObject = JSON.parse(jsonObject);
-    } catch (e) {
-      if (AFC.debug) {
-        alert('Invalid widget option: ' + jsonObject);
-      }
-
-      return null;
-    }
-
-    return jsonObject;
-  };
+  // var safeParseJSONObject = function(jsonObject) {
+  //   if(jsonObject == undefined){
+  //     return null;
+  //   }
+  //
+  //   try {
+  //     jsonObject = JSON.parse(jsonObject);
+  //   } catch (e) {
+  //     if (AFC.debug) {
+  //       alert('Invalid widget option: ' + jsonObject);
+  //     }
+  //
+  //     return null;
+  //   }
+  //
+  //   return jsonObject;
+  // };
 
   var bindToAddressPanel = function(panelPrefix){
     var nullWidget = {
@@ -51,45 +51,45 @@
 
     var widgets = {};
 
-    var parsedOptions = safeParseJSONObject(AFC['widget_options']);
+    // var parsedOptions = safeParseJSONObject(AFC['widget_options']);
 
-    if (AFC['key_nz']){
-      widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, parsedOptions);
-    } else {
-      widgets.nz = nullWidget;
-    }
+    // if (AFC['key_nz']){
+    //   widgets.nz = initialiseWidget(panelPrefix, AFC['key_nz'], 'nz', selectNewZealand, parsedOptions);
+    // } else {
+    //   widgets.nz = nullWidget;
+    // }
+    //
+    // if (AFC['key_au']){
+    //   widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, parsedOptions);
+    //   widgets.au.prefix = panelPrefix;
+    // } else {
+    //   widgets.au = nullWidget;
+    // }
 
-    if (AFC['key_au']){
-      widgets.au = initialiseWidget(panelPrefix, AFC['key_au'], 'au', selectAustralia, parsedOptions);
-      widgets.au.prefix = panelPrefix;
-    } else {
-      widgets.au = nullWidget;
-    }
+    // widgets.nz.prefix = panelPrefix;
+    // widgets.au.prefix = panelPrefix;
+    //
+    // var countryChangeHandler = function(clear){
+    //   if ($(this).val() == 'NZ'){
+    //     widgets.nz.enable();
+    //   } else {
+    //     widgets.nz.disable();
+    //   }
+    //
+    //   if ($(this).val() == 'AU'){
+    //     widgets.au.enable();
+    //   } else {
+    //     widgets.au.disable();
+    //   }
+    //
+    //   clear = clear === undefined ? true : clear;
+    //
+    //   if (clear) {
+    //     clearFields(widgets.au.prefix);
+    //   }
+    // };
 
-    widgets.nz.prefix = panelPrefix;
-    widgets.au.prefix = panelPrefix;
-
-    var countryChangeHandler = function(clear){
-      if ($(this).val() == 'NZ'){
-        widgets.nz.enable();
-      } else {
-        widgets.nz.disable();
-      }
-
-      if ($(this).val() == 'AU'){
-        widgets.au.enable();
-      } else {
-        widgets.au.disable();
-      }
-
-      clear = clear === undefined ? true : clear;
-
-      if (clear) {
-        clearFields(widgets.au.prefix);
-      }
-    };
-
-    var countryElement = $('#' + panelPrefix + 'country');
+    // var countryElement = $('#' + panelPrefix + 'country');
 
     // Sometimes there is no countryElement. Not calling the changeHandler means
     // that it can remain enabled.
@@ -186,69 +186,69 @@
     selectState(prefix, region_code);
   };
 
-  var selectAustralia = function(address, metaData) {
-    var prefix = this.prefix;
+  // var selectAustralia = function(address, metaData) {
+  //   var prefix = this.prefix;
+  //
+  //   // Set fields to new values
+  //   if (metaData.address_line_2 != null) {
+  //     if (checkFieldPresent(prefix, 'address_2')) {
+  //       setFieldValue(prefix + 'address_1', metaData.address_line_1);
+  //       setFieldValue(prefix + 'address_2', metaData.address_line_2);
+  //     } else {
+  //       var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
+  //       setFieldValue(prefix + 'address_1', combinedAddressLine1And2);
+  //     }
+  //   } else {
+  //     setFieldValue(prefix + 'address_1', metaData.address_line_1);
+  //     setFieldValue(prefix + 'address_2', '');
+  //   }
+  //
+  //   setFieldValue(prefix + 'city', metaData.locality_name || '');
+  //
+  //   selectState(prefix, metaData.state_territory);
+  //   setFieldValue(prefix + 'postcode', metaData.postcode);
+  // };
 
-    // Set fields to new values
-    if (metaData.address_line_2 != null) {
-      if (checkFieldPresent(prefix, 'address_2')) {
-        setFieldValue(prefix + 'address_1', metaData.address_line_1);
-        setFieldValue(prefix + 'address_2', metaData.address_line_2);
-      } else {
-        var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
-        setFieldValue(prefix + 'address_1', combinedAddressLine1And2);
-      }
-    } else {
-      setFieldValue(prefix + 'address_1', metaData.address_line_1);
-      setFieldValue(prefix + 'address_2', '');
-    }
+  // var setFieldValue = function(elementId, value) {
+  //   var field = document.getElementById(elementId);
+  //
+  //   if (field) {
+  //     field.value = value;
+  //     return;
+  //   }
+  //
+  //   var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
+  //
+  //   if (AFC.debug) {
+  //     alert(errorMessage);
+  //     return;
+  //   }
+  //
+  //   if (window.console) {
+  //     window.console.log(errorMessage);
+  //   }
+  // };
 
-    setFieldValue(prefix + 'city', metaData.locality_name || '');
+  // var initialisePlugin = function(){
+  //   if (document.getElementById('billing_address_1')){
+  //     bindToAddressPanel('billing_');
+  //   }
+  //
+  //   if (document.getElementById('shipping_address_1')){
+  //     bindToAddressPanel('shipping_');
+  //   }
+  // };
 
-    selectState(prefix, metaData.state_territory);
-    setFieldValue(prefix + 'postcode', metaData.postcode);
-  };
-
-  var setFieldValue = function(elementId, value) {
-    var field = document.getElementById(elementId);
-
-    if (field) {
-      field.value = value;
-      return;
-    }
-
-    var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
-
-    if (AFC.debug) {
-      alert(errorMessage);
-      return;
-    }
-
-    if (window.console) {
-      window.console.log(errorMessage);
-    }
-  };
-
-  var initialisePlugin = function(){
-    if (document.getElementById('billing_address_1')){
-      bindToAddressPanel('billing_');
-    }
-
-    if (document.getElementById('shipping_address_1')){
-      bindToAddressPanel('shipping_');
-    }
-  };
-
-  $(document).ready(function(){
-    var script = document.createElement('script');
-    script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
-    script.onreadystatechange = function() {
-      if (script.readyState === 'complete' || script.readyState === 'loaded'){
-        initialisePlugin();
-      }
-    };
-    script.onload = initialisePlugin;
-    document.body.appendChild(script);
-  });
+  // $(document).ready(function(){
+  //   var script = document.createElement('script');
+  //   script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
+  //   script.onreadystatechange = function() {
+  //     if (script.readyState === 'complete' || script.readyState === 'loaded'){
+  //       initialisePlugin();
+  //     }
+  //   };
+  //   script.onload = initialisePlugin;
+  //   document.body.appendChild(script);
+  // });
 
 })(window.jQuery, window.AddressFinderConfig);

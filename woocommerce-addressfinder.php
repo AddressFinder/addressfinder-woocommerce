@@ -77,7 +77,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
       			'type'     => 'textarea',
       			'placeholder' => __('Eg: {&quot;byline&quot;: true}', 'text-domain'),
       			'desc'     => __('<p>Additional options that allow you to adjust the default behaviour of the widget. These options should be in the form of a JSON string with proper quoting of keys. </p><p>This section may be left blank for default behaviour.</p><p>For a full list of possible options <a href="https://addressfinder.nz/docs/widget_docs/">see our Widget documentation</a></p>', 'text-domain'),
-    		);
+    );
 
 		$settings[] = array(
 			'name'     => __( 'Debug Mode', 'text-domain' ),
