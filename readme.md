@@ -5,17 +5,17 @@ delivery and billing address fields of your online store.
 
 Supported Countries:
 
-* [Australia](https://addressfinder.com.au/?utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Supported%20Countries&utm_content=Australia)
-* [New Zealand](https://addressfinder.nz/?utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Supported%20Countries&utm_content=New%20Zealand)
+* [Australia](https://addressfinder.com.au/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
+* [New Zealand](https://addressfinder.nz/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
 
 Register for a free AddressFinder account at one of these links:
 
-* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme&utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Register%20for%20a%20free%20AddressFinder%20account%20at%20one%20of%20these%20links&utm_content=Free%20Account%20for%20Australia)
-* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme&utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Register%20for%20a%20free%20AddressFinder%20account%20at%20one%20of%20these%20links&utm_content=Free%20Account%20for%20New%20Zealand)
+* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Free%20account%20for%20Australia)
+* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Free%20account%20for%20New%20Zealand)
 
-Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Existing%20users%20can%20obtain%20their%20API%20key&utm_content=AddressFinder%20Portal).
+Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=existing%20users).
 
-Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme&utm_source=addressfinder-woocommerce&utm_campaign=WooCommerce&utm_term=Read%20more%20on%20AddressFinder&utm_content=WooCommerce%20Plugin) page.
+Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=WooCommerce%20Plugin&utm_content=Read%20More) page.
 
 ## Development
 
