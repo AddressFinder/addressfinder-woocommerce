@@ -184,6 +184,7 @@
     }[metaData.region];
 
     selectState(prefix, region_code);
+    console.log('testing')
   };
 
   // var selectAustralia = function(address, metaData) {
