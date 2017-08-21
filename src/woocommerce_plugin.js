@@ -1,3 +1,9 @@
+import "core-js/fn/array/map"
+import "core-js/fn/array/filter"
+import "core-js/fn/array/find"
+import "core-js/fn/array/from"
+import "core-js/fn/object/values"
+
 // The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
 // delivery and billing address fields of your online store.
 //
@@ -9,14 +15,13 @@ export default class WooCommercePlugin {
     this.version = "1.2.8"
     this.widgetConfig = widgetConfig
     this.widgets = {}
-    this.panelPrefix = ''
     this.countryCodes = ['nz', 'au']
     $ = window.jQuery
 
     this.initialisePlugin()
   }
 
-  getWidgetPostion(widget) {
+  setWidgetPostion(widget) {
     widget._getPosition = function(){
       var coords = $(this.element).offset();
       coords.top += $(this.element).outerHeight();
@@ -26,16 +31,6 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
-    var countryElement = $('#' + panelPrefix + 'country');
-    this.panelPrefix = panelPrefix
-
-    // Sometimes there is no countryElement. Not calling the changeHandler means
-    // that it can remain enabled.
-    if(countryElement[0]){
-      this.boundCountryChangedListener = this._countryChangeHandler.bind(this) // save this so we can unbind in the destroy() method
-      countryElement[0].addEventListener("change", this.boundCountryChangedListener);
-    }
-
     this.widgets.nullWidget = {
       enable: function() { },
       disable: function() { },
@@ -44,18 +39,26 @@ export default class WooCommercePlugin {
 
     this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
     this.widgets.nz.on('result:select', this.selectNewZealand.bind(this));
-    this.widgets.nz.prefix = panelPrefix;
+    this.widgets.nz.prefix = panelPrefix
 
     this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
     this.widgets.au.on('result:select', this.selectAustralia.bind(this));
-    this.widgets.au.prefix = panelPrefix;
+    this.widgets.au.prefix = panelPrefix
 
-    this._countryChangeHandler(null, false);
+    var countryElement = $('#' + panelPrefix + 'country');
+    // Sometimes there is no countryElement. Not calling the changeHandler means
+    // that it can remain enabled.
+    if(countryElement[0]){
+      countryElement.change(this._countryChangeHandler.bind(this));
+
+      // Run the countryChangeHandler first to enable/disable the currently selected country
+      this._countryChangeHandler(null, true);
+    }
   }
 
   _countryChangeHandler(event, preserveValues){
     var activeCountry;
-    switch ($('#' + this.panelPrefix + 'country').val()) {
+    switch ($('#' + this.widgets.au.prefix + 'country').val()) {
       case 'NZ':
       activeCountry = "nz"
       break;
@@ -67,25 +70,25 @@ export default class WooCommercePlugin {
     }
 
     this._setActiveCountry(activeCountry)
-    if(!preserveValues) {
-      const isInactiveCountry = countryCode => countryCode != activeCountry
-      this.countryCodes.filter(isInactiveCountry).forEach(this._clearElementValues(this.panelPrefix))
-    }
+    const isInactiveCountry = countryCode => countryCode != activeCountry
+    const inactiveCountryCode = this.countryCodes.filter(isInactiveCountry)
+    if(!preserveValues) this._clearElementValues(inactiveCountryCode[0])
 }
 
-  _setActiveCountry(countryCode){
-    for (var widgetCountryCode in this.widgets) {
-      this.widgets[widgetCountryCode].disable()
+  _setActiveCountry(activeCountry){
+    for (var i = 0; i < this.countryCodes.length; i++) {
+      this.widgets[this.countryCodes[i]].disable()
     }
-    this.widgets[countryCode].enable()
-    this.getWidgetPostion(this.widgets[countryCode])
+    this.widgets[activeCountry].enable()
+    this.setWidgetPostion(this.widgets[activeCountry])
 }
 
   checkFieldPresent(prefix, field) {
     return !!document.getElementById(prefix + field);
   };
 
-  _clearElementValues(prefix) {
+  _clearElementValues(countryCode) {
+    var prefix = this.widgets[countryCode].prefix
     var fields = [
       'address_1',
       'address_2',
@@ -95,38 +98,30 @@ export default class WooCommercePlugin {
 
     for (var i = 0; i < fields.length; i++) {
       if (this.checkFieldPresent(prefix, fields[i])) {
-        document.getElementById(prefix + fields[i]).value = '';
+        this._setElementValue(prefix + fields[i], '')
       }
     }
-    this._setStateValue(prefix + 'state', null)
+    this._setStateValue(prefix + 'state', '')
   };
 
   selectAustralia(address, metaData) {
     var prefix = this.widgets.au.prefix
 
-    // Set fields to new values
-    if (metaData.address_line_2 != null) {
-      if (this.checkFieldPresent(prefix, 'address_2')) {
-        this._setElementValue(prefix + 'address_1', metaData.address_line_1);
-        this._setElementValue(prefix + 'address_2', metaData.address_line_2);
-      } else {
-        var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
-        this._setElementValue(prefix + 'address_1', combinedAddressLine1And2);
-      }
-    } else {
+    if (this.checkFieldPresent(prefix, 'address_2')) {
       this._setElementValue(prefix + 'address_1', metaData.address_line_1);
-      this._setElementValue(prefix + 'address_2', '');
+      this._setElementValue(prefix + 'address_2', metaData.address_line_2 || '');
+    } else {
+      var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
+      this._setElementValue(prefix + 'address_1', combinedAddressLine1And2);
     }
-
     this._setElementValue(prefix + 'city', metaData.locality_name || '');
-
     this._setStateValue(prefix + 'state', metaData.state_territory);
     this._setElementValue(prefix + 'postcode', metaData.postcode);
   };
 
 
   selectNewZealand(fullAddress, metaData) {
-    var prefix = this.widgets.nz.prefix;
+    var prefix = this.widgets.nz.prefix
     let selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
     this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2())
     this._setElementValue(prefix + 'address_2', selected.suburb())
@@ -180,47 +175,19 @@ export default class WooCommercePlugin {
       }
 
       if (element.options) {
-        console.log(element)
-        const checkOptionMatchesValue = option => option.value == region_code[value] ? region_code[value] : ''
-        const selectedOption = Array.prototype.find.call(element.options, checkOptionMatchesValue)
-        console.
-        $(element).select2().val(selectedOption.value).trigger('change');
+        var selectedOptionValue;
+        for (var i = 0; i < element.options.length; i++) {
+          let optionVal = element.options[i].value
+          if (optionVal == value || optionVal == region_code[value]) {
+            selectedOptionValue = optionVal
+          }
+        }
+        $(element).select2().val(selectedOptionValue).trigger('change');
         return
       }
     }
   }
 
-    /* clear address fields */
-    // clearFields(prefix);
-
-    /* split and trim */
-  //   var address = metaData.postal || metaData.a;
-  //   var addressLines = address.split(',');
-  //   for(var i=0; i<addressLines.length; i++){
-  //     addressLines[i] = addressLines[i].replace(/^\s+|\s+$/g,'');
-  //   }
-  //
-  //   /* remove City/Postcode */
-  //   var city = metaData.mailtown || metaData.city;
-  //   if(addressLines[addressLines.length-1] == city + ' ' + metaData.postcode){
-  //     addressLines.pop();
-  //     this.setFieldValue(prefix + 'city', city);
-  //     this.setFieldValue(prefix + 'postcode', metaData.postcode);
-  //   }
-  //
-  //   /* set address2 */
-  //   if(addressLines.length > 1 && checkFieldPresent(prefix, 'address_2')){
-  //     this.setFieldValue(prefix + 'address_2', addressLines.pop());
-  //   }
-  //   else {
-  //     this.setFieldValue(prefix + 'address_2', '');
-  //   }
-  //
-  //   /* set address1 */
-  //   this.setFieldValue(prefix + 'address_1', addressLines.join(', '));
-  //
-  //   this.selectState(prefix, region_code);
-  // };
   initialisePlugin(){
     if (document.getElementById('billing_address_1')){
       this.bindToAddressPanel('billing_');
