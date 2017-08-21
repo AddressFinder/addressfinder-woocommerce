@@ -678,12 +678,12 @@ var WooCommercePlugin = function () {
       };
 
       this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions);
-      this.widgets.nz.on('result:select', this.selectNewZealand.bind(this));
       this.widgets.nz.prefix = panelPrefix;
+      this.widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
 
       this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-      this.widgets.au.on('result:select', this.selectAustralia.bind(this));
       this.widgets.au.prefix = panelPrefix;
+      this.widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
 
       var countryElement = $('#' + panelPrefix + 'country');
       // Sometimes there is no countryElement. Not calling the changeHandler means
@@ -746,9 +746,7 @@ var WooCommercePlugin = function () {
     }
   }, {
     key: "selectAustralia",
-    value: function selectAustralia(address, metaData) {
-      var prefix = this.widgets.au.prefix;
-
+    value: function selectAustralia(prefix, address, metaData) {
       if (this.checkFieldPresent(prefix, 'address_2')) {
         this._setElementValue(prefix + 'address_1', metaData.address_line_1);
         this._setElementValue(prefix + 'address_2', metaData.address_line_2 || '');
@@ -762,8 +760,7 @@ var WooCommercePlugin = function () {
     }
   }, {
     key: "selectNewZealand",
-    value: function selectNewZealand(fullAddress, metaData) {
-      var prefix = this.widgets.nz.prefix;
+    value: function selectNewZealand(prefix, fullAddress, metaData) {
       var selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
       this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
       this._setElementValue(prefix + 'address_2', selected.suburb());
@@ -835,7 +832,6 @@ var WooCommercePlugin = function () {
     value: function initialisePlugin() {
       if (document.getElementById('billing_address_1')) {
         this.bindToAddressPanel('billing_');
-        return;
       }
 
       if (document.getElementById('shipping_address_1')) {
