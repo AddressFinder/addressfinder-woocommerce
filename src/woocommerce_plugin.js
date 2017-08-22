@@ -14,14 +14,12 @@ export default class WooCommercePlugin {
   constructor(widgetConfig) {
     this.version = "1.2.8"
     this.widgetConfig = widgetConfig
-    this.widgets = {}
-    this.countryCodes = ['nz', 'au']
     $ = window.jQuery
-
     this.initialisePlugin()
   }
 
   setWidgetPostion(widget) {
+    //adjusts the position of the widget to prevent it rendering in front of address fields
     widget._getPosition = function(){
       var coords = $(this.element).offset();
       coords.top += $(this.element).outerHeight();
@@ -31,64 +29,61 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
-    this.widgets.nullWidget = {
+    var widgets = {}
+
+    widgets.null = {
       enable: function() { },
       disable: function() { },
       on: function() { }
     };
 
-    this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
-    this.widgets.nz.prefix = panelPrefix
-    this.widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
+    widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
+    widgets.nz.prefix = panelPrefix
+    widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
 
-    this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-    this.widgets.au.prefix = panelPrefix
-    this.widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
+    widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
+    widgets.au.prefix = panelPrefix
+    widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
+
 
     var countryElement = $('#' + panelPrefix + 'country');
     // Sometimes there is no countryElement. Not calling the changeHandler means
     // that it can remain enabled.
     if(countryElement[0]){
-      countryElement.change(this._countryChangeHandler.bind(this));
+      countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
-      this._countryChangeHandler(null, true);
-    }
+      countryChangeHandler.bind(this)(null, false);
+
   }
 
-  _countryChangeHandler(event, preserveValues){
-    var activeCountry;
-    switch ($('#' + this.widgets.au.prefix + 'country').val()) {
-      case 'NZ':
-      activeCountry = "nz"
-      break;
-    case 'AU':
-      activeCountry = "au"
-      break;
-    default:
-      activeCountry = "null";
-    }
+    function countryChangeHandler(event, preserveValues) {
+      var activeCountry;
+      switch ($('#' + panelPrefix + 'country').val()) {
+        case 'NZ':
+        widgets["au"].disable()
+        widgets["nz"].enable()
+        break;
+      case 'AU':
+        widgets["nz"].disable()
+        widgets["au"].enable()
+        break;
+      default:
+        widgets["au"].disable()
+        widgets["nz"].disable()
+      }
 
-    this._setActiveCountry(activeCountry)
-    const isInactiveCountry = countryCode => countryCode != activeCountry
-    const inactiveCountryCode = this.countryCodes.filter(isInactiveCountry)
-    if(!preserveValues) this._clearElementValues(inactiveCountryCode[0])
-}
-
-  _setActiveCountry(activeCountry){
-    for (var i = 0; i < this.countryCodes.length; i++) {
-      this.widgets[this.countryCodes[i]].disable()
+      if(!preserveValues) {
+        this._clearElementValues(widgets.au.prefix)
+      }
     }
-    this.widgets[activeCountry].enable()
-    this.setWidgetPostion(this.widgets[activeCountry])
-}
+  }
 
   checkFieldPresent(prefix, field) {
     return !!document.getElementById(prefix + field);
   };
 
-  _clearElementValues(countryCode) {
-    var prefix = this.widgets[countryCode].prefix
+  _clearElementValues(prefix) {
     var fields = [
       'address_1',
       'address_2',
