@@ -604,7 +604,7 @@ var _initPlugin = function _initPlugin() {
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-    debug: window.AddressFinderConfig.debug || true
+    debug: window.AddressFinderConfig.debug || false
   });
 };
 
@@ -644,12 +644,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.1.2
+// VERSION: 1.1.3
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.8";
+    this.version = "1.1.3";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
