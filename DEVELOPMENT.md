@@ -47,10 +47,4 @@ Then whenever a file is edited, it will be re-compiled and available for reloadi
 
 
 # Developing PHP or JS
-Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts.
-
-1. To login to the WooCommerce server your local ssh key has to be added.
-1. Run ssh root@45.55.11.166 in the terminal
-1. Find the file that you want to update. From the root the path to WooCommerce files is var/www/html/wp-content/plugins/addressfinder-woo
-1. To update the files you'll need to use vim in the terminal. [Beginners Guide to Vim](https://sites.google.com/a/abletech.co.nz/wiki/technology-tips/beginners-guide-to-vim) may be helpful.
-1. When you save the files they update on the WooCommerce store.
+Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts. For instructions see the [Abletech Wiki](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer).

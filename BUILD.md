@@ -20,8 +20,8 @@ See [editorconfig.org](http://editorconfig.org) for more.
 
 ### Building the JS
 
- - `npm run build:production`
+ - `npm run build` or `npm run build:production`
 
 ### Export
 
-Nigel can you add this?
+Instructions for exporting the WooCommerce plugin are on the [Abletech Wiki](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins)
