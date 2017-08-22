@@ -167,15 +167,13 @@ export default class WooCommercePlugin {
       }
 
       if (element.options) {
-        var selectedOptionValue;
-        for (var i = 0; i < element.options.length; i++) {
-          let optionVal = element.options[i].value
-          if (optionVal == value || optionVal == region_code[value]) {
-            selectedOptionValue = optionVal
-          }
-        }
-        $(element).select2().val(selectedOptionValue).trigger('change');
-        return
+        const checkOptionMatchesValue = element => element.value == value ||
+                                                   element.value == region_code[value]
+                                                   ? element.value : ''
+
+        const selectedOption = Array.prototype.find.call(element.options, checkOptionMatchesValue) || ''
+
+        $(element).select2().val(selectedOption.value).trigger('change');
       }
     }
   }
