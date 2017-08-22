@@ -113,6 +113,9 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.1.3 =
+* Plugin now uses a single licence key by default
+* Moved to webpack for script development
 = 1.1.2 =
 * Minor fixes
 = 1.1.1 =

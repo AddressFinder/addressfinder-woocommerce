@@ -9,10 +9,10 @@ import "core-js/fn/object/values"
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.1.2
+// VERSION: 1.1.3
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.8"
+    this.version = "1.1.3"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()

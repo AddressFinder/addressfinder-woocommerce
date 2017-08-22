@@ -52,39 +52,39 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	function addressfinder_settings( $settings ) {
 		$settings[] = array( 'name' => __( 'AddressFinder Settings', 'text-domain' ),
 			'type' => 'title',
-			'desc' => __( 'AddressFinder supports New Zealand and Australia. You only need to enter one licence key to use both widgets', 'text-domain' ),
+			'desc' => __( 'AddressFinder supports New Zealand and Australia.', 'text-domain' ),
 			'id' => 'addressfinder-widget' );
 
 		$af_key_nz = esc_attr( get_option( 'af-key' ) );
 		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
 		if($af_key_nz && $af_key_au) {
 			$settings[] = array(
-				'name'     => __( 'Licence Key for New Zealand', 'text-domain' ),
-				'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
+				'name'     => __( 'Licence key for New Zealand', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
 				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
 
 			$settings[] = array(
-				'name'     => __( 'Licence Key for Australia', 'text-domain' ),
-				'desc_tip' => __( 'The Key shown in the AddressFinder Australian portal', 'text-domain' ),
+				'name'     => __( 'Licence key for Australia', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
 				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
 		} elseif ($af_key_au) {
 				$settings[] = array(
-					'name'     => __( 'Licence Key', 'text-domain' ),
-					'desc_tip' => __( 'The Key shown in the AddressFinder Australian portal', 'text-domain' ),
+					'name'     => __( 'Licence key', 'text-domain' ),
+					'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
 					'id'       => 'af-key-au',
 					'type'     => 'text',
 					'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 				);
 		} else {
 			$settings[] = array(
-				'name'     => __( 'Licence Key', 'text-domain' ),
-				'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
+				'name'     => __( 'Licence key', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
 				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),

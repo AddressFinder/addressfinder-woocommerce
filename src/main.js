@@ -32,7 +32,7 @@ let _initPlugin = function(){
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-    debug: window.AddressFinderConfig.debug || true
+    debug: window.AddressFinderConfig.debug || false
   })
 }
 
