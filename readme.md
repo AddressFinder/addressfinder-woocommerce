@@ -15,7 +15,7 @@ Register for a free AddressFinder account at one of these links:
 
 Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=existing%20users).
 
-Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=WooCommerce%20Plugin&utm_content=Read%20More) page.
+Installation instructions and more information on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=WooCommerce%20Plugin&utm_content=Read%20More) page.
 
 ## Development
 
