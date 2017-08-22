@@ -59,7 +59,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
 		if($af_key_nz && $af_key_au) {
 			$settings[] = array(
-				'name'     => __( 'Key for New Zealand', 'text-domain' ),
+				'name'     => __( 'Licence Key for New Zealand', 'text-domain' ),
 				'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
@@ -67,23 +67,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			);
 
 			$settings[] = array(
-				'name'     => __( 'Key for Australia', 'text-domain' ),
+				'name'     => __( 'Licence Key for Australia', 'text-domain' ),
 				'desc_tip' => __( 'The Key shown in the AddressFinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
 				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
-		} elseif ($af_key_nz) {
-			$settings[] = array(
-				'name'     => __( 'Key for New Zealand', 'text-domain' ),
-				'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
-				'id'       => 'af-key',
-				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
-			);
 		} elseif ($af_key_au) {
 				$settings[] = array(
-					'name'     => __( 'Key for Australia', 'text-domain' ),
+					'name'     => __( 'Licence Key', 'text-domain' ),
 					'desc_tip' => __( 'The Key shown in the AddressFinder Australian portal', 'text-domain' ),
 					'id'       => 'af-key-au',
 					'type'     => 'text',
@@ -91,7 +83,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				);
 		} else {
 			$settings[] = array(
-				'name'     => __( 'Licence key', 'text-domain' ),
+				'name'     => __( 'Licence Key', 'text-domain' ),
 				'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
