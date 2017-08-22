@@ -16,26 +16,3 @@ Register for a free AddressFinder account at one of these links:
 Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=existing%20users).
 
 Installation instructions and more information on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=WooCommerce%20Plugin&utm_content=Read%20More) page.
-
-## Development
-
-This project uses npm scripts to lint, concat, and minify the JS used in this WooCommerce PHP plugin.
-
-### Dependencies:
-
- - Node.js
- - npm
- - uglify-js
- - eslint
-
-### Setting up your development environment
-
- 1. `npm install -g uglifyjs eslint`
- 2. `npm install` or `yarn`
-
-Once your dependencies are installed, please install EditorConfig in your development environment to avoid whitespace changes.
-See [editorconfig.org](http://editorconfig.org) for more.
-
-### Building the JS
-
- - `npm run build` or `npm run build:production`
