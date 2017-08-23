@@ -1,4 +1,4 @@
-# AddressFinder 1.1.3 (August 22, 2017)
+# AddressFinder 1.2.0 (August 22, 2017)
 
 * Plugin now uses a single licence key by default
 * Moved to webpack for script development
