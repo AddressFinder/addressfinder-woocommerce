@@ -12,21 +12,19 @@ Enables autocomplete of Shipping and Billing Addresses for New Zealand and Austr
 
 == Description ==
 
-The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
-delivery and billing address fields of your online store.
+The AddressFinder plugin for WooCommerce adds an autocomplete capability to the delivery and billing address fields of your online store.
 
 = Get Verified Addresses =
 
-No more mistakes. Save addresses straight from your webform to your database.
+No more mistakes. Save verified addresses straight from your checkout to your database.
 
 = Access the latest addresses =
 
-Leave the hard work to us. Access addresses frequently refreshed from multiple sources.
+Leave the hard work to us. The AddressFinder address database is frequently refreshed from multiple sources so you can rely on the data you collect.
 
-= No software required =
+= No programming required =
 
-AddressFinder is a JavaScript widget and API. This plugin requires ZERO programming
-ability.
+This plugin is super easy to set up. It does not require any experience and you can have it working in minutes.
 
 = Supported Countries =
 
@@ -82,24 +80,19 @@ The WooCommerce plugin provides the following features:
 * Autocomplete address in my account page
 * Only enabled when country is selected as New Zealand or Australia
 
-= How do I remove the "Powered by AddressFinder" line?
+= How do I remove the AddressFinder byline?
 
-If you are on a paid plan, you can disable the "byline" by setting a
-widget option. Use the WooCommerce -> Settings -> Checkout screen, and
-add the following to the _Widget Options_ box:
+If you are on a paid plan, you can disable the "byline" by setting a widget option. Use the WooCommerce -> Settings -> Checkout screen, and add the following to the _Widget Options_ box:
 
 `{"byline": false}`
 
-Then reload the checkout page, and the "Powered by AddressFinder" byline
-will disappear.
+Then reload the checkout page, and the AddressFinder advertising will disappear.
 
 = Which AddressFinder plan is right for you? =
 
-AddressFinder offers both free and paid plans, we recommend you start with the free plan which gives you up to 1000 completed address searches per month. Sign up for a Free Plan now and then follow the "Download and install" instructions below.
+AddressFinder offers both free and paid plans, we recommend you start with the free plan which gives you up to 1000 completed address searches per month.
 
-If you need more than 1000 address searches per month from day one then sign up for a Pro Plan now, these start from $1,500 per annum (No credit card required we will invoice you).
-
-If your usage grows beyond a free plan it is easy to upgrade to a Pro Plan on the AddressFinder portal.
+If you need more than 1000 address lookups per month from day one then upgrade to a paid plan, these start from $42 per month.
 
 You can read more about AddressFinder plans here:
 
@@ -120,6 +113,9 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.2.0 =
+* Plugin now uses a single licence key by default
+* Moved to webpack for script development
 = 1.1.2 =
 * Minor fixes
 = 1.1.1 =
@@ -167,3 +163,4 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Fiona Sanggang  (https://github.com/fsanggang)
 * Ross Jourdain   (https://github.com/rossjourdain)
 * Shaun O'Connell (https://github.com/ndorfin)
+* Kate Norquay    (https://github.com/katenorquay)
