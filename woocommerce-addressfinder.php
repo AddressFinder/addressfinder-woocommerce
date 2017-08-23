@@ -52,32 +52,52 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	function addressfinder_settings( $settings ) {
 		$settings[] = array( 'name' => __( 'AddressFinder Settings', 'text-domain' ),
 			'type' => 'title',
-			'desc' => __( 'AddressFinder supports New Zealand and Australia. You may enter a key for either, or both.', 'text-domain' ),
+			'desc' => __( 'AddressFinder supports New Zealand and Australia.', 'text-domain' ),
 			'id' => 'addressfinder-widget' );
 
-		$settings[] = array(
-			'name'     => __( 'Key for New Zealand', 'text-domain' ),
-			'desc_tip' => __( 'The Key shown in the AddressFinder portal', 'text-domain' ),
-			'id'       => 'af-key',
-			'type'     => 'text',
-			'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
-		);
+		$af_key_nz = esc_attr( get_option( 'af-key' ) );
+		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
+		if($af_key_nz && $af_key_au) {
+			$settings[] = array(
+				'name'     => __( 'Licence key for New Zealand', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
+				'id'       => 'af-key',
+				'type'     => 'text',
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+			);
+
+			$settings[] = array(
+				'name'     => __( 'Licence key for Australia', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
+				'id'       => 'af-key-au',
+				'type'     => 'text',
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+			);
+		} elseif ($af_key_au) {
+				$settings[] = array(
+					'name'     => __( 'Licence key', 'text-domain' ),
+					'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
+					'id'       => 'af-key-au',
+					'type'     => 'text',
+					'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				);
+		} else {
+			$settings[] = array(
+				'name'     => __( 'Licence key', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
+				'id'       => 'af-key',
+				'type'     => 'text',
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+			);
+		}
 
 		$settings[] = array(
-			'name'     => __( 'Key for Australia', 'text-domain' ),
-			'desc_tip' => __( 'The Key shown in the AddressFinder Australian portal', 'text-domain' ),
-			'id'       => 'af-key-au',
-			'type'     => 'text',
-			'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
-		);
-
-		$settings[] = array(
-      			'name'     => __( 'Widget Options', 'text-domain' ),
-      			'id'       => 'af-widget-options',
-      			'type'     => 'textarea',
-      			'placeholder' => __('Eg: {&quot;byline&quot;: true}', 'text-domain'),
-      			'desc'     => __('<p>Additional options that allow you to adjust the default behaviour of the widget. These options should be in the form of a JSON string with proper quoting of keys. </p><p>This section may be left blank for default behaviour.</p><p>For a full list of possible options <a href="https://addressfinder.nz/docs/widget_docs/">see our Widget documentation</a></p>', 'text-domain'),
-    		);
+			'name'     => __( 'Widget Options', 'text-domain' ),
+			'id'       => 'af-widget-options',
+			'type'     => 'textarea',
+			'placeholder' => __('Eg: {&quot;byline&quot;: true}', 'text-domain'),
+			'desc'     => __('<p>Additional options that allow you to adjust the default behaviour of the widget. These options should be in the form of a JSON string with proper quoting of keys. </p><p>This section may be left blank for default behaviour.</p><p>For a full list of possible options <a href="https://addressfinder.nz/docs/widget_docs/">see our Widget documentation</a></p>', 'text-domain'),
+    );
 
 		$settings[] = array(
 			'name'     => __( 'Debug Mode', 'text-domain' ),
