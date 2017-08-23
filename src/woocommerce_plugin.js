@@ -18,7 +18,7 @@ export default class WooCommercePlugin {
     this.initialisePlugin()
   }
 
-  setWidgetPostion(widget) {
+  _setWidgetPostion(widget) {
     //adjusts the position of the widget to prevent it rendering in front of address fields
     widget._getPosition = function(){
       var coords = $(this.element).offset();
@@ -63,10 +63,12 @@ export default class WooCommercePlugin {
         case 'NZ':
         widgets["au"].disable()
         widgets["nz"].enable()
+        this._setWidgetPostion(widgets["nz"])
         break;
       case 'AU':
         widgets["nz"].disable()
         widgets["au"].enable()
+        this._setWidgetPostion(widgets["au"])
         break;
       default:
         widgets["au"].disable()
