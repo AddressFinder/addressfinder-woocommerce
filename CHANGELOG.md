@@ -1,3 +1,7 @@
+# AddressFinder 1.2.3 (August 24, 2017)
+
+* Adjusts position of the widget
+
 # AddressFinder 1.2.2 (August 22, 2017)
 
 * Plugin now uses a single licence key by default

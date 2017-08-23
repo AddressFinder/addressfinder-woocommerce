@@ -644,20 +644,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.2
+// VERSION: 1.2.3
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.2";
+    this.version = "1.2.3";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
   }
 
   _createClass(WooCommercePlugin, [{
-    key: "setWidgetPostion",
-    value: function setWidgetPostion(widget) {
+    key: "_setWidgetPostion",
+    value: function _setWidgetPostion(widget) {
       //adjusts the position of the widget to prevent it rendering in front of address fields
       widget._getPosition = function () {
         var coords = $(this.element).offset();
@@ -701,10 +701,12 @@ var WooCommercePlugin = function () {
           case 'NZ':
             widgets["au"].disable();
             widgets["nz"].enable();
+            this._setWidgetPostion(widgets["nz"]);
             break;
           case 'AU':
             widgets["nz"].disable();
             widgets["au"].enable();
+            this._setWidgetPostion(widgets["au"]);
             break;
           default:
             widgets["au"].disable();

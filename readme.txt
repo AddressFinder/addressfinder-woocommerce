@@ -4,7 +4,7 @@ Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, shipping, valid
 Requires at least: 4.1
 Tested up to: 4.8
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,6 +113,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.2.3 =
+* Adjusts the position of the widget
 = 1.2.2 =
 * Plugin now uses a single licence key by default
 * Moved to webpack for script development
@@ -151,7 +153,7 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
-= 1.2.2 =
+= 1.2.3 =
 * Nothing to do here, just install and go.
 
 
