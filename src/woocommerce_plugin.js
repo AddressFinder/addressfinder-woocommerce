@@ -53,7 +53,7 @@ export default class WooCommercePlugin {
       countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
-      countryChangeHandler.bind(this)(null, false);
+      countryChangeHandler.bind(this)(null, true);
 
   }
 

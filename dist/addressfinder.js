@@ -692,7 +692,7 @@ var WooCommercePlugin = function () {
         countryElement.change(countryChangeHandler.bind(this));
 
         // Run the countryChangeHandler first to enable/disable the currently selected country
-        countryChangeHandler.bind(this)(null, false);
+        countryChangeHandler.bind(this)(null, true);
       }
 
       function countryChangeHandler(event, preserveValues) {
