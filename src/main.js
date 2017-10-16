@@ -33,6 +33,7 @@ let _initPlugin = function(){
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
     debug: window.AddressFinderConfig.debug || false
+    defaultCountry: window.AddressFinderConfig.default_country || 'NZ'
   })
 }
 

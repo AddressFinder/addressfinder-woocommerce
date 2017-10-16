@@ -55,31 +55,41 @@ export default class WooCommercePlugin {
       // Run the countryChangeHandler first to enable/disable the currently selected country
       countryChangeHandler.bind(this)(null, true);
 
+  } else {
+    _setActiveWidget(this.widgetConfig.default_country)
   }
 
     function countryChangeHandler(event, preserveValues) {
       var activeCountry;
       switch ($('#' + panelPrefix + 'country').val()) {
         case 'NZ':
-        widgets["au"].disable()
-        widgets["nz"].enable()
-        this._setWidgetPostion(widgets["nz"])
+        this._setActiveWidget('NZ')
         break;
       case 'AU':
-        widgets["nz"].disable()
-        widgets["au"].enable()
-        this._setWidgetPostion(widgets["au"])
+        this._setActiveWidget('AU')
         break;
       default:
-        widgets["au"].disable()
-        widgets["nz"].disable()
+        this._setActiveWidget(null)
       }
 
       if(!preserveValues) {
         this._clearElementValues(widgets.au.prefix)
       }
     }
+
+  function _setActiveWidget(countryCode) {
+    countryCode = countryCode.toLowerCase();
+    countryCodes = ['nz', 'au']
+    for (var i = 0; i < countryCodes.length; i++) {
+      if (countryCodes[i] == countryCode) {
+        widgets[countryCode].enable()
+        this._setWidgetPostion(widgets[countryCode])
+      } else {
+        widgets[countryCode].disable();
+      }
+    }
   }
+}
 
   checkFieldPresent(prefix, field) {
     return !!document.getElementById(prefix + field);
