@@ -604,7 +604,8 @@ var _initPlugin = function _initPlugin() {
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-    debug: window.AddressFinderConfig.debug || false
+    debug: window.AddressFinderConfig.debug || false,
+    defaultCountry: window.AddressFinderConfig.default_country || 'NZ'
   });
 };
 
@@ -652,6 +653,7 @@ var WooCommercePlugin = function () {
     this.version = "1.2.3";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
+    this.widgets = {};
     this.initialisePlugin();
   }
 
@@ -669,21 +671,19 @@ var WooCommercePlugin = function () {
     key: "bindToAddressPanel",
     value: function bindToAddressPanel(panelPrefix) {
 
-      var widgets = {};
-
-      widgets.null = {
+      this.widgets.null = {
         enable: function enable() {},
         disable: function disable() {},
         on: function on() {}
       };
 
-      widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions);
-      widgets.nz.prefix = panelPrefix;
-      widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
+      this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions);
+      this.widgets.nz.prefix = panelPrefix;
+      this.widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
 
-      widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-      widgets.au.prefix = panelPrefix;
-      widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
+      this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
+      this.widgets.au.prefix = panelPrefix;
+      this.widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
 
       var countryElement = $('#' + panelPrefix + 'country');
       // Sometimes there is no countryElement. Not calling the changeHandler means
@@ -693,28 +693,39 @@ var WooCommercePlugin = function () {
 
         // Run the countryChangeHandler first to enable/disable the currently selected country
         countryChangeHandler.bind(this)(null, true);
+      } else {
+        this._setActiveWidget(this.widgetConfig.defaultCountry);
       }
 
       function countryChangeHandler(event, preserveValues) {
         var activeCountry;
         switch ($('#' + panelPrefix + 'country').val()) {
           case 'NZ':
-            widgets["au"].disable();
-            widgets["nz"].enable();
-            this._setWidgetPostion(widgets["nz"]);
+            this._setActiveWidget('NZ');
             break;
           case 'AU':
-            widgets["nz"].disable();
-            widgets["au"].enable();
-            this._setWidgetPostion(widgets["au"]);
+            this._setActiveWidget('AU');
             break;
           default:
-            widgets["au"].disable();
-            widgets["nz"].disable();
+            this._setActiveWidget('');
         }
 
         if (!preserveValues) {
-          this._clearElementValues(widgets.au.prefix);
+          this._clearElementValues(this.widgets.au.prefix);
+        }
+      }
+    }
+  }, {
+    key: "_setActiveWidget",
+    value: function _setActiveWidget(countryCode) {
+      countryCode = countryCode.toLowerCase();
+      var countryCodes = ['nz', 'au'];
+      for (var i = 0; i < countryCodes.length; i++) {
+        if (countryCodes[i] == countryCode) {
+          this.widgets[countryCode].enable();
+          this._setWidgetPostion(this.widgets[countryCode]);
+        } else {
+          this.widgets[countryCodes[i]].disable();
         }
       }
     }

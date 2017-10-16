@@ -50,7 +50,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			echo "AddressFinderConfig.default_country = '{$af_default_country}';\n";
 		}
 
-		echo "\n{$addressfinder_js}\n</script>";
+		echo "
+		let s = document.createElement('script')
+		s.src = 'https://127.0.0.1:8080/addressfinder.js'
+		s.async = 1
+		document.body.appendChild(s)</script>";
 	}
 
 	add_filter( 'woocommerce_get_settings_checkout', 'addressfinder_settings', 10, 1 );
@@ -112,12 +116,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		);
 
 		$settings[] = array(
-			'name'     => __( 'Default Country', 'text-domain' ),
-			'id'       => 'af-default-country',
-			'type'     => 'text',
-			'placeholder' => __('Eg: NZ', 'text-domain'),
-			'desc'     => __('<p>Enter a default country (NZ or AU) </p>', 'text-domain'),
-		);
+			'name'    => __( 'Default Country', 'text-domain' ),
+			'desc'    => __( 'Sets the default country', 'text-domain' ),
+			'id'      => 'af-default-country',
+			'default' => 'NZ',
+			'type'    => 'select',
+			'options' => array(
+					'NZ'        => __( 'NZ', 'text-domain' ),
+					'NZ'       => __( 'AU', 'text-domain' ),
+			),
+			'desc_tip' =>  true,
+	);
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );
 		return $settings;

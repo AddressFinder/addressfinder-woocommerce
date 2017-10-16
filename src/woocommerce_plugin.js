@@ -15,6 +15,7 @@ export default class WooCommercePlugin {
     this.version = "1.2.3"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
+    this.widgets = {}
     this.initialisePlugin()
   }
 
@@ -29,21 +30,19 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
-    var widgets = {}
-
-    widgets.null = {
+    this.widgets.null = {
       enable: function() { },
       disable: function() { },
       on: function() { }
     };
 
-    widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
-    widgets.nz.prefix = panelPrefix
-    widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
+    this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
+    this.widgets.nz.prefix = panelPrefix
+    this.widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
 
-    widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-    widgets.au.prefix = panelPrefix
-    widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
+    this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
+    this.widgets.au.prefix = panelPrefix
+    this.widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
 
 
     var countryElement = $('#' + panelPrefix + 'country');
@@ -56,7 +55,7 @@ export default class WooCommercePlugin {
       countryChangeHandler.bind(this)(null, true);
 
   } else {
-    _setActiveWidget(this.widgetConfig.default_country)
+    this._setActiveWidget(this.widgetConfig.defaultCountry)
   }
 
     function countryChangeHandler(event, preserveValues) {
@@ -69,24 +68,24 @@ export default class WooCommercePlugin {
         this._setActiveWidget('AU')
         break;
       default:
-        this._setActiveWidget(null)
+        this._setActiveWidget('')
       }
 
       if(!preserveValues) {
-        this._clearElementValues(widgets.au.prefix)
+        this._clearElementValues(this.widgets.au.prefix)
       }
     }
+}
 
-  function _setActiveWidget(countryCode) {
-    countryCode = countryCode.toLowerCase();
-    countryCodes = ['nz', 'au']
-    for (var i = 0; i < countryCodes.length; i++) {
-      if (countryCodes[i] == countryCode) {
-        widgets[countryCode].enable()
-        this._setWidgetPostion(widgets[countryCode])
-      } else {
-        widgets[countryCode].disable();
-      }
+_setActiveWidget(countryCode) {
+  countryCode = countryCode.toLowerCase();
+  var countryCodes = ['nz', 'au']
+  for (var i = 0; i < countryCodes.length; i++) {
+    if (countryCodes[i] == countryCode) {
+      this.widgets[countryCode].enable()
+      this._setWidgetPostion(this.widgets[countryCode])
+    } else {
+      this.widgets[countryCodes[i]].disable();
     }
   }
 }
