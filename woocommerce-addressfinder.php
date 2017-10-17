@@ -25,6 +25,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$af_key_au = esc_attr( get_option( 'af-key-au' ) );
 		$af_widget_options = get_option( 'af-widget-options' );
 		$af_debug = esc_attr( get_option( 'af-debug' ) );
+		$af_default_country = esc_attr( get_option( 'af-default-country' ) );
 		$addressfinder_js = file_get_contents( $path . 'addressfinder.js' );
 		echo "<script>\nvar AddressFinderConfig = {};\n";
 
@@ -43,6 +44,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		if($af_debug == 'yes') {
 			echo "AddressFinderConfig.debug = true;\n";
+		}
+
+		if ($af_default_country) {
+			echo "AddressFinderConfig.default_country = '{$af_default_country}';\n";
 		}
 
 		echo "\n{$addressfinder_js}\n</script>";
@@ -105,6 +110,18 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'type'     => 'checkbox',
 			'desc'     => __( 'Show error messages when expected fields are missing', 'text-domain' ),
 		);
+
+		$settings[] = array(
+			'name'    => __( 'Default Country', 'text-domain' ),
+			'desc'    => __( 'If the checkout page does not have country selector form field, addresses from this country will be displayed', 'text-domain' ),
+			'id'      => 'af-default-country',
+			'default' => 'NZ',
+			'type'    => 'select',
+			'options' => array(
+					'au'       => __( 'Australia', 'text-domain' ),
+					'nz'        => __( 'New Zealand', 'text-domain' )
+			),
+	);
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );
 		return $settings;

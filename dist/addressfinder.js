@@ -84,7 +84,7 @@ $exports.store = store;
 /* 1 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.0' };
+var core = module.exports = { version: '2.5.1' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -576,7 +576,6 @@ window.AF = window.AF || {};
 window.AF.WooCommercePlugin = _woocommerce_plugin2.default;
 
 var _initPlugin = function _initPlugin() {
-
   var safeParseJSONObject = function safeParseJSONObject(jsonObject) {
     if (jsonObject == undefined) {
       return null;
@@ -604,6 +603,7 @@ var _initPlugin = function _initPlugin() {
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
+    defaultCountry: window.AddressFinderConfig.default_country || 'nz',
     debug: window.AddressFinderConfig.debug || false
   });
 };
@@ -692,29 +692,38 @@ var WooCommercePlugin = function () {
         countryElement.change(countryChangeHandler.bind(this));
 
         // Run the countryChangeHandler first to enable/disable the currently selected country
-        countryChangeHandler.bind(this)(null, true);
+        countryChangeHandler.bind(this)(null, false);
+      } else {
+        setActiveWidget.bind(this)(this.widgetConfig.defaultCountry);
       }
 
       function countryChangeHandler(event, preserveValues) {
-        var activeCountry;
-        switch ($('#' + panelPrefix + 'country').val()) {
+        var countryField = $('#' + panelPrefix + 'country');
+        switch (countryField.val()) {
           case 'NZ':
-            widgets["au"].disable();
-            widgets["nz"].enable();
-            this._setWidgetPostion(widgets["nz"]);
+            setActiveWidget.bind(this)('nz');
             break;
           case 'AU':
-            widgets["nz"].disable();
-            widgets["au"].enable();
-            this._setWidgetPostion(widgets["au"]);
+            setActiveWidget.bind(this)('au');
             break;
           default:
-            widgets["au"].disable();
-            widgets["nz"].disable();
+            setActiveWidget.bind(this)('');
         }
 
         if (!preserveValues) {
-          this._clearElementValues(widgets.au.prefix);
+          this._clearElementValues(panelPrefix);
+        }
+      }
+
+      function setActiveWidget(countryCode) {
+        var countryCodes = ['nz', 'au'];
+        for (var i = 0; i < countryCodes.length; i++) {
+          if (countryCodes[i] == countryCode) {
+            widgets[countryCodes[i]].enable();
+            this._setWidgetPostion(widgets[countryCodes[i]]);
+          } else {
+            widgets[countryCodes[i]].disable();
+          }
         }
       }
     }
