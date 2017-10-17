@@ -122,8 +122,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'default' => 'NZ',
 			'type'    => 'select',
 			'options' => array(
-					'NZ'        => __( 'NZ', 'text-domain' ),
-					'NZ'       => __( 'AU', 'text-domain' ),
+					'nz'        => __( 'New Zealand', 'text-domain' ),
+					'au'       => __( 'Australia', 'text-domain' ),
 			),
 			'desc_tip' =>  true,
 	);

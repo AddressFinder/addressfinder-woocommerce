@@ -56,7 +56,9 @@ export default class WooCommercePlugin {
       countryChangeHandler.bind(this)(null, false);
 
   } else {
-    setActiveWidget(this.widgetConfig.defaultCountry)
+    console.log(this.widgetConfig.defaultCountry)
+    setActiveWidget.bind(this)(this.widgetConfig.defaultCountry)
+    this._setWidgetPostion(widgets[this.widgetConfig.defaultCountry])
   }
 
     function countryChangeHandler(event, preserveValues) {
@@ -82,7 +84,7 @@ export default class WooCommercePlugin {
       for (var i = 0; i < countryCodes.length; i++) {
         if (countryCodes[i] == countryCode) {
           widgets[countryCodes[i]].enable()
-          this._setWidgetPostion(widgets[countryCode])
+          this._setWidgetPostion(widgets[countryCodes[i]])
         } else {
           widgets[countryCodes[i]].disable();
         }
