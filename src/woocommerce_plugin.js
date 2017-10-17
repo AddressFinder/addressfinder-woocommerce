@@ -9,10 +9,10 @@ import "core-js/fn/object/values"
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.3
+// VERSION: 1.2.4
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.3"
+    this.version = "1.2.4"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -53,33 +53,41 @@ export default class WooCommercePlugin {
       countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
-      countryChangeHandler.bind(this)(null, true);
-
-  }
+      countryChangeHandler.bind(this)(null, false);
+    } else {
+      setActiveWidget.bind(this)(this.widgetConfig.defaultCountry)
+    }
 
     function countryChangeHandler(event, preserveValues) {
-      var activeCountry;
-      switch ($('#' + panelPrefix + 'country').val()) {
+      var countryField = $('#' + panelPrefix + 'country');
+      switch (countryField.val()) {
         case 'NZ':
-        widgets["au"].disable()
-        widgets["nz"].enable()
-        this._setWidgetPostion(widgets["nz"])
-        break;
-      case 'AU':
-        widgets["nz"].disable()
-        widgets["au"].enable()
-        this._setWidgetPostion(widgets["au"])
-        break;
-      default:
-        widgets["au"].disable()
-        widgets["nz"].disable()
+          setActiveWidget.bind(this)('nz')
+          break;
+        case 'AU':
+          setActiveWidget.bind(this)('au')
+          break;
+        default:
+          setActiveWidget.bind(this)('')
       }
 
       if(!preserveValues) {
-        this._clearElementValues(widgets.au.prefix)
+        this._clearElementValues(panelPrefix)
       }
     }
-  }
+
+    function setActiveWidget(countryCode) {
+      var countryCodes = ['nz', 'au']
+      for (var i = 0; i < countryCodes.length; i++) {
+        if (countryCodes[i] == countryCode) {
+          widgets[countryCodes[i]].enable()
+          this._setWidgetPostion(widgets[countryCodes[i]])
+        } else {
+          widgets[countryCodes[i]].disable();
+        }
+      }
+    }
+}
 
   checkFieldPresent(prefix, field) {
     return !!document.getElementById(prefix + field);
