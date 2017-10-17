@@ -54,24 +54,21 @@ export default class WooCommercePlugin {
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
       countryChangeHandler.bind(this)(null, false);
-
-  } else {
-    var defaultCountry = this.widgetConfig.defaultCountry
-    
-    setActiveWidget.bind(this)(defaultCountry)
-    this._setWidgetPostion(widgets[defaultCountry])
-  }
+    } else {
+      setActiveWidget.bind(this)(this.widgetConfig.defaultCountry)
+    }
 
     function countryChangeHandler(event, preserveValues) {
-      switch ($('#' + panelPrefix + 'country').val()) {
+      var countryField = $('#' + panelPrefix + 'country');
+      switch (countryField.val()) {
         case 'NZ':
-        setActiveWidget.bind(this)('nz')
-        break;
-      case 'AU':
-        setActiveWidget.bind(this)('au')
-        break;
-      default:
-        setActiveWidget.bind(this)('')
+          setActiveWidget.bind(this)('nz')
+          break;
+        case 'AU':
+          setActiveWidget.bind(this)('au')
+          break;
+        default:
+          setActiveWidget.bind(this)('')
       }
 
       if(!preserveValues) {
