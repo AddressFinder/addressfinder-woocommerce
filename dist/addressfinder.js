@@ -84,7 +84,7 @@ $exports.store = store;
 /* 1 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.0' };
+var core = module.exports = { version: '2.5.1' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -576,7 +576,6 @@ window.AF = window.AF || {};
 window.AF.WooCommercePlugin = _woocommerce_plugin2.default;
 
 var _initPlugin = function _initPlugin() {
-
   var safeParseJSONObject = function safeParseJSONObject(jsonObject) {
     if (jsonObject == undefined) {
       return null;
@@ -604,8 +603,8 @@ var _initPlugin = function _initPlugin() {
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-    debug: window.AddressFinderConfig.debug || false,
-    defaultCountry: window.AddressFinderConfig.default_country || 'NZ'
+    defaultCountry: window.AddressFinderConfig.default_country || 'nz',
+    debug: window.AddressFinderConfig.debug || false
   });
 };
 
@@ -695,14 +694,12 @@ var WooCommercePlugin = function () {
         // Run the countryChangeHandler first to enable/disable the currently selected country
         countryChangeHandler.bind(this)(null, false);
       } else {
-        var defaultCountry = this.widgetConfig.defaultCountry;
-
-        setActiveWidget.bind(this)(defaultCountry);
-        this._setWidgetPostion(widgets[defaultCountry]);
+        setActiveWidget.bind(this)(this.widgetConfig.defaultCountry);
       }
 
       function countryChangeHandler(event, preserveValues) {
-        switch ($('#' + panelPrefix + 'country').val()) {
+        var countryField = $('#' + panelPrefix + 'country');
+        switch (countryField.val()) {
           case 'NZ':
             setActiveWidget.bind(this)('nz');
             break;
