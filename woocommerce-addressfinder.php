@@ -50,11 +50,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			echo "AddressFinderConfig.default_country = '{$af_default_country}';\n";
 		}
 
-		echo "
-		let s = document.createElement('script')
-		s.src = 'https://127.0.0.1:8080/addressfinder.js'
-		s.async = 1
-		document.body.appendChild(s)</script>";
+		echo "\n{$addressfinder_js}\n</script>";
 	}
 
 	add_filter( 'woocommerce_get_settings_checkout', 'addressfinder_settings', 10, 1 );
