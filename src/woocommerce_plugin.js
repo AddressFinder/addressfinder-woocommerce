@@ -15,7 +15,6 @@ export default class WooCommercePlugin {
     this.version = "1.2.3"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
-    this.widgets = {}
     this.initialisePlugin()
   }
 
@@ -30,19 +29,21 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
-    this.widgets.null = {
+    var widgets = {}
+
+    widgets.null = {
       enable: function() { },
       disable: function() { },
       on: function() { }
     };
 
-    this.widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
-    this.widgets.nz.prefix = panelPrefix
-    this.widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
+    widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
+    widgets.nz.prefix = panelPrefix
+    widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
 
-    this.widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-    this.widgets.au.prefix = panelPrefix
-    this.widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
+    widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
+    widgets.au.prefix = panelPrefix
+    widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
 
 
     var countryElement = $('#' + panelPrefix + 'country');
@@ -52,42 +53,41 @@ export default class WooCommercePlugin {
       countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
-      countryChangeHandler.bind(this)(null, true);
+      countryChangeHandler.bind(this)(null, false);
 
   } else {
-    this._setActiveWidget(this.widgetConfig.defaultCountry)
+    setActiveWidget(this.widgetConfig.defaultCountry)
   }
 
     function countryChangeHandler(event, preserveValues) {
       var activeCountry;
       switch ($('#' + panelPrefix + 'country').val()) {
         case 'NZ':
-        this._setActiveWidget('NZ')
+        setActiveWidget.bind(this)('nz')
         break;
       case 'AU':
-        this._setActiveWidget('AU')
+        setActiveWidget.bind(this)('au')
         break;
       default:
-        this._setActiveWidget('')
+        setActiveWidget.bind(this)('')
       }
 
       if(!preserveValues) {
-        this._clearElementValues(this.widgets.au.prefix)
+        this._clearElementValues(widgets.au.prefix)
       }
     }
-}
 
-_setActiveWidget(countryCode) {
-  countryCode = countryCode.toLowerCase();
-  var countryCodes = ['nz', 'au']
-  for (var i = 0; i < countryCodes.length; i++) {
-    if (countryCodes[i] == countryCode) {
-      this.widgets[countryCode].enable()
-      this._setWidgetPostion(this.widgets[countryCode])
-    } else {
-      this.widgets[countryCodes[i]].disable();
+    function setActiveWidget(countryCode) {
+      var countryCodes = ['nz', 'au']
+      for (var i = 0; i < countryCodes.length; i++) {
+        if (countryCodes[i] == countryCode) {
+          widgets[countryCodes[i]].enable()
+          this._setWidgetPostion(widgets[countryCode])
+        } else {
+          widgets[countryCodes[i]].disable();
+        }
+      }
     }
-  }
 }
 
   checkFieldPresent(prefix, field) {
