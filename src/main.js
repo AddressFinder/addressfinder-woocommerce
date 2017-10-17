@@ -4,7 +4,6 @@ window.AF = window.AF || {}
 window.AF.WooCommercePlugin = WooCommercePlugin
 
 let _initPlugin = function(){
-
   var safeParseJSONObject = function(jsonObject) {
     if(jsonObject == undefined){
       return null;
@@ -32,8 +31,8 @@ let _initPlugin = function(){
     auKey: window.AddressFinderConfig.key_au || window.AddressFinderConfig.key || window.AddressFinderConfig.key_nz,
     nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
     auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-    debug: window.AddressFinderConfig.debug || false,
-    defaultCountry: window.AddressFinderConfig.default_country || 'NZ'
+    defaultCountry: window.AddressFinderConfig.default_country || 'nz',
+    debug: window.AddressFinderConfig.debug || false
   })
 }
 
