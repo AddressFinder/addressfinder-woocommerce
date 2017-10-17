@@ -1,3 +1,8 @@
+# AddressFinder 1.2.4 (October 17, 2017)
+
+* Add support for checkout pages without a country form field
+* Add a default country option in the settings
+
 # AddressFinder 1.2.3 (August 24, 2017)
 
 * Adjusts position of the widget
