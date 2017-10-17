@@ -117,7 +117,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		$settings[] = array(
 			'name'    => __( 'Default Country', 'text-domain' ),
-			'desc'    => __( 'Sets the default country', 'text-domain' ),
+			'desc'    => __( 'If the country selectbox is not present on your checkout, use this setting to set the country AddressFinder will use by default.', 'text-domain' ),
 			'id'      => 'af-default-country',
 			'default' => 'NZ',
 			'type'    => 'select',
@@ -125,7 +125,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'nz'        => __( 'New Zealand', 'text-domain' ),
 					'au'       => __( 'Australia', 'text-domain' ),
 			),
-			'desc_tip' =>  true,
 	);
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );
