@@ -4,7 +4,7 @@ Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, validation
 Requires at least: 4.1
 Tested up to: 4.8
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,6 +113,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.2.5 =
+* Preserves address field values on page load.
 = 1.2.4 =
 * Add support for checkout pages without a country form field
 * Add a default country option in the settings
@@ -156,7 +158,7 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
-= 1.2.4 =
+= 1.2.5 =
 * Visit the WooCommerce / Settings / Checkout page and confirm the default country value
 
 

@@ -1,3 +1,7 @@
+# AddressFinder 1.2.5 (October 17, 2017)
+
+* Preserves address field values on page load.
+
 # AddressFinder 1.2.4 (October 17, 2017)
 
 * Add support for checkout pages without a country form field
