@@ -84,7 +84,7 @@ $exports.store = store;
 /* 1 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.1' };
+var core = module.exports = { version: '2.5.0' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -692,7 +692,7 @@ var WooCommercePlugin = function () {
         countryElement.change(countryChangeHandler.bind(this));
 
         // Run the countryChangeHandler first to enable/disable the currently selected country
-        countryChangeHandler.bind(this)(null, false);
+        countryChangeHandler.bind(this)(null, true);
       } else {
         setActiveWidget.bind(this)(this.widgetConfig.defaultCountry);
       }
