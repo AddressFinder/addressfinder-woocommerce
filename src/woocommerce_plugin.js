@@ -9,10 +9,10 @@ import "core-js/fn/object/values"
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.4
+// VERSION: 1.2.5
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.4"
+    this.version = "1.2.5"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -53,7 +53,7 @@ export default class WooCommercePlugin {
       countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
-      countryChangeHandler.bind(this)(null, false);
+      countryChangeHandler.bind(this)(null, true);
     } else {
       setActiveWidget.bind(this)(this.widgetConfig.defaultCountry)
     }
