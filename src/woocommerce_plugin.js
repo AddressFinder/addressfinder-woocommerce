@@ -1,8 +1,4 @@
-import "core-js/fn/array/map"
-import "core-js/fn/array/filter"
 import "core-js/fn/array/find"
-import "core-js/fn/array/from"
-import "core-js/fn/object/values"
 
 // The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
 // delivery and billing address fields of your online store.
