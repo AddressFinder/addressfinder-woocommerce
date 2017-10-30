@@ -60,26 +60,24 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 10:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(1);
 
 
 /***/ }),
-
-/***/ 11:
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _woocommerce_plugin = __webpack_require__(12);
+var _woocommerce_plugin = __webpack_require__(2);
 
 var _woocommerce_plugin2 = _interopRequireDefault(_woocommerce_plugin);
 
@@ -128,8 +126,7 @@ s.onload = _initPlugin;
 document.body.appendChild(s);
 
 /***/ }),
-
-/***/ 12:
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,6 +345,5 @@ var WooCommercePlugin = function () {
 exports.default = WooCommercePlugin;
 
 /***/ })
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=addressfinder.js.map
