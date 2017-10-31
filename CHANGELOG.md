@@ -1,3 +1,7 @@
+# AddressFinder 1.2.6 (November 1, 2017)
+
+* Removes redundant core-js functions.
+
 # AddressFinder 1.2.5 (October 17, 2017)
 
 * Preserves address field values on page load.
