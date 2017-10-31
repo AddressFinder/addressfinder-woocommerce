@@ -1,9 +1,3 @@
-import "core-js/fn/array/map"
-import "core-js/fn/array/filter"
-import "core-js/fn/array/find"
-import "core-js/fn/array/from"
-import "core-js/fn/object/values"
-
 // The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
 // delivery and billing address fields of your online store.
 //
@@ -175,15 +169,17 @@ export default class WooCommercePlugin {
         'West Coast Region': 'WC',
         'No Region (Chatham Islands)': null
       }
-
+      
       if (element.options) {
-        const checkOptionMatchesValue = element => element.value == value ||
-                                                   element.value == region_code[value]
-                                                   ? element.value : ''
+        for (var i = 0 ; i < element.options.length; i++) {
+          var option = element.options[i]
+          var selectedOption = option.value == value ||
+                               option.value == region_code[value]
+                               ? option.value : ''
+          if (selectedOption) break;
+        }
 
-        const selectedOption = Array.prototype.find.call(element.options, checkOptionMatchesValue) || ''
-
-        $(element).select2().val(selectedOption.value).trigger('change');
+        $(element).select2().val(selectedOption).trigger('change');
       }
     }
   }
