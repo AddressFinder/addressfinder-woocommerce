@@ -3,10 +3,10 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.5
+// VERSION: 1.2.6
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.5"
+    this.version = "1.2.6"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -169,7 +169,7 @@ export default class WooCommercePlugin {
         'West Coast Region': 'WC',
         'No Region (Chatham Islands)': null
       }
-      
+
       if (element.options) {
         for (var i = 0 ; i < element.options.length; i++) {
           var option = element.options[i]
