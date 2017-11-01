@@ -120,19 +120,27 @@ var _initPlugin = function _initPlugin() {
 };
 
 var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
-  if (!repetitions) {
-    var repetitions = 5;
-  }
+  // In WooCommerce/Wordpress a country change event is fired during the DOM loading process.
+  // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
+  // This function makes sure AddressFinder is initalised after this event.
+
+  repetitions = repetitions || 5;
 
   if (document.readyState == "complete") {
     setTimeout(_initPlugin, 1000);
-  } else if (repetitions > 0) {
-    setTimeout(function () {
-      _initOnDOMLoaded('fakeEvent', repetitions - 1);
-    }, 1000);
-  } else {
-    _initPlugin();
+    return;
   }
+
+  if (repetitions == 0) {
+    // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
+    _initPlugin();
+    return;
+  }
+
+  setTimeout(function () {
+    // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again  
+    _initOnDOMLoaded('ignoredEvent', repetitions - 1);
+  }, 1000);
 };
 
 var s = document.createElement('script');
@@ -161,12 +169,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.6
+// VERSION: 1.2.7
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.6";
+    this.version = "1.2.7";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();

@@ -1,3 +1,7 @@
+# AddressFinder 1.2.7 (November 2, 2017)
+
+* Prevents country change event clearing account address details on page load. 
+
 # AddressFinder 1.2.6 (November 1, 2017)
 
 * Removes redundant core-js functions.
