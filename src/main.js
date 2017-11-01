@@ -36,11 +36,17 @@ let _initPlugin = function(){
   })
 }
 
-let _initOnDOMLoaded = function(repetitions) {
+let _initOnDOMLoaded = function(event, repetitions) {
+  if (!repetitions) {
+     var repetitions = 5
+  }
+
   if (document.readyState == "complete") {
     setTimeout(_initPlugin, 1000)
   } else if (repetitions > 0) {
-    setTimeout(_initOnDOMLoaded, 1000, repetitions - 1)
+    setTimeout(function() {
+      _initOnDOMLoaded('fakeEvent', repetitions - 1)
+    }, 1000)
   } else {
     _initPlugin()
   }
@@ -49,5 +55,5 @@ let _initOnDOMLoaded = function(repetitions) {
 let s = document.createElement('script')
 s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
 s.async = 1
-s.onload = _initOnDOMLoaded(5)
+s.onload = _initOnDOMLoaded
 document.body.appendChild(s)
