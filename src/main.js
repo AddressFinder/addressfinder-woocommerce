@@ -37,19 +37,21 @@ let _initPlugin = function(){
 }
 
 let _initOnDOMLoaded = function(event, repetitions) {
-  if (!repetitions) {
-     var repetitions = 5
-  }
+  repetitions = repetitions || 5 
 
   if (document.readyState == "complete") {
     setTimeout(_initPlugin, 1000)
-  } else if (repetitions > 0) {
-    setTimeout(function() {
-      _initOnDOMLoaded('fakeEvent', repetitions - 1)
-    }, 1000)
-  } else {
+    return
+  } 
+  
+  if (repetitions == 0) {
     _initPlugin()
+    return
   }
+   
+  setTimeout(function() {
+    _initOnDOMLoaded('ignoredEvent', repetitions - 1)
+  }, 1000)
 }
 
 let s = document.createElement('script')
