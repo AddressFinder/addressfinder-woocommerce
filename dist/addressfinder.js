@@ -119,10 +119,26 @@ var _initPlugin = function _initPlugin() {
   });
 };
 
+var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
+  if (!repetitions) {
+    var repetitions = 5;
+  }
+
+  if (document.readyState == "complete") {
+    setTimeout(_initPlugin, 1000);
+  } else if (repetitions > 0) {
+    setTimeout(function () {
+      _initOnDOMLoaded('fakeEvent', repetitions - 1);
+    }, 1000);
+  } else {
+    _initPlugin();
+  }
+};
+
 var s = document.createElement('script');
 s.src = 'https://api.addressfinder.io/assets/v3/widget.js';
 s.async = 1;
-s.onload = _initPlugin;
+s.onload = _initOnDOMLoaded;
 document.body.appendChild(s);
 
 /***/ }),
