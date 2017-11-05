@@ -1,6 +1,11 @@
+# AddressFinder 1.2.8 (November 6, 2017)
+
+* Fix configuration loading fault
+* Load Javascript with external file rather than embedding
+
 # AddressFinder 1.2.7 (November 2, 2017)
 
-* Prevents country change event clearing account address details on page load. 
+* Prevents country change event clearing account address details on page load.
 
 # AddressFinder 1.2.6 (November 1, 2017)
 
