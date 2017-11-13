@@ -37,6 +37,8 @@ This plugin is super easy to set up. It does not require any experience and you 
 
 = Compatibility =
 
+WooCommerce AddressFinder is compatible with WooCommerce v3.0 and above
+
 WooCommerce AddressFinder requires:
 
 * Wordpress v4.1 or higher
