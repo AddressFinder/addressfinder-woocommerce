@@ -33,9 +33,11 @@ This plugin is super easy to set up. It does not require any experience and you 
 
 = Demonstration Video =
 
-[vimeo http://vimeo.com/157373924]
+[Watch a short 3.30 video](https://vimeo.com/157373924) demonstrating installation and configuration of WooCommerce AddressFinder.
 
 = Compatibility =
+
+WooCommerce AddressFinder is compatible with WooCommerce v3.0 and above
 
 WooCommerce AddressFinder requires:
 
