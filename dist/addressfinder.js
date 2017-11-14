@@ -105,9 +105,9 @@ var _initPlugin = function _initPlugin() {
     return jsonObject;
   };
 
-  var parsedWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.widgetOptions);
-  var parsedNZWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.nzWidgetOptions);
-  var parsedAUWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.auWidgetOptions);
+  var parsedWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.widget_options);
+  var parsedNZWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.nz_widget_options);
+  var parsedAUWidgetOptions = safeParseJSONObject(window.AddressFinderConfig.au_widget_options);
 
   window.AF._plugin = new AF.WooCommercePlugin({
     nzKey: window.AddressFinderConfig.key_nz || window.AddressFinderConfig.key || window.AddressFinderConfig.key_au,
@@ -138,7 +138,7 @@ var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
   }
 
   setTimeout(function () {
-    // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again  
+    // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
     _initOnDOMLoaded('ignoredEvent', repetitions - 1);
   }, 1000);
 };
@@ -169,12 +169,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.8
+// VERSION: 1.2.9
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.8";
+    this.version = "1.2.9";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
