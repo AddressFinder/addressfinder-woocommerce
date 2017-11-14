@@ -1,3 +1,7 @@
+# AddressFinder 1.2.9 (November 15, 2017)
+
+* Documentation update
+
 # AddressFinder 1.2.8 (November 6, 2017)
 
 * Fix configuration loading fault
