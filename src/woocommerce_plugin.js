@@ -23,11 +23,6 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
-
-    document.getElementById(panelPrefix + 'state').addEventListener('change', function(e) {
-      console.log('I changed!', e.target.value)
-    })
-
     var widgets = {}
 
     widgets.null = {
@@ -204,9 +199,8 @@ export default class WooCommercePlugin {
           if (selectedOption) break;
         }
 
+        element.value = selectedOption
         this._dispatchEvent(element, 'change')
-
-        $(element).select2().val(selectedOption).trigger('change');
       }
     }
   }

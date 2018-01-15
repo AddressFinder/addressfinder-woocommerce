@@ -196,10 +196,6 @@ var WooCommercePlugin = function () {
     key: 'bindToAddressPanel',
     value: function bindToAddressPanel(panelPrefix) {
 
-      document.getElementById(panelPrefix + 'state').addEventListener('change', function (e) {
-        console.log('I changed!', e.target.value);
-      });
-
       var widgets = {};
 
       widgets.null = {
@@ -372,9 +368,8 @@ var WooCommercePlugin = function () {
             if (selectedOption) break;
           }
 
+          element.value = selectedOption;
           this._dispatchEvent(element, 'change');
-
-          $(element).select2().val(selectedOption).trigger('change');
         }
       }
     }
