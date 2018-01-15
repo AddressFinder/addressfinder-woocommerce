@@ -160,6 +160,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -193,6 +195,10 @@ var WooCommercePlugin = function () {
   }, {
     key: 'bindToAddressPanel',
     value: function bindToAddressPanel(panelPrefix) {
+
+      document.getElementById(panelPrefix + 'state').addEventListener('change', function (e) {
+        console.log('I changed!', e.target.value);
+      });
 
       var widgets = {};
 
@@ -296,9 +302,12 @@ var WooCommercePlugin = function () {
   }, {
     key: '_setElementValue',
     value: function _setElementValue(elementId, value) {
+
       var element = document.getElementById(elementId);
+
       if (element) {
         element.value = value;
+        this._dispatchEvent(element, 'change');
         return;
       }
 
@@ -312,6 +321,23 @@ var WooCommercePlugin = function () {
       if (window.console) {
         window.console.log(errorMessage);
       }
+    }
+  }, {
+    key: '_dispatchEvent',
+    value: function _dispatchEvent(element, eventType) {
+      var event;
+
+      // document.createEvent is deprecated in most modern browsers, with the exception of IE
+
+      switch (typeof Event === 'undefined' ? 'undefined' : _typeof(Event)) {
+        case 'function':
+          event = new Event(eventType);
+        default:
+          event = document.createEvent("Event");
+          event.initEvent(eventType, false, true);
+      }
+
+      element.dispatchEvent(event);
     }
   }, {
     key: '_setStateValue',
@@ -345,6 +371,8 @@ var WooCommercePlugin = function () {
             var selectedOption = option.value == value || option.value == region_code[value] ? option.value : '';
             if (selectedOption) break;
           }
+
+          this._dispatchEvent(element, 'change');
 
           $(element).select2().val(selectedOption).trigger('change');
         }

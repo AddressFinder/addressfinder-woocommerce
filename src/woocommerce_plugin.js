@@ -23,6 +23,11 @@ export default class WooCommercePlugin {
 
   bindToAddressPanel(panelPrefix){
 
+
+    document.getElementById(panelPrefix + 'state').addEventListener('change', function(e) {
+      console.log('I changed!', e.target.value)
+    })
+
     var widgets = {}
 
     widgets.null = {
@@ -126,15 +131,19 @@ export default class WooCommercePlugin {
     this._setStateValue(prefix + 'state', metaData.region);
   }
 
-
   _setElementValue(elementId, value){
+
     var element = document.getElementById(elementId)
+
+
     if (element) {
       element.value = value;
+      this._dispatchEvent(element, 'change')
       return;
     }
 
     var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
+
 
     if (true) {
       alert(errorMessage);
@@ -144,6 +153,22 @@ export default class WooCommercePlugin {
     if (window.console) {
       window.console.log(errorMessage);
     }
+  }
+
+  _dispatchEvent(element, eventType) {
+    var event;
+
+    // document.createEvent is deprecated in most modern browsers, with the exception of IE
+
+    switch(typeof(Event)) {
+      case 'function':
+        event = new Event(eventType);
+      default:
+        event = document.createEvent("Event");
+        event.initEvent(eventType, false, true);
+    }
+
+    element.dispatchEvent(event)
   }
 
   _setStateValue(elementId, value) {
@@ -178,6 +203,8 @@ export default class WooCommercePlugin {
                                ? option.value : ''
           if (selectedOption) break;
         }
+
+        this._dispatchEvent(element, 'change')
 
         $(element).select2().val(selectedOption).trigger('change');
       }
