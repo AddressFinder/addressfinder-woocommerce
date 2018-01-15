@@ -296,6 +296,23 @@ var WooCommercePlugin = function () {
       this._setStateValue(prefix + 'state', metaData.region);
     }
   }, {
+    key: '_dispatchEvent',
+    value: function _dispatchEvent(element, eventType) {
+      var event;
+
+      // document.createEvent is deprecated in most modern browsers, with the exception of IE
+
+      switch (typeof Event === 'undefined' ? 'undefined' : _typeof(Event)) {
+        case 'function':
+          event = new Event(eventType);
+        default:
+          event = document.createEvent("Event");
+          event.initEvent(eventType, false, true);
+      }
+
+      element.dispatchEvent(event);
+    }
+  }, {
     key: '_setElementValue',
     value: function _setElementValue(elementId, value) {
 
@@ -317,23 +334,6 @@ var WooCommercePlugin = function () {
       if (window.console) {
         window.console.log(errorMessage);
       }
-    }
-  }, {
-    key: '_dispatchEvent',
-    value: function _dispatchEvent(element, eventType) {
-      var event;
-
-      // document.createEvent is deprecated in most modern browsers, with the exception of IE
-
-      switch (typeof Event === 'undefined' ? 'undefined' : _typeof(Event)) {
-        case 'function':
-          event = new Event(eventType);
-        default:
-          event = document.createEvent("Event");
-          event.initEvent(eventType, false, true);
-      }
-
-      element.dispatchEvent(event);
     }
   }, {
     key: '_setStateValue',

@@ -18,9 +18,8 @@ To develop and test this plugin, you should:
   - Comment out this line
 
     ```
-    echo "\n{$addressfinder_js}\n</script>";
     echo "\n</script>";
-echo '<script src="' . plugins_url( 'addressfinder.js', __FILE__ ) . '" async=1></script>';
+    echo '<script src="' . plugins_url( 'addressfinder.js', __FILE__ ) . '" async=1></script>';
     ```
 
   - Replace it with:

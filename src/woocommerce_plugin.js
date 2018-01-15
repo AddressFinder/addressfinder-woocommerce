@@ -126,30 +126,6 @@ export default class WooCommercePlugin {
     this._setStateValue(prefix + 'state', metaData.region);
   }
 
-  _setElementValue(elementId, value){
-
-    var element = document.getElementById(elementId)
-
-
-    if (element) {
-      element.value = value;
-      this._dispatchEvent(element, 'change')
-      return;
-    }
-
-    var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
-
-
-    if (true) {
-      alert(errorMessage);
-      return;
-    }
-
-    if (window.console) {
-      window.console.log(errorMessage);
-    }
-  }
-
   _dispatchEvent(element, eventType) {
     var event;
 
@@ -164,6 +140,29 @@ export default class WooCommercePlugin {
     }
 
     element.dispatchEvent(event)
+  }
+
+
+  _setElementValue(elementId, value){
+
+    var element = document.getElementById(elementId)
+
+    if (element) {
+      element.value = value;
+      this._dispatchEvent(element, 'change')
+      return;
+    }
+
+    var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
+
+    if (true) {
+      alert(errorMessage);
+      return;
+    }
+
+    if (window.console) {
+      window.console.log(errorMessage);
+    }
   }
 
   _setStateValue(elementId, value) {
