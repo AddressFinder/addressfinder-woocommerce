@@ -1,3 +1,7 @@
+# AddressFinder 1.2.10 (January 16, 2017)
+
+* Emit a change event when field values are updated
+
 # AddressFinder 1.2.9 (November 15, 2017)
 
 * Documentation update
