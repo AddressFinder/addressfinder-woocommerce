@@ -3,10 +3,10 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.9
+// VERSION: 1.2.10
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.9"
+    this.version = "1.2.10"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -126,11 +126,30 @@ export default class WooCommercePlugin {
     this._setStateValue(prefix + 'state', metaData.region);
   }
 
+  _dispatchEvent(element, eventType) {
+    var event;
+
+    // document.createEvent is deprecated in most modern browsers, with the exception of IE
+
+    switch(typeof(Event)) {
+      case 'function':
+        event = new Event(eventType);
+      default:
+        event = document.createEvent("Event");
+        event.initEvent(eventType, false, true);
+    }
+
+    element.dispatchEvent(event)
+  }
+
 
   _setElementValue(elementId, value){
+
     var element = document.getElementById(elementId)
+
     if (element) {
       element.value = value;
+      this._dispatchEvent(element, 'change')
       return;
     }
 
@@ -179,7 +198,8 @@ export default class WooCommercePlugin {
           if (selectedOption) break;
         }
 
-        $(element).select2().val(selectedOption).trigger('change');
+        element.value = selectedOption
+        this._dispatchEvent(element, 'change')
       }
     }
   }
