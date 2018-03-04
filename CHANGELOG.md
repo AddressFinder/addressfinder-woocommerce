@@ -1,4 +1,8 @@
-# AddressFinder 1.2.10 (January 16, 2017)
+# AddressFinder 1.2.11 (March 5, 2018)
+
+* Checks window.AddressFinder is loaded before intialising plugin
+
+# AddressFinder 1.2.10 (January 16, 2018)
 
 * Emit a change event when field values are updated
 
