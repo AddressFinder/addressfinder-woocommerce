@@ -124,9 +124,9 @@ var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
   // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
   // This function makes sure AddressFinder is initalised after this event.
 
-  repetitions = repetitions || 5;
+  repetitions = repetitions || 10;
 
-  if (document.readyState == "complete") {
+  if (document.readyState == "complete" && typeof window.AddressFinder != 'undefined') {
     setTimeout(_initPlugin, 1000);
     return;
   }
