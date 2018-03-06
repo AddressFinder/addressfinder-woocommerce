@@ -293,7 +293,7 @@ var WooCommercePlugin = function () {
         this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
         this._setElementValue(prefix + 'address_2', selected.suburb());
       } else {
-        var combinedAddressAndSuburb = selected.address_line_1_and_2() + ', ' + selected.suburb();
+        var combinedAddressAndSuburb = selected.suburb() ? selected.address_line_1_and_2() + ', ' + selected.suburb() : selected.address_line_1_and_2();
         this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb);
       }
       this._setElementValue(prefix + 'city', selected.city());
