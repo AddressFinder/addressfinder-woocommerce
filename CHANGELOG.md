@@ -1,3 +1,7 @@
+# AddressFinder 1.2.12 (March 6, 2018)
+
+* Fixes errors when checkouts are missing address_line_2 field
+
 # AddressFinder 1.2.11 (March 5, 2018)
 
 * Checks window.AddressFinder is loaded before intialising plugin
