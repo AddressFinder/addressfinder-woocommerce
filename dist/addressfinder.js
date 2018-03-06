@@ -278,7 +278,7 @@ var WooCommercePlugin = function () {
         this._setElementValue(prefix + 'address_1', metaData.address_line_1);
         this._setElementValue(prefix + 'address_2', metaData.address_line_2 || '');
       } else {
-        var combinedAddressLine1And2 = metaData.address_line_1 + ', ' + metaData.address_line_2;
+        var combinedAddressLine1And2 = metaData.address_line_2 ? metaData.address_line_1 + ', ' + metaData.address_line_2 : metaData.address_line_1;
         this._setElementValue(prefix + 'address_1', combinedAddressLine1And2);
       }
       this._setElementValue(prefix + 'city', metaData.locality_name || '');
@@ -289,8 +289,13 @@ var WooCommercePlugin = function () {
     key: 'selectNewZealand',
     value: function selectNewZealand(prefix, fullAddress, metaData) {
       var selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
-      this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
-      this._setElementValue(prefix + 'address_2', selected.suburb());
+      if (this.checkFieldPresent(prefix, 'address_2')) {
+        this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
+        this._setElementValue(prefix + 'address_2', selected.suburb());
+      } else {
+        var combinedAddressAndSuburb = selected.address_line_1_and_2() + ', ' + selected.suburb();
+        this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb);
+      }
       this._setElementValue(prefix + 'city', selected.city());
       this._setElementValue(prefix + 'postcode', selected.postcode());
       this._setStateValue(prefix + 'state', metaData.region);
