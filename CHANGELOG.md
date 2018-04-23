@@ -1,3 +1,7 @@
+# AddressFinder 1.2.13 (April 24, 2018)
+
+* Dispatches update checkout event on address selection
+
 # AddressFinder 1.2.12 (March 6, 2018)
 
 * Fixes errors when checkouts are missing address_line_2 field
