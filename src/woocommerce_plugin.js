@@ -3,10 +3,10 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.12
+// VERSION: 1.2.13
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.12"
+    this.version = "1.2.13"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -116,23 +116,27 @@ export default class WooCommercePlugin {
     this._setElementValue(prefix + 'city', metaData.locality_name || '');
     this._setStateValue(prefix + 'state', metaData.state_territory);
     this._setElementValue(prefix + 'postcode', metaData.postcode);
+
+    this._dispatchEvent(document.body, 'update_checkout');
   };
 
 
   selectNewZealand(prefix, fullAddress, metaData) {
     let selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
     if (this.checkFieldPresent(prefix, 'address_2')) {
-      this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2())
-      this._setElementValue(prefix + 'address_2', selected.suburb())
+      this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
+      this._setElementValue(prefix + 'address_2', selected.suburb());
     } else {
       var combinedAddressAndSuburb = selected.suburb() ?
                                      selected.address_line_1_and_2() + ', ' + selected.suburb() :
                                      selected.address_line_1_and_2()
-      this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb)
+      this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb);
     }
-    this._setElementValue(prefix +'city', selected.city())
-    this._setElementValue(prefix + 'postcode', selected.postcode())
+    this._setElementValue(prefix +'city', selected.city());
+    this._setElementValue(prefix + 'postcode', selected.postcode());
     this._setStateValue(prefix + 'state', metaData.region);
+
+    this._dispatchEvent(document.body, 'update_checkout');
   }
 
   _dispatchEvent(element, eventType) {

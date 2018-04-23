@@ -171,12 +171,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.12
+// VERSION: 1.2.13
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.12";
+    this.version = "1.2.13";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
@@ -284,6 +284,8 @@ var WooCommercePlugin = function () {
       this._setElementValue(prefix + 'city', metaData.locality_name || '');
       this._setStateValue(prefix + 'state', metaData.state_territory);
       this._setElementValue(prefix + 'postcode', metaData.postcode);
+
+      this._dispatchEvent(document.body, 'update_checkout');
     }
   }, {
     key: 'selectNewZealand',
@@ -299,6 +301,8 @@ var WooCommercePlugin = function () {
       this._setElementValue(prefix + 'city', selected.city());
       this._setElementValue(prefix + 'postcode', selected.postcode());
       this._setStateValue(prefix + 'state', metaData.region);
+
+      this._dispatchEvent(document.body, 'update_checkout');
     }
   }, {
     key: '_dispatchEvent',
