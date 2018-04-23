@@ -284,6 +284,8 @@ var WooCommercePlugin = function () {
       this._setElementValue(prefix + 'city', metaData.locality_name || '');
       this._setStateValue(prefix + 'state', metaData.state_territory);
       this._setElementValue(prefix + 'postcode', metaData.postcode);
+
+      this._dispatchEvent(document.body, 'update_checkout');
     }
   }, {
     key: 'selectNewZealand',
@@ -299,6 +301,8 @@ var WooCommercePlugin = function () {
       this._setElementValue(prefix + 'city', selected.city());
       this._setElementValue(prefix + 'postcode', selected.postcode());
       this._setStateValue(prefix + 'state', metaData.region);
+
+      this._dispatchEvent(document.body, 'update_checkout');
     }
   }, {
     key: '_dispatchEvent',
