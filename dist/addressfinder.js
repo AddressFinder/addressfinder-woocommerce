@@ -144,7 +144,7 @@ var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
 };
 
 var s = document.createElement('script');
-s.src = 'http://localhost:3000/assets/v3b/widget.js';
+s.src = 'https://api.addressfinder.io/assets/v3/widget.js';
 s.async = 1;
 s.onload = _initOnDOMLoaded;
 document.body.appendChild(s);
