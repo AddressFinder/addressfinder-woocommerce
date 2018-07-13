@@ -144,7 +144,7 @@ var _initOnDOMLoaded = function _initOnDOMLoaded(event, repetitions) {
 };
 
 var s = document.createElement('script');
-s.src = 'https://api.addressfinder.io/assets/v3/widget.js';
+s.src = 'http://localhost:3000/assets/v3b/widget.js';
 s.async = 1;
 s.onload = _initOnDOMLoaded;
 document.body.appendChild(s);
@@ -183,16 +183,6 @@ var WooCommercePlugin = function () {
   }
 
   _createClass(WooCommercePlugin, [{
-    key: '_setWidgetPostion',
-    value: function _setWidgetPostion(widget) {
-      //adjusts the position of the widget to prevent it rendering in front of address fields
-      widget._getPosition = function () {
-        var coords = $(this.element).offset();
-        coords.top += $(this.element).outerHeight();
-        return coords;
-      };
-    }
-  }, {
     key: 'bindToAddressPanel',
     value: function bindToAddressPanel(panelPrefix) {
 
@@ -247,7 +237,6 @@ var WooCommercePlugin = function () {
         for (var i = 0; i < countryCodes.length; i++) {
           if (countryCodes[i] == countryCode) {
             widgets[countryCodes[i]].enable();
-            this._setWidgetPostion(widgets[countryCodes[i]]);
           } else {
             widgets[countryCodes[i]].disable();
           }
