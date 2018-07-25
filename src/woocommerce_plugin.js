@@ -3,10 +3,10 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.13
+// VERSION: 1.2.14
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.13"
+    this.version = "1.2.14"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
