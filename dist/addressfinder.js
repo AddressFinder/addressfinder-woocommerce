@@ -171,12 +171,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.13
+// VERSION: 1.2.14
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.13";
+    this.version = "1.2.14";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
