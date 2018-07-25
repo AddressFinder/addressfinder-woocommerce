@@ -3,22 +3,13 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.13
+// VERSION: 1.2.14
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.13"
+    this.version = "1.2.14"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
-  }
-
-  _setWidgetPostion(widget) {
-    //adjusts the position of the widget to prevent it rendering in front of address fields
-    widget._getPosition = function(){
-      var coords = $(this.element).offset();
-      coords.top += $(this.element).outerHeight();
-      return coords;
-    };
   }
 
   bindToAddressPanel(panelPrefix){
@@ -75,7 +66,6 @@ export default class WooCommercePlugin {
       for (var i = 0; i < countryCodes.length; i++) {
         if (countryCodes[i] == countryCode) {
           widgets[countryCodes[i]].enable()
-          this._setWidgetPostion(widgets[countryCodes[i]])
         } else {
           widgets[countryCodes[i]].disable();
         }
