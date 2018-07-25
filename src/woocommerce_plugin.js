@@ -12,15 +12,6 @@ export default class WooCommercePlugin {
     this.initialisePlugin()
   }
 
-  _setWidgetPostion(widget) {
-    //adjusts the position of the widget to prevent it rendering in front of address fields
-    widget._getPosition = function(){
-      var coords = $(this.element).offset();
-      coords.top += $(this.element).outerHeight();
-      return coords;
-    };
-  }
-
   bindToAddressPanel(panelPrefix){
 
     var widgets = {}
@@ -75,7 +66,6 @@ export default class WooCommercePlugin {
       for (var i = 0; i < countryCodes.length; i++) {
         if (countryCodes[i] == countryCode) {
           widgets[countryCodes[i]].enable()
-          this._setWidgetPostion(widgets[countryCodes[i]])
         } else {
           widgets[countryCodes[i]].disable();
         }
