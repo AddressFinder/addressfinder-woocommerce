@@ -1,3 +1,7 @@
+# AddressFinder 1.2.14 (April 24, 2018)
+
+* Removes redundant positioning function to reflect api updates
+
 # AddressFinder 1.2.13 (April 24, 2018)
 
 * Dispatches update checkout event on address selection
