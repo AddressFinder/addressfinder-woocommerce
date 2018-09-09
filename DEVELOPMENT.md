@@ -33,6 +33,7 @@ To develop and test this plugin, you should:
     ```
 
   This points the WooCommerce plugin at the file being served by live-server
+
 1. Click 'Update File'
 
 Now you can click the _Visit Store_ link and trial the plugin by selecting an item to purchase and
@@ -46,9 +47,8 @@ In a separate window, run:
 
 Then whenever a file is edited, it will be re-compiled and available for reloading.
 
-
 # Developing PHP or JS
-Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts.
+Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts. You will need to do this if you want to make changes the the php code.
 
 1. To login to the WooCommerce server your public ssh key has to be added. Ask Nigel about this.
 
@@ -60,12 +60,21 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 
 5. When you save the files they update on the WooCommerce store.
 
-##Trouble Shooting
+## Trouble Shooting
 
-If you need to restart the sever
+### Restarting the Server
 
 1. Run ssh root command in the terminal.
   * Woocommerce 2: ssh root@45.55.11.166
   * WooCommerce 3: ssh root@45.77.50.98
 
 2. sudo reboot
+
+### Dealing with PHP errors
+
+Be careful when making code changes to the php, as syntax errors can cause the 'white screen of death'. Your site will not load and will show a white screen with no errors. If this happens you can login in to the WooCommerce server and make the changes using Vim in the terminal. You can also delete the addressfinder-woo directory. This will delete the addressfinder website from your test site, but you can re-download the latest version from the Plugin page once your php error has been resolved.
+
+ ```
+ cd /var/www/html/wp-content/plugins/
+ rm -rf addressfinder-woo
+```
