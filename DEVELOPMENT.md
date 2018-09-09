@@ -12,7 +12,7 @@ This will open up a browser window (https://127.0.0.1:8080) with the `dist` dire
 
 To develop and test this plugin, you should:
 
-1. Visit the Abletech Woocommerce test server. You can find url and the credentials on the [Abletech Wiki](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer).
+1. Visit the Abletech Woocommerce test server. You can find url and the credentials for Woocommerce 2 [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer). We also have a Woocommerce 3 test server, credentials are [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins)
 1. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
 1. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
@@ -48,4 +48,24 @@ Then whenever a file is edited, it will be re-compiled and available for reloadi
 
 
 # Developing PHP or JS
-Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts. For instructions see the [Abletech Wiki](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer).
+Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts.
+
+1. To login to the WooCommerce server your public ssh key has to be added. Ask Nigel about this.
+
+2. If you are using the Woocommerce 2 test server, Run ssh root@45.55.11.166 in the terminal. For WooCommerce 3 run ssh root@45.77.50.98
+
+3. Find the file that you want to update. From the root the path to WooCommerce files is: /var/www/html/wp-content/plugins/addressfinder-woo
+
+4. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://sites.google.com/a/abletech.co.nz/wiki/technology-tips/beginners-guide-to-vim
+
+5. When you save the files they update on the WooCommerce store.
+
+##Trouble Shooting
+
+If you need to restart the sever
+
+1. Run ssh root command in the terminal.
+  * Woocommerce 2: ssh root@45.55.11.166
+  * WooCommerce 3: ssh root@45.77.50.98
+
+2. sudo reboot
