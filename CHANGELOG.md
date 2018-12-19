@@ -1,3 +1,9 @@
+# AddressFinder 1.2.15 (December 20, 2018)
+
+* Documentation update
+* New installation video
+* Wordpress 5.0 compatibility confirmation
+
 # AddressFinder 1.2.14 (April 24, 2018)
 
 * Removes redundant positioning function to reflect api updates
