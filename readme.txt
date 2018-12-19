@@ -3,8 +3,8 @@
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, validation
 Requires at least: 4.1
-Tested up to: 4.8
-Stable tag: 1.2.14
+Tested up to: 5.0
+Stable tag: 1.2.15
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,7 +33,7 @@ This plugin is super easy to set up. It does not require any experience and you 
 
 = Demonstration Video =
 
-[Watch a short 3.30 video](https://vimeo.com/157373924) demonstrating installation and configuration of WooCommerce AddressFinder.
+Watch a short 2 min video showing the [installation and configuration of AddressFinder for WooCommerce](https://vimeo.com/307188204).
 
 = Compatibility =
 
@@ -59,7 +59,7 @@ This section describes how to install the plugin and get it working.
 2. Search for `woocommerce-addressfinder`
 3. Press the Install Now button
 4. Activate the plugin through the 'Plugins' screen in WordPress
-5. Use the WooCommerce -> Settings -> Checkout screen to input your AddressFinder API keys.
+5. Use the WooCommerce -> Settings -> Payments screen to input your AddressFinder API keys.
 6. Done
 
 New users can register for a free account at one of these links:
@@ -115,6 +115,10 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.2.15 =
+* Documentation update
+* New installation video
+* Wordpress 5.0 compatibility confirmation
 = 1.2.14 =
 * Removes redundant positioning function to reflect api updates
 = 1.2.13 =

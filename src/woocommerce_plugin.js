@@ -3,23 +3,23 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.14
+// VERSION: 1.2.15
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.14"
+    this.version = "1.2.15"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
   }
 
-  bindToAddressPanel(panelPrefix){
+  bindToAddressPanel(panelPrefix) {
 
     var widgets = {}
 
     widgets.null = {
-      enable: function() { },
-      disable: function() { },
-      on: function() { }
+      enable: function () { },
+      disable: function () { },
+      on: function () { }
     };
 
     widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
@@ -34,7 +34,7 @@ export default class WooCommercePlugin {
     var countryElement = $('#' + panelPrefix + 'country');
     // Sometimes there is no countryElement. Not calling the changeHandler means
     // that it can remain enabled.
-    if(countryElement[0]){
+    if (countryElement[0]) {
       countryElement.change(countryChangeHandler.bind(this));
 
       // Run the countryChangeHandler first to enable/disable the currently selected country
@@ -56,7 +56,7 @@ export default class WooCommercePlugin {
           setActiveWidget.bind(this)('')
       }
 
-      if(!preserveValues) {
+      if (!preserveValues) {
         this._clearElementValues(panelPrefix)
       }
     }
@@ -71,7 +71,7 @@ export default class WooCommercePlugin {
         }
       }
     }
-}
+  }
 
   checkFieldPresent(prefix, field) {
     return !!document.getElementById(prefix + field);
@@ -99,8 +99,8 @@ export default class WooCommercePlugin {
       this._setElementValue(prefix + 'address_2', metaData.address_line_2 || '');
     } else {
       var combinedAddressLine1And2 = metaData.address_line_2 ?
-                                     metaData.address_line_1 + ', ' + metaData.address_line_2 :
-                                     metaData.address_line_1
+        metaData.address_line_1 + ', ' + metaData.address_line_2 :
+        metaData.address_line_1
       this._setElementValue(prefix + 'address_1', combinedAddressLine1And2);
     }
     this._setElementValue(prefix + 'city', metaData.locality_name || '');
@@ -118,11 +118,11 @@ export default class WooCommercePlugin {
       this._setElementValue(prefix + 'address_2', selected.suburb());
     } else {
       var combinedAddressAndSuburb = selected.suburb() ?
-                                     selected.address_line_1_and_2() + ', ' + selected.suburb() :
-                                     selected.address_line_1_and_2()
+        selected.address_line_1_and_2() + ', ' + selected.suburb() :
+        selected.address_line_1_and_2()
       this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb);
     }
-    this._setElementValue(prefix +'city', selected.city());
+    this._setElementValue(prefix + 'city', selected.city());
     this._setElementValue(prefix + 'postcode', selected.postcode());
     this._setStateValue(prefix + 'state', metaData.region);
 
@@ -134,7 +134,7 @@ export default class WooCommercePlugin {
 
     // document.createEvent is deprecated in most modern browsers, with the exception of IE
 
-    switch(typeof(Event)) {
+    switch (typeof (Event)) {
       case 'function':
         event = new Event(eventType);
       default:
@@ -146,7 +146,7 @@ export default class WooCommercePlugin {
   }
 
 
-  _setElementValue(elementId, value){
+  _setElementValue(elementId, value) {
 
     var element = document.getElementById(elementId)
 
@@ -193,11 +193,11 @@ export default class WooCommercePlugin {
       }
 
       if (element.options) {
-        for (var i = 0 ; i < element.options.length; i++) {
+        for (var i = 0; i < element.options.length; i++) {
           var option = element.options[i]
           var selectedOption = option.value == value ||
-                               option.value == region_code[value]
-                               ? option.value : ''
+            option.value == region_code[value]
+            ? option.value : ''
           if (selectedOption) break;
         }
 
@@ -207,12 +207,12 @@ export default class WooCommercePlugin {
     }
   }
 
-  initialisePlugin(){
-    if (document.getElementById('billing_address_1')){
+  initialisePlugin() {
+    if (document.getElementById('billing_address_1')) {
       this.bindToAddressPanel('billing_');
     }
 
-    if (document.getElementById('shipping_address_1')){
+    if (document.getElementById('shipping_address_1')) {
       this.bindToAddressPanel('shipping_');
     }
   };
