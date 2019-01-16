@@ -1,3 +1,7 @@
+# AddressFinder 1.2.16 (January 14, 2018)
+
+* Support state/region fields of type input (text)
+
 # AddressFinder 1.2.15 (December 20, 2018)
 
 * Documentation update

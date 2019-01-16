@@ -3,10 +3,10 @@
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.15
+// VERSION: 1.2.16
 export default class WooCommercePlugin {
   constructor(widgetConfig) {
-    this.version = "1.2.15"
+    this.version = "1.2.16"
     this.widgetConfig = widgetConfig
     $ = window.jQuery
     this.initialisePlugin()
@@ -124,7 +124,7 @@ export default class WooCommercePlugin {
     }
     this._setElementValue(prefix + 'city', selected.city());
     this._setElementValue(prefix + 'postcode', selected.postcode());
-    this._setStateValue(prefix + 'state', metaData.region);
+    this._setRegionValue(prefix + 'state', metaData.region);
 
     this._dispatchEvent(document.body, 'update_checkout');
   }
@@ -168,11 +168,34 @@ export default class WooCommercePlugin {
     }
   }
 
+  // supports both select and input field types
   _setStateValue(elementId, value) {
     var element = document.getElementById(elementId)
     if (element) {
+      // detect select field using presence of options attribute
+      if (element.options) {
+        for (var i = 0; i < element.options.length; i++) {
+          var option = element.options[i]
+          var selectedOption = option.value == value ? option.value : ''
+          if (selectedOption) break;
+        }
 
-      var region_code = {
+        element.value = selectedOption
+        this._dispatchEvent(element, 'change')
+      }
+      // detect text input field using presence of value attribute
+      else if (element.value != undefined) {
+        element.value = value
+        this._dispatchEvent(element, 'change')
+      }
+    }
+  }
+
+  // supports both select and input field types
+  _setRegionValue(elementId, value) {
+    var element = document.getElementById(elementId)
+    if (element) {
+      var woocommerce_region_codes = {
         'Auckland Region': 'AK',
         'Bay Of Plenty Region': 'BP',
         'Canterbury Region': 'CT',
@@ -192,16 +215,30 @@ export default class WooCommercePlugin {
         'No Region (Chatham Islands)': null
       }
 
+      // detect select field using presence of options attribute
       if (element.options) {
+        var selectedOption;
+
         for (var i = 0; i < element.options.length; i++) {
           var option = element.options[i]
-          var selectedOption = option.value == value ||
-            option.value == region_code[value]
-            ? option.value : ''
+
+          // if translate region names into woocommerce region codes
+          if (option.value == woocommerce_region_codes[value]) {
+            selectedOption = option.value
+          }
+          else {
+            selectedOption = ''
+          }
+
           if (selectedOption) break;
         }
 
         element.value = selectedOption
+        this._dispatchEvent(element, 'change')
+      }
+      // detect text input field using presence of value attribute
+      else if (element.value != undefined) {
+        element.value = value
         this._dispatchEvent(element, 'change')
       }
     }
