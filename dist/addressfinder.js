@@ -171,12 +171,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 // https://wordpress.org/plugins/addressfinder-woo/
 //
-// VERSION: 1.2.15
+// VERSION: 1.2.16
 var WooCommercePlugin = function () {
   function WooCommercePlugin(widgetConfig) {
     _classCallCheck(this, WooCommercePlugin);
 
-    this.version = "1.2.15";
+    this.version = "1.2.16";
     this.widgetConfig = widgetConfig;
     $ = window.jQuery;
     this.initialisePlugin();
@@ -289,7 +289,7 @@ var WooCommercePlugin = function () {
       }
       this._setElementValue(prefix + 'city', selected.city());
       this._setElementValue(prefix + 'postcode', selected.postcode());
-      this._setStateValue(prefix + 'state', metaData.region);
+      this._setRegionValue(prefix + 'state', metaData.region);
 
       this._dispatchEvent(document.body, 'update_checkout');
     }
@@ -333,13 +333,41 @@ var WooCommercePlugin = function () {
         window.console.log(errorMessage);
       }
     }
+
+    // supports both select and input field types
+
   }, {
     key: '_setStateValue',
     value: function _setStateValue(elementId, value) {
       var element = document.getElementById(elementId);
       if (element) {
+        // detect select field using presence of options attribute
+        if (element.options) {
+          for (var i = 0; i < element.options.length; i++) {
+            var option = element.options[i];
+            var selectedOption = option.value == value ? option.value : '';
+            if (selectedOption) break;
+          }
 
-        var region_code = {
+          element.value = selectedOption;
+          this._dispatchEvent(element, 'change');
+        }
+        // detect text input field using presence of value attribute
+        else if (element.value != undefined) {
+            element.value = value;
+            this._dispatchEvent(element, 'change');
+          }
+      }
+    }
+
+    // supports both select and input field types
+
+  }, {
+    key: '_setRegionValue',
+    value: function _setRegionValue(elementId, value) {
+      var element = document.getElementById(elementId);
+      if (element) {
+        var woocommerce_region_codes = {
           'Auckland Region': 'AK',
           'Bay Of Plenty Region': 'BP',
           'Canterbury Region': 'CT',
@@ -357,18 +385,32 @@ var WooCommercePlugin = function () {
           'Wellington Region': 'WE',
           'West Coast Region': 'WC',
           'No Region (Chatham Islands)': null
-        };
 
-        if (element.options) {
+          // detect select field using presence of options attribute
+        };if (element.options) {
+          var selectedOption;
+
           for (var i = 0; i < element.options.length; i++) {
             var option = element.options[i];
-            var selectedOption = option.value == value || option.value == region_code[value] ? option.value : '';
+
+            // if translate region names into woocommerce region codes
+            if (option.value == woocommerce_region_codes[value]) {
+              selectedOption = option.value;
+            } else {
+              selectedOption = '';
+            }
+
             if (selectedOption) break;
           }
 
           element.value = selectedOption;
           this._dispatchEvent(element, 'change');
         }
+        // detect text input field using presence of value attribute
+        else if (element.value != undefined) {
+            element.value = value;
+            this._dispatchEvent(element, 'change');
+          }
       }
     }
   }, {
