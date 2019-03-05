@@ -12,7 +12,7 @@ This will open up a browser window (https://127.0.0.1:8080) with the `dist` dire
 
 To develop and test this plugin, you should:
 
-1. Visit the Abletech Woocommerce test server. You can find url and the credentials for Woocommerce 2 [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer). We also have a Woocommerce 3 test server, credentials are [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins)
+1. Visit the Abletech Woocommerce test server. You can find url and the credentials [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer)
 1. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
 1. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
@@ -66,13 +66,11 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 
 1. Run ssh root command in the terminal.
   * Woocommerce 2: ssh root@45.55.11.166
-  * WooCommerce 3: ssh root@45.77.50.98
-
 2. sudo reboot
 
 ### Dealing with PHP errors
 
-Be careful when making code changes to the php, as syntax errors can cause the 'white screen of death'. Your site will not load and will show a white screen with no errors. If this happens you can login in to the WooCommerce server and make the changes using Vim in the terminal. You can also delete the addressfinder-woo directory. This will delete the addressfinder website from your test site, but you can re-download the latest version from the Plugin page once your php error has been resolved.
+Be careful when making code changes to the php, as syntax errors can cause the 'white screen of death'. Your site will not load and will show a white screen with no errors. If this happens you can login in to the WooCommerce server and make the changes using Vim in the terminal. You can also delete the addressfinder-woo directory. This will delete the addressfinder plugin from your test site, but you can re-download the latest version from the Plugin page once your php error has been resolved.
 
  ```
  cd /var/www/html/wp-content/plugins/
