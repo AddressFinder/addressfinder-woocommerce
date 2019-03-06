@@ -1,4 +1,8 @@
-# AddressFinder 1.2.16 (January 14, 2018)
+# AddressFinder 1.2.17 (March 6, 2019)
+
+* Documentation update after testing on Wordpress 5.1
+
+# AddressFinder 1.2.16 (January 14, 2019)
 
 * Support state/region fields of type input (text)
 
