@@ -1,5 +1,5 @@
 import ConfigManager from './config_manager'
-import { PageManager, MutationManager } from './addressfinder_webpage_tools'
+import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function(d, w) {
   class WooCommercePlugin {
@@ -14,22 +14,27 @@ import { PageManager, MutationManager } from './addressfinder_webpage_tools'
       this.ConfigManager = new ConfigManager()
 
       // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
-      // new MutationManager({
-      //   mutationEventHandler: this.mutationEventHandler.bind(this),
-      //   ignoredClass: "af_list"
-      // })
+      new MutationManager({
+        mutationEventHandler: this.mutationEventHandler.bind(this),
+        ignoredClass: "af_list"
+      })
+
+      this.events = {
+        dispatchOnAddressSelected: 'change', // When an address is selected dispatch this event so the store knows fields have changed
+        listenOnCountryElement: 'blur' // Listen for this event type on the country element to set the active country
+      }
 
       this._initOnDOMLoaded()
 
     }
 
-    // mutationEventHandler() {
-    //   // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
-    //   let addressFormConfigurations = this.ConfigManager.load()
-    //   if (this.PageManager) {
-    //     this.PageManager.reload(addressFormConfigurations)
-    //   }
-    // }
+    mutationEventHandler() {
+      // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
+      let addressFormConfigurations = this.ConfigManager.load()
+      if (this.PageManager) {
+        this.PageManager.reload(addressFormConfigurations)
+      }
+    }
 
     _safeParseJSONObject(jsonObject) {
       if(jsonObject == undefined){
@@ -66,7 +71,7 @@ import { PageManager, MutationManager } from './addressfinder_webpage_tools'
     
       if (repetitions == 0) {
         // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
-        console.log('repition zero')
+        console.log('repetition zero')
         this._initPlugin()
         return
       }
@@ -94,8 +99,7 @@ import { PageManager, MutationManager } from './addressfinder_webpage_tools'
       this.PageManager = new PageManager({
         addressFormConfigurations: this.ConfigManager.load(),
         widgetConfig,
-        eventToDispatch: 'change',
-        countryChangeEvent: 'blur' 
+        events: this.events
       })
 
       w.AddressFinder._woocommercePlugin = this.PageManager

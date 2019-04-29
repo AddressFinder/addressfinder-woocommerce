@@ -928,13 +928,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var FormManager =
 /*#__PURE__*/
 function () {
-  function FormManager(widgetConfig, formHelperConfig, eventToDispatch, countryChangeEvent) {
+  function FormManager(widgetConfig, formHelperConfig, events) {
     _classCallCheck(this, FormManager);
 
     this.widgetConfig = widgetConfig;
-    this.formHelperConfig = formHelperConfig;
-    this.eventToDispatch = eventToDispatch;
-    this.countryChangeEvent = countryChangeEvent;
+    this.formHelperConfig = formHelperConfig; // Contains references to the DOM elements that make up this form
+
+    this.events = events;
     this.widgets = {};
     this.countryCodes = ["au", "nz"];
 
@@ -953,27 +953,31 @@ function () {
       }
 
       this.widgets = null;
-      this.formHelperConfig.countryElement.removeEventListener(this.countryChangeEvent, this.boundCountryChangedListener);
+      this.formHelperConfig.countryElement.removeEventListener(this.events.listenOnCountryElement, this.boundCountryChangedListener);
     }
   }, {
     key: "_bindToForm",
     value: function _bindToForm() {
-      this.boundCountryChangedListener = this._countryChanged.bind(this); // save this so we can unbind in the destroy() method
-
       var nzWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.nzKey, "nz", this.widgetConfig.nzWidgetOptions);
       nzWidget.on("result:select", this._nzAddressSelected.bind(this));
       this.widgets["nz"] = nzWidget;
       var auWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "au", this.widgetConfig.auWidgetOptions);
       auWidget.on("result:select", this._auAddressSelected.bind(this));
-      this.widgets["au"] = auWidget;
+      this.widgets["au"] = auWidget; // Prevents the widget from throwing errors if the activeCountry is not 'nz' or 'au'
+
       this.widgets["null"] = {
         enable: function enable() {},
         disable: function disable() {},
         destroy: function destroy() {}
       };
+      this.boundCountryChangedListener = this._countryChanged.bind(this); // save this so we can unbind in the destroy() method
 
       if (this.formHelperConfig.countryElement) {
-        this.formHelperConfig.countryElement.addEventListener(this.countryChangeEvent, this.boundCountryChangedListener);
+        this.formHelperConfig.countryElement.addEventListener(this.events.listenOnCountryElement, this.boundCountryChangedListener);
+        this.boundCountryChangedListener(null, true);
+      } else if (this.widgetConfig.defaultCountry) {
+        // Sometimes there is no countryElement (WooCommerce). Not calling the changeHandler means that the widget can remain enabled.
+        this._setActiveCountry(this.widgetConfig.defaultCountry);
       }
     }
   }, {
@@ -994,7 +998,9 @@ function () {
           activeCountry = "null";
       }
 
-      this._setActiveCountry(activeCountry);
+      this._setActiveCountry(activeCountry); // Usually, preserveValues should be true, as this prevents the users saved addresses being cleared on page load.
+      // Setting preverseValues to false clears the address fields on country change, which is useful for testing.  
+
 
       if (!preserveValues) {
         var isInactiveCountry = function isInactiveCountry(countryCode) {
@@ -1031,6 +1037,10 @@ function () {
   }, {
     key: "_combineAddressElements",
     value: function _combineAddressElements(elements) {
+      // If we have two valid address elements, connect the string with a comma in between, otherwise just use the first.
+      // For example: 
+      // ['65 Beauchamp Street', 'Karori'] becomes '65 Beauchamp Street, Karori'
+      // ['34 Arapuni Road', ""] becomes '34 Arapuni Road'
       var addressIsPresent = function addressIsPresent(element) {
         return element != null && element != "";
       };
@@ -1045,14 +1055,17 @@ function () {
       var selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
 
       if (!elements.address_line_2 && !elements.suburb) {
+        // If we only have address_line_1, the address line 1, 2 and suburb values are populated in that field.
         var combined = this._combineAddressElements([selected.address_line_1_and_2(), selected.suburb()]);
 
         this._setElementValue(elements.address_line_1, combined, "address_line_1");
       } else if (!elements.address_line_2 && elements.suburb) {
+        // If we have address_line_1 and a suburb field, put address 1 and 2 into address line 1, and suburb into the suburb field.
         this._setElementValue(elements.address_line_1, selected.address_line_1_and_2(), "address_line_1");
 
         this._setElementValue(elements.suburb, selected.suburb(), "suburb");
       } else {
+        // If we have all 3 fields populate each one.
         this._setElementValue(elements.address_line_1, selected.address_line_1(), "address_line_1");
 
         this._setElementValue(elements.address_line_2, selected.address_line_2(), "address_line_2");
@@ -1065,6 +1078,7 @@ function () {
       this._setElementValue(elements.postcode, selected.postcode(), "postcode");
 
       if (this.formHelperConfig.nz.regionMappings) {
+        // matches the region returned by the api with the region values in the select field 
         var translatedRegionValue = this.formHelperConfig.nz.regionMappings[metaData.region];
 
         this._setElementValue(elements.region, translatedRegionValue, "region");
@@ -1078,11 +1092,13 @@ function () {
       var elements = this.formHelperConfig.au.elements;
 
       if (!elements.address_line_2) {
+        // If we only have address_line_1, put both address 1 and 2 into this line
         var combined = this._combineAddressElements([metaData.address_line_1, metaData.address_line_2]);
 
         this._setElementValue(elements.address_line_1, combined, "address_line_1");
       } else {
-        this._setElementValue(elements.address_line_1, metaData.address_line_1, "address_line_1");
+        this._setElementValue(elements.address_line_1, metaData.address_line_1, "address_line_1"); // metaData.address_line_2 could be undefined, in which case we replace it with an empty string
+
 
         var address_line_2 = metaData.address_line_2 || "";
 
@@ -1094,6 +1110,7 @@ function () {
       this._setElementValue(elements.postcode, metaData.postcode, "postcode");
 
       if (this.formHelperConfig.au.stateMappings) {
+        // matches the state returned by the api with the region values in the select field 
         var translatedStateValue = this.formHelperConfig.au.stateMappings[metaData.state_territory];
 
         this._setElementValue(elements.state_territory, translatedStateValue, "state_territory");
@@ -1116,17 +1133,21 @@ function () {
 
       element.value = value;
 
-      this._dispatchChangeEvent(element);
+      this._dispatchEvent(element);
     }
   }, {
-    key: "_dispatchChangeEvent",
-    value: function _dispatchChangeEvent(element) {
+    key: "_dispatchEvent",
+    value: function _dispatchEvent(element) {
+      // This function dispatches an event when the form fields are set, so the store knows the fields have changed. This can affect form validation.
+      // Typically we would use a 'change' event here, but Shopify is listening for the 'input' event specifically, so we pass the eventToDispatch as a param.
+      // It is also important to set 'bubbles' to true, as the store may listen for the event on the document, rather than	
+      // the input field itself. This allows the event to move up the tree, triggering the event on both the input element and the document.
       var event;
 
       switch (typeof Event === "undefined" ? "undefined" : _typeof(Event)) {
         case 'function':
-          event = new Event(this.eventToDispatch, {
-            'bubbles': true,
+          event = new Event(this.events.dispatchOnAddressSelected, {
+            "bubbles": true,
             "cancelable": false
           });
           break;
@@ -2287,16 +2308,18 @@ function () {
   function PageManager(_ref) {
     var addressFormConfigurations = _ref.addressFormConfigurations,
         widgetConfig = _ref.widgetConfig,
-        eventToDispatch = _ref.eventToDispatch,
-        countryChangeEvent = _ref.countryChangeEvent;
+        events = _ref.events;
 
     _classCallCheck(this, PageManager);
 
-    this.formHelpers = [];
-    this.addressFormConfigurations = addressFormConfigurations;
-    this.widgetConfig = widgetConfig;
-    this.eventToDispatch = eventToDispatch;
-    this.countryChangeEvent = countryChangeEvent;
+    // Each formHelper is an instance of the FormManager class
+    this.formHelpers = []; // An object containing identifying information about an address form, such as the id values 
+
+    this.addressFormConfigurations = addressFormConfigurations; // Configuration provided by the user, such as keys and widget options
+
+    this.widgetConfig = widgetConfig; // The event type to trigger when a field value is changed by AddressFinder 
+
+    this.events = events;
     this.identifiedFormHelperConfig = [];
     this.reload = this.reload.bind(this);
     this.loadFormHelpers();
@@ -2305,6 +2328,7 @@ function () {
   _createClass(PageManager, [{
     key: "reload",
     value: function reload(addressFormConfigurations) {
+      // Takes the addressFormConfigurations (static and dynamic) provided by the ConfigManager and loads our formHelpers
       if (!this._areAllElementsStillInTheDOM()) {
         this.identifiedFormHelperConfig = [];
         this.addressFormConfigurations = addressFormConfigurations;
@@ -2314,6 +2338,7 @@ function () {
   }, {
     key: "loadFormHelpers",
     value: function loadFormHelpers() {
+      // We destroy and reset all our current helpers and configurations, then recreate them.
       this.formHelpers.forEach(function (formHelper) {
         return formHelper.destroy();
       });
@@ -2342,6 +2367,7 @@ function () {
       var _this = this;
 
       if (this.identifiedFormHelperConfig.length === 0) {
+        // if we have no config there are no relevant elements in the dom and we must reload.
         return false;
       }
 
@@ -2349,14 +2375,17 @@ function () {
         var currentCountryCode = _this._getCurrentCountryValue(config);
 
         if (!currentCountryCode) {
+          // if country code is not nz or au we don't need to reload, as AddressFinder is not active
           return true;
         }
 
         if (!document.body.contains(config.countryElement)) {
+          // if the country element is missing we must reload
           return false;
         }
 
         if (!_this._areAllElementsStillInTheDOMForCountryCode(config, currentCountryCode)) {
+          // if the dom doesn't contain all the elements associated with each country we must reload
           return false;
         }
 
@@ -2373,6 +2402,7 @@ function () {
   }, {
     key: "_identifyAddressForms",
     value: function _identifyAddressForms() {
+      // Checks if each of our form configs are present on the page
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -2407,6 +2437,7 @@ function () {
   }, {
     key: "_initialiseFormHelper",
     value: function _initialiseFormHelper(addressFormConfig) {
+      // For each configuration, create a formHelperConfig. This maps our form configurations to the corresponding DOM elements. 
       var searchElement = document.querySelector(addressFormConfig.searchIdentifier);
 
       if (searchElement) {
@@ -2446,7 +2477,7 @@ function () {
         }
 
         this.identifiedFormHelperConfig.push(formHelperConfig);
-        var helper = new __WEBPACK_IMPORTED_MODULE_0__form_manager__["a" /* default */](this.widgetConfig, formHelperConfig, this.eventToDispatch, this.countryChangeEvent);
+        var helper = new __WEBPACK_IMPORTED_MODULE_0__form_manager__["a" /* default */](this.widgetConfig, formHelperConfig, this.events);
         this.formHelpers.push(helper);
       }
     }
@@ -2499,7 +2530,8 @@ function () {
 
     _classCallCheck(this, MutationManager);
 
-    this.mutationEventHandler = mutationEventHandler; // Mutation events emitted by elements with this class are ignored.
+    this.mutationEventHandler = mutationEventHandler;
+    this.millisecondsToIgnoreMutations = 750; // Mutation events emitted by elements with this class are ignored.
 
     this.ignoredClass = ignoredClass;
     this.monitorMutations();
@@ -2509,14 +2541,14 @@ function () {
     key: "monitorMutations",
     value: function monitorMutations() {
       if (window.MutationObserver) {
-        /* for modern browsers */
+        // for modern browsers
         var observer = new MutationObserver(this._mutationHandler.bind(this));
         observer.observe(document.body, {
           childList: true,
           subtree: true
         });
       } else if (window.addEventListener) {
-        /* for IE 9 and 10 */
+        // for IE 9 and 10
         document.body.addEventListener('DOMNodeInserted', this._domNodeModifiedHandler.bind(this), false);
         document.body.addEventListener('DOMNodeRemoved', this._domNodeModifiedHandler.bind(this), false);
       } else {
@@ -2538,11 +2570,11 @@ function () {
 
         return nodes.concat(_toConsumableArray(mutation.addedNodes)).concat(_toConsumableArray(mutation.removedNodes));
       }, []);
-      var anyBigCommerceChanges = changedNodes.find(function (node) {
+      var anyStoreMutations = changedNodes.find(function (node) {
         return !(node.classList && node.classList.contains(_this.ignoredClass));
       });
 
-      if (!anyBigCommerceChanges) {
+      if (!anyStoreMutations) {
         return; // ignore AddressFinder changes
       }
 
@@ -2565,7 +2597,7 @@ function () {
       } // ignore any further changes for the next 750 mS
 
 
-      this._mutationTimeout = setTimeout(this.mutationEventHandler, 750);
+      this._mutationTimeout = setTimeout(this.mutationEventHandler, this.millisecondsToIgnoreMutations);
     }
   }]);
 
