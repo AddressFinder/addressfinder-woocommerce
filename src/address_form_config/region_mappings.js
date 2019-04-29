@@ -1,6 +1,6 @@
 export default {
   'Auckland Region': 'AK',
-  'Bay Of Plenty Region': 'BP',
+  'Bay of Plenty Region': 'BP',
   'Canterbury Region': 'CT',
   'Gisborne Region': 'GI',
   'Hawke\'s Bay Region': 'HB',

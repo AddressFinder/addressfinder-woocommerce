@@ -1,5 +1,5 @@
 import ConfigManager from './config_manager'
-import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
+import { PageManager, MutationManager } from './addressfinder_webpage_tools'
 
 (function(d, w) {
   class WooCommercePlugin {
@@ -14,22 +14,22 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       this.ConfigManager = new ConfigManager()
 
       // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
-      new MutationManager({
-        mutationEventHandler: this.mutationEventHandler.bind(this),
-        ignoredClass: "af_list"
-      })
+      // new MutationManager({
+      //   mutationEventHandler: this.mutationEventHandler.bind(this),
+      //   ignoredClass: "af_list"
+      // })
 
       this._initOnDOMLoaded()
 
     }
 
-    mutationEventHandler() {
-      // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
-      let addressFormConfigurations = this.ConfigManager.load()
-      if (this.PageManager) {
-        this.PageManager.reload(addressFormConfigurations)
-      }
-    }
+    // mutationEventHandler() {
+    //   // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
+    //   let addressFormConfigurations = this.ConfigManager.load()
+    //   if (this.PageManager) {
+    //     this.PageManager.reload(addressFormConfigurations)
+    //   }
+    // }
 
     _safeParseJSONObject(jsonObject) {
       if(jsonObject == undefined){
@@ -94,7 +94,8 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       this.PageManager = new PageManager({
         addressFormConfigurations: this.ConfigManager.load(),
         widgetConfig,
-        eventToDispatch: 'input' 
+        eventToDispatch: 'change',
+        countryChangeEvent: 'blur' 
       })
 
       w.AddressFinder._woocommercePlugin = this.PageManager

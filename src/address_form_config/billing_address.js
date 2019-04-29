@@ -4,13 +4,12 @@ export default {
   label: "Billing Checkout",
   layoutSelector: ["#billing_address_1"],
   countryIdentifier: '#billing_country',
-  searchIdentifier: '#billing_address1',
+  searchIdentifier: '#billing_address_1',
   nz: {
-    countryValue: "New Zealand",
+    countryValue: "NZ",
     elements: {
-      address1: '#billing_address1',
-      address2: '#billing_address2',
-      suburb: null,
+      address1: '#billing_address_1',
+      suburb: '#billing_address_2',
       city: '#billing_city',
       region: '#billing_state',
       postcode: '#billing_postcode',
@@ -18,10 +17,10 @@ export default {
     regionMappings: regionMappings
   },
   au: {
-    countryValue: "Australia",
+    countryValue: "AU",
     elements: {
-      address1: '#billing_address1',
-      address2: '#billing_address2',
+      address1: '#billing_address_1',
+      address2: '#billing_address_2',
       suburb: '#billing_city',
       state: '#billing_state',
       postcode: '#billing_postcode',
