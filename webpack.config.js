@@ -3,7 +3,7 @@ const pathLib = require("path");
 
 const config = {
   entry: [
-    "./src/main.js"
+    "./src/woocommerce_plugin.js"
   ],
   devtool: "source-map",
   output: {
@@ -17,7 +17,7 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015']
+            presets: ['@babel/preset-env']
           }
         }
       }
