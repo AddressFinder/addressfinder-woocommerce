@@ -1,257 +1,99 @@
-// The AddressFinder plugin for WooCommerce adds an autocomplete capability to the
-// delivery and billing address fields of your online store.
-//
-// https://wordpress.org/plugins/addressfinder-woo/
-//
-// VERSION: 1.2.17
-export default class WooCommercePlugin {
-  constructor(widgetConfig) {
-    this.version = "1.2.17"
-    this.widgetConfig = widgetConfig
-    $ = window.jQuery
-    this.initialisePlugin()
-  }
+import ConfigManager from './config_manager'
+import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
-  bindToAddressPanel(panelPrefix) {
+(function(d, w) {
+  class WooCommercePlugin {
+    constructor() {
+      
+      // Manages the mapping of the form configurations to the DOM. 
+      this.PageManager = null
 
-    var widgets = {}
+      // Manages the form configuraions, and creates any dynamic forms
+      this.ConfigManager = new ConfigManager()
 
-    widgets.null = {
-      enable: function () { },
-      disable: function () { },
-      on: function () { }
-    };
+      // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
+      new MutationManager({
+        mutationEventHandler: this.mutationEventHandler.bind(this),
+        ignoredClass: "af_list"
+      })
 
-    widgets.nz = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.nzKey, 'nz', this.widgetConfig.nzWidgetOptions)
-    widgets.nz.prefix = panelPrefix
-    widgets.nz.on('result:select', this.selectNewZealand.bind(this, panelPrefix));
+      this._initPlugin()
 
-    widgets.au = new window.AddressFinder.Widget(document.getElementById(panelPrefix + 'address_1'), this.widgetConfig.auKey, 'au', this.widgetConfig.auWidgetOptions);
-    widgets.au.prefix = panelPrefix
-    widgets.au.on('result:select', this.selectAustralia.bind(this, panelPrefix));
-
-
-    var countryElement = $('#' + panelPrefix + 'country');
-    // Sometimes there is no countryElement. Not calling the changeHandler means
-    // that it can remain enabled.
-    if (countryElement[0]) {
-      countryElement.change(countryChangeHandler.bind(this));
-
-      // Run the countryChangeHandler first to enable/disable the currently selected country
-      countryChangeHandler.bind(this)(null, true);
-    } else {
-      setActiveWidget.bind(this)(this.widgetConfig.defaultCountry)
     }
 
-    function countryChangeHandler(event, preserveValues) {
-      var countryField = $('#' + panelPrefix + 'country');
-      switch (countryField.val()) {
-        case 'NZ':
-          setActiveWidget.bind(this)('nz')
-          break;
-        case 'AU':
-          setActiveWidget.bind(this)('au')
-          break;
-        default:
-          setActiveWidget.bind(this)('')
+    safeParseJSONObject = function(jsonObject) {
+      if(jsonObject == undefined){
+        return null;
       }
-
-      if (!preserveValues) {
-        this._clearElementValues(panelPrefix)
-      }
-    }
-
-    function setActiveWidget(countryCode) {
-      var countryCodes = ['nz', 'au']
-      for (var i = 0; i < countryCodes.length; i++) {
-        if (countryCodes[i] == countryCode) {
-          widgets[countryCodes[i]].enable()
-        } else {
-          widgets[countryCodes[i]].disable();
+  
+      try {
+        jsonObject = JSON.parse(jsonObject);
+      } catch (e) {
+        if (AFC.debug) {
+          alert('Invalid widget option: ' + jsonObject);
         }
+  
+        return null;
       }
+  
+      return jsonObject;
     }
+
+    _initOnDOMLoaded = function(event, repetitions) {
+      // In WooCommerce/Wordpress a country change event is fired during the DOM loading process.
+      // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
+      // This function makes sure AddressFinder is initalised after this event.
+    
+      repetitions = repetitions || 10
+    
+      if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
+        setTimeout(_initPlugin, 1000)
+        return
+      }
+    
+      if (repetitions == 0) {
+        // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
+        _initPlugin()
+        return
+      }
+    
+      setTimeout(function() {
+        // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
+        _initOnDOMLoaded('ignoredEvent', repetitions - 1)
+      }, 1000)
+    }
+
+    _initPlugin() {
+      this._initOnDOMLoaded()
+
+      let parsedWidgetOptions = safeParseJSONObject(w.AddressFinderConfig.widget_options);
+      let parsedNZWidgetOptions = safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
+      let parsedAUWidgetOptions = safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
+    
+      const widgetConfig = {
+        nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
+        auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
+        nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
+        auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
+        defaultCountry: w.AddressFinderConfig.default_country || 'nz',
+        debug: w.AddressFinderConfig.debug || false
+      }
+
+      this.PageManager = new PageManager({
+        addressFormConfigurations: this.ConfigManager.load(),
+        widgetConfig,
+        eventToDispatch: 'input' 
+      })
+
+      w.AddressFinderPlugin._woocommercePlugin = this.PageManager
+    }
+
   }
 
-  checkFieldPresent(prefix, field) {
-    return !!document.getElementById(prefix + field);
-  };
+  var s = d.createElement('script')
+  s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
+  s.async = 1
+  s.onload = function() { new WooCommercePlugin }
+  d.body.appendChild(s)
 
-  _clearElementValues(prefix) {
-    var fields = [
-      'address_1',
-      'address_2',
-      'city',
-      'postcode'
-    ];
-
-    for (var i = 0; i < fields.length; i++) {
-      if (this.checkFieldPresent(prefix, fields[i])) {
-        this._setElementValue(prefix + fields[i], '')
-      }
-    }
-    this._setStateValue(prefix + 'state', '')
-  };
-
-  selectAustralia(prefix, address, metaData) {
-    if (this.checkFieldPresent(prefix, 'address_2')) {
-      this._setElementValue(prefix + 'address_1', metaData.address_line_1);
-      this._setElementValue(prefix + 'address_2', metaData.address_line_2 || '');
-    } else {
-      var combinedAddressLine1And2 = metaData.address_line_2 ?
-        metaData.address_line_1 + ', ' + metaData.address_line_2 :
-        metaData.address_line_1
-      this._setElementValue(prefix + 'address_1', combinedAddressLine1And2);
-    }
-    this._setElementValue(prefix + 'city', metaData.locality_name || '');
-    this._setStateValue(prefix + 'state', metaData.state_territory);
-    this._setElementValue(prefix + 'postcode', metaData.postcode);
-
-    this._dispatchEvent(document.body, 'update_checkout');
-  };
-
-
-  selectNewZealand(prefix, fullAddress, metaData) {
-    let selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
-    if (this.checkFieldPresent(prefix, 'address_2')) {
-      this._setElementValue(prefix + 'address_1', selected.address_line_1_and_2());
-      this._setElementValue(prefix + 'address_2', selected.suburb());
-    } else {
-      var combinedAddressAndSuburb = selected.suburb() ?
-        selected.address_line_1_and_2() + ', ' + selected.suburb() :
-        selected.address_line_1_and_2()
-      this._setElementValue(prefix + 'address_1', combinedAddressAndSuburb);
-    }
-    this._setElementValue(prefix + 'city', selected.city());
-    this._setElementValue(prefix + 'postcode', selected.postcode());
-    this._setRegionValue(prefix + 'state', metaData.region);
-
-    this._dispatchEvent(document.body, 'update_checkout');
-  }
-
-  _dispatchEvent(element, eventType) {
-    var event;
-
-    // document.createEvent is deprecated in most modern browsers, with the exception of IE
-
-    switch (typeof (Event)) {
-      case 'function':
-        event = new Event(eventType);
-      default:
-        event = document.createEvent("Event");
-        event.initEvent(eventType, false, true);
-    }
-
-    element.dispatchEvent(event)
-  }
-
-
-  _setElementValue(elementId, value) {
-
-    var element = document.getElementById(elementId)
-
-    if (element) {
-      element.value = value;
-      this._dispatchEvent(element, 'change')
-      return;
-    }
-
-    var errorMessage = 'AddressFinder Error - unable to find an element with id: ' + elementId;
-
-    if (true) {
-      alert(errorMessage);
-      return;
-    }
-
-    if (window.console) {
-      window.console.log(errorMessage);
-    }
-  }
-
-  // supports both select and input field types
-  _setStateValue(elementId, value) {
-    var element = document.getElementById(elementId)
-    if (element) {
-      // detect select field using presence of options attribute
-      if (element.options) {
-        for (var i = 0; i < element.options.length; i++) {
-          var option = element.options[i]
-          var selectedOption = option.value == value ? option.value : ''
-          if (selectedOption) break;
-        }
-
-        element.value = selectedOption
-        this._dispatchEvent(element, 'change')
-      }
-      // detect text input field using presence of value attribute
-      else if (element.value != undefined) {
-        element.value = value
-        this._dispatchEvent(element, 'change')
-      }
-    }
-  }
-
-  // supports both select and input field types
-  _setRegionValue(elementId, value) {
-    var element = document.getElementById(elementId)
-    if (element) {
-      var woocommerce_region_codes = {
-        'Auckland Region': 'AK',
-        'Bay Of Plenty Region': 'BP',
-        'Canterbury Region': 'CT',
-        'Gisborne Region': 'GI',
-        'Hawke\'s Bay Region': 'HB',
-        'Manawatu-Wanganui Region': 'MW',
-        'Marlborough Region': 'MB',
-        'Nelson Region': 'NS',
-        'Northland Region': 'NL',
-        'Otago Region': 'OT',
-        'Southland Region': 'SL',
-        'Taranaki Region': 'TK',
-        'Tasman Region': 'TM',
-        'Waikato Region': 'WA',
-        'Wellington Region': 'WE',
-        'West Coast Region': 'WC',
-        'No Region (Chatham Islands)': null
-      }
-
-      // detect select field using presence of options attribute
-      if (element.options) {
-        var selectedOption;
-
-        for (var i = 0; i < element.options.length; i++) {
-          var option = element.options[i]
-
-          // if translate region names into woocommerce region codes
-          if (option.value == woocommerce_region_codes[value]) {
-            selectedOption = option.value
-          }
-          else {
-            selectedOption = ''
-          }
-
-          if (selectedOption) break;
-        }
-
-        element.value = selectedOption
-        this._dispatchEvent(element, 'change')
-      }
-      // detect text input field using presence of value attribute
-      else if (element.value != undefined) {
-        element.value = value
-        this._dispatchEvent(element, 'change')
-      }
-    }
-  }
-
-  initialisePlugin() {
-    if (document.getElementById('billing_address_1')) {
-      this.bindToAddressPanel('billing_');
-    }
-
-    if (document.getElementById('shipping_address_1')) {
-      this.bindToAddressPanel('shipping_');
-    }
-  };
-
-}
+})(document, window)
