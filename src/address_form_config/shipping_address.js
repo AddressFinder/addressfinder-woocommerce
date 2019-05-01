@@ -2,7 +2,7 @@ import regionMappings from './region_mappings'
 
 export default {
   label: "Shipping Checkout",
-  layoutSelector: ["#shipping_address_1"],
+  layoutSelectors: ["#shipping_address_1"],
   countryIdentifier: '#shipping_country',
   searchIdentifier: '#shipping_address_1',
   nz: {
