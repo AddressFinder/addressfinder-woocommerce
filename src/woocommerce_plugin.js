@@ -19,7 +19,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.3.0"
+      this.version = "1.2.17"
 
       // Manages the mapping of the form configurations to the DOM. 
       this.PageManager = null
@@ -103,8 +103,6 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',
         debug: w.AddressFinderConfig.debug || false
       }
-
-      console.log(widgetConfig)
 
       this.ConfigManager = new ConfigManager()
 

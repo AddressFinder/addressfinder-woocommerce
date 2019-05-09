@@ -133,7 +133,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     function WooCommercePlugin() {
       _classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.3.0"; // Manages the mapping of the form configurations to the DOM. 
+      this.version = "1.2.17"; // Manages the mapping of the form configurations to the DOM. 
 
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
 
@@ -224,7 +224,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           defaultCountry: w.AddressFinderConfig.default_country || 'nz',
           debug: w.AddressFinderConfig.debug || false
         };
-        console.log(widgetConfig);
         this.ConfigManager = new __WEBPACK_IMPORTED_MODULE_0__config_manager__["a" /* default */](); // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
 
         new __WEBPACK_IMPORTED_MODULE_1__addressfinder_addressfinder_webpage_tools__["MutationManager"]({
