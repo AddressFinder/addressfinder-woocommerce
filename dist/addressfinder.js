@@ -114,6 +114,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 (function (d, w) {
+  /*
+  * When addressfinderDebugMode is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+  * This allows us to debug more easily on customer sites.
+  */
+  Object.defineProperty(window, 'addressfinderDebugMode', {
+    get: function get() {
+      if (w.AddressFinder.initPlugin) {
+        window.AddressFinderConfig.debug = true;
+        w.AddressFinder.initPlugin();
+      }
+    }
+  });
+
   var WooCommercePlugin =
   /*#__PURE__*/
   function () {
@@ -125,6 +138,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
 
       this.ConfigManager = null;
+      this.initPlugin = this.initPlugin.bind(this);
 
       this._initOnDOMLoaded();
     }
@@ -170,19 +184,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
           setTimeout(function () {
-            console.log('ready state');
+            console.log('ready state'); // Create a reference to the initPlugin function so we can call it from the javascript console.
 
-            _this._initPlugin();
+            w.AddressFinder.initPlugin = _this.initPlugin;
+
+            _this.initPlugin();
           }, 1000);
           return;
         }
 
         if (repetitions == 0) {
           // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
-          console.log('repetition zero');
+          console.log('repetition zero'); // Create a reference to the initPlugin function so we can call it from the javascript console.
 
-          this._initPlugin();
-
+          w.AddressFinder.initPlugin = this.initPlugin;
+          this.initPlugin();
           return;
         }
 
@@ -192,8 +208,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }, 1000);
       }
     }, {
-      key: "_initPlugin",
-      value: function _initPlugin() {
+      key: "initPlugin",
+      value: function initPlugin() {
         var parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
 
         var parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
@@ -208,6 +224,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           defaultCountry: w.AddressFinderConfig.default_country || 'nz',
           debug: w.AddressFinderConfig.debug || false
         };
+        console.log(widgetConfig);
         this.ConfigManager = new __WEBPACK_IMPORTED_MODULE_0__config_manager__["a" /* default */](); // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
 
         new __WEBPACK_IMPORTED_MODULE_1__addressfinder_addressfinder_webpage_tools__["MutationManager"]({

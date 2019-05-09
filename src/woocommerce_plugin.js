@@ -2,6 +2,20 @@ import ConfigManager from './config_manager'
 import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function(d, w) {
+
+  /*
+  * When addressfinderDebugMode is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+  * This allows us to debug more easily on customer sites.
+  */
+  Object.defineProperty(window, 'addressfinderDebugMode', {
+    get: function() {
+      if (w.AddressFinder.initPlugin) {
+        window.AddressFinderConfig.debug = true
+        w.AddressFinder.initPlugin()
+      }
+    }
+  });
+
   class WooCommercePlugin {
     constructor() {
 
@@ -12,6 +26,8 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
 
       // Manages the form configuraions, and creates any dynamic forms
       this.ConfigManager = null
+
+      this.initPlugin = this.initPlugin.bind(this)
 
       this._initOnDOMLoaded()
     }
@@ -52,7 +68,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
         setTimeout(() => {
           console.log('ready state')
-          this._initPlugin()
+          // Create a reference to the initPlugin function so we can call it from the javascript console.
+          w.AddressFinder.initPlugin = this.initPlugin
+          this.initPlugin()
         }, 1000)
         return
       }
@@ -60,7 +78,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       if (repetitions == 0) {
         // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
         console.log('repetition zero')
-        this._initPlugin()
+        // Create a reference to the initPlugin function so we can call it from the javascript console.
+        w.AddressFinder.initPlugin = this.initPlugin
+        this.initPlugin()
         return
       }
     
@@ -70,7 +90,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       }, 1000)
     }
 
-    _initPlugin() {
+    initPlugin() {
       let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
       let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
       let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
@@ -83,6 +103,8 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',
         debug: w.AddressFinderConfig.debug || false
       }
+
+      console.log(widgetConfig)
 
       this.ConfigManager = new ConfigManager()
 
