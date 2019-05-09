@@ -4,17 +4,16 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
 (function(d, w) {
 
   /*
-  * When addressfinderDebugMode is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+  * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
   * This allows us to debug more easily on customer sites.
   */
-  Object.defineProperty(window, 'addressfinderDebugMode', {
-    get: function() {
-      if (w.AddressFinder.initPlugin) {
-        window.AddressFinderConfig.debug = true
-        w.AddressFinder.initPlugin()
-      }
+  function addressfinderDebugMode() {
+    if (w.AddressFinder.initPlugin) {
+      w.AddressFinderConfig.debug = true
+      w.AddressFinder.initPlugin()
     }
-  });
+  }
+  w.addressfinderDebugMode = addressfinderDebugMode
 
   class WooCommercePlugin {
     constructor() {
