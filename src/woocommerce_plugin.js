@@ -5,27 +5,15 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.2.17"
+      this.version = "1.3.0"
 
       // Manages the mapping of the form configurations to the DOM. 
       this.PageManager = null
 
       // Manages the form configuraions, and creates any dynamic forms
-      this.ConfigManager = new ConfigManager()
-
-      // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
-      new MutationManager({
-        mutationEventHandler: this.mutationEventHandler.bind(this),
-        ignoredClass: "af_list"
-      })
-
-      this.events = {
-        dispatchOnAddressSelected: 'change', // When an address is selected dispatch this event so the store knows fields have changed
-        listenOnCountryElement: 'blur' // Listen for this event type on the country element to set the active country
-      }
+      this.ConfigManager = null
 
       this._initOnDOMLoaded()
-
     }
 
     mutationEventHandler() {
@@ -96,10 +84,22 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         debug: w.AddressFinderConfig.debug || false
       }
 
+      this.ConfigManager = new ConfigManager()
+
+      // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
+      new MutationManager({
+        widgetConfig: widgetConfig,
+        mutationEventHandler: this.mutationEventHandler.bind(this),
+        ignoredClass: "af_list"
+      })
+
       this.PageManager = new PageManager({
         addressFormConfigurations: this.ConfigManager.load(),
         widgetConfig,
-        events: this.events
+        // When an address is selected dispatch this event on all the updated form fields. This tells the store the fields have been changed.
+        formFieldChangeEventToDispatch: 'change',
+        // An event listener with this event type is attached to country element. When the country changes the active country for the widget is set.
+        countryChangeEventToListenFor: 'blur'
       })
 
       w.AddressFinder._woocommercePlugin = this.PageManager
