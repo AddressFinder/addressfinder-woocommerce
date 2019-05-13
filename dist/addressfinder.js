@@ -120,7 +120,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     function WooCommercePlugin() {
       _classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.2.17"; // Manages the mapping of the form configurations to the DOM. 
+      this.version = "1.3.0"; // Manages the mapping of the form configurations to the DOM. 
 
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
 
