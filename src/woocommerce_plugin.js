@@ -2,19 +2,6 @@ import ConfigManager from './config_manager'
 import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function(d, w) {
-
-  /*
-  * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
-  * This allows us to debug more easily on customer sites.
-  */
-  function addressfinderDebugMode() {
-    if (w.AddressFinder.initPlugin) {
-      w.AddressFinderConfig.debug = true
-      w.AddressFinder.initPlugin()
-    }
-  }
-  w.addressfinderDebugMode = addressfinderDebugMode
-
   class WooCommercePlugin {
     constructor() {
 
@@ -27,6 +14,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       this.ConfigManager = null
 
       this.initPlugin = this.initPlugin.bind(this)
+
+      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
+      w.addressfinderDebugMode = addressfinderDebugMode
 
       this._initOnDOMLoaded()
     }
@@ -89,7 +79,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       }, 1000)
     }
 
-    initPlugin() {
+    _initPlugin() {
       let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
       let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
       let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
@@ -124,6 +114,14 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       w.AddressFinder._woocommercePlugin = this.PageManager
     }
 
+    /*
+    * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+    * This allows us to debug more easily on customer sites.
+    */
+    addressfinderDebugMode() {
+      w.AddressFinderConfig.debug = true
+      w.AddressFinder._initPlugin()
+    }
   }
 
   var s = d.createElement('script')
