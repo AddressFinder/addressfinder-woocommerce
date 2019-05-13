@@ -13,10 +13,10 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       // Manages the form configuraions, and creates any dynamic forms
       this.ConfigManager = null
 
-      this.initPlugin = this.initPlugin.bind(this)
+      this._initPlugin = this._initPlugin.bind(this)
 
       this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
-      w.addressfinderDebugMode = addressfinderDebugMode
+      w.addressfinderDebugMode = this.addressfinderDebugMode
 
       this._initOnDOMLoaded()
     }
@@ -57,9 +57,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
         setTimeout(() => {
           console.log('ready state')
-          // Create a reference to the initPlugin function so we can call it from the javascript console.
-          w.AddressFinder.initPlugin = this.initPlugin
-          this.initPlugin()
+          this._initPlugin()
         }, 1000)
         return
       }
@@ -67,9 +65,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       if (repetitions == 0) {
         // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
         console.log('repetition zero')
-        // Create a reference to the initPlugin function so we can call it from the javascript console.
-        w.AddressFinder.initPlugin = this.initPlugin
-        this.initPlugin()
+        this._initPlugin()
         return
       }
     
@@ -120,7 +116,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
     */
     addressfinderDebugMode() {
       w.AddressFinderConfig.debug = true
-      w.AddressFinder._initPlugin()
+      this._initPlugin()
     }
   }
 

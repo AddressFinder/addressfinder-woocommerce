@@ -114,19 +114,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 (function (d, w) {
-  /*
-  * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
-  * This allows us to debug more easily on customer sites.
-  */
-  function addressfinderDebugMode() {
-    if (w.AddressFinder.initPlugin) {
-      w.AddressFinderConfig.debug = true;
-      w.AddressFinder.initPlugin();
-    }
-  }
-
-  w.addressfinderDebugMode = addressfinderDebugMode;
-
   var WooCommercePlugin =
   /*#__PURE__*/
   function () {
@@ -138,7 +125,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
 
       this.ConfigManager = null;
-      this.initPlugin = this.initPlugin.bind(this);
+      this._initPlugin = this._initPlugin.bind(this);
+      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this);
+      w.addressfinderDebugMode = this.addressfinderDebugMode;
 
       this._initOnDOMLoaded();
     }
@@ -184,21 +173,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
           setTimeout(function () {
-            console.log('ready state'); // Create a reference to the initPlugin function so we can call it from the javascript console.
+            console.log('ready state');
 
-            w.AddressFinder.initPlugin = _this.initPlugin;
-
-            _this.initPlugin();
+            _this._initPlugin();
           }, 1000);
           return;
         }
 
         if (repetitions == 0) {
           // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
-          console.log('repetition zero'); // Create a reference to the initPlugin function so we can call it from the javascript console.
+          console.log('repetition zero');
 
-          w.AddressFinder.initPlugin = this.initPlugin;
-          this.initPlugin();
+          this._initPlugin();
+
           return;
         }
 
@@ -208,8 +195,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }, 1000);
       }
     }, {
-      key: "initPlugin",
-      value: function initPlugin() {
+      key: "_initPlugin",
+      value: function _initPlugin() {
         var parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
 
         var parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
@@ -240,6 +227,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           countryChangeEventToListenFor: 'blur'
         });
         w.AddressFinder._woocommercePlugin = this.PageManager;
+      }
+      /*
+      * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+      * This allows us to debug more easily on customer sites.
+      */
+
+    }, {
+      key: "addressfinderDebugMode",
+      value: function addressfinderDebugMode() {
+        w.AddressFinderConfig.debug = true;
+
+        this._initPlugin();
       }
     }]);
 
