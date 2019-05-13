@@ -1,3 +1,7 @@
+# AddressFinder 1.3.0 (May 14, 2019)
+
+* Update to use addressfinder-webpage-tools package
+
 # AddressFinder 1.2.17 (March 6, 2019)
 
 * Documentation update after testing on Wordpress 5.1
