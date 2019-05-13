@@ -62,6 +62,11 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 
 ## Trouble Shooting
 
+### Debugging
+  If you are debugging a customer site, you can type `addressfinderDebugMode()` into the javascript console. This will reinitialise the widget,
+  with the debug flag set to true, so you can see console logs from the addressfinder-webpage-tools npm package.
+  This works in Chrome and FireFox
+
 ### Restarting the Server
 
 1. Run ssh root command in the terminal.
