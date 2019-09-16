@@ -13,10 +13,10 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       // Manages the form configuraions, and creates any dynamic forms
       this.ConfigManager = null
 
-      this._initPlugin = this._initPlugin.bind(this)
-
       this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
       w.addressfinderDebugMode = this.addressfinderDebugMode
+
+      this._initPlugin = this._initPlugin.bind(this)
 
       this._initOnDOMLoaded()
     }
@@ -116,6 +116,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
     */
     addressfinderDebugMode() {
       w.AddressFinderConfig.debug = true
+      console.log(this)
       this._initPlugin()
     }
   }
