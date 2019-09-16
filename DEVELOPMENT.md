@@ -12,7 +12,7 @@ This will open up a browser window (https://127.0.0.1:8080) with the `dist` dire
 
 To develop and test this plugin, you should:
 
-1. Visit the Abletech Woocommerce test server. You can find url and the credentials [here](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins/woocommerce-test-seer)
+1. Visit the Abletech Woocommerce test server. You can find url and the credentials [here](https://github.com/abletech/wiki/tree/ba4de9312525902fafc89e41a94e99904ddde88f/clients/addressfinder/addressfinder-woocommerce)
 1. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
 1. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
