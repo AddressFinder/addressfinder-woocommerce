@@ -123,7 +123,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   var s = d.createElement('script')
   s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
   s.async = 1;
-  s.onload = function() { new WooCommercePlugin }
+  s.onload = function() {new WooCommercePlugin}
   d.body.appendChild(s)
 
 })(document, window)
