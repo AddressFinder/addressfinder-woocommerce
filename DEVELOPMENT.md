@@ -56,7 +56,7 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 
 3. Find the file that you want to update. From the root the path to WooCommerce files is: /var/www/html/wp-content/plugins/addressfinder-woo
 
-4. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://sites.google.com/a/abletech.co.nz/wiki/technology-tips/beginners-guide-to-vim
+4. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://github.com/abletech/wiki/blob/8ef2a180153ad25bf3f900db85d91ae28546159c/technology_tips/beginners_guide_to_vi.md
 
 5. When you save the files they update on the WooCommerce store.
 
