@@ -4,7 +4,6 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
 (function(d, w) {
   class WooCommercePlugin {
     constructor() {
-      console.log('Woocommerce constructor')
 
       this.version = "1.3.0"
 
@@ -123,11 +122,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   }
 
   var s = d.createElement('script')
-  s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
-  console.log('loaded file, hello')
+  s.src = 'https://api.addressfinder.io/assets/v3/widget.js')
   s.async = 1;
   s.onload = function() {
-    console.log('script loaded') 
     new WooCommercePlugin 
   }
   d.body.appendChild(s)
