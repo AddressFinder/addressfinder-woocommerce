@@ -120,7 +120,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     function WooCommercePlugin() {
       _classCallCheck(this, WooCommercePlugin);
 
-      console.log('Woocommerce constructor');
       this.version = "1.3.0"; // Manages the mapping of the form configurations to the DOM. 
 
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
@@ -249,11 +248,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
   var s = d.createElement('script');
   s.src = 'https://api.addressfinder.io/assets/v3/widget.js';
-  console.log('loaded file, hello');
   s.async = 1;
 
   s.onload = function () {
-    console.log('script loaded');
     new WooCommercePlugin();
   };
 
