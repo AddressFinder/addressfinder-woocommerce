@@ -13,10 +13,10 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       // Manages the form configuraions, and creates any dynamic forms
       this.ConfigManager = null
 
+      this._initPlugin = this._initPlugin.bind(this)
+
       this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
       w.addressfinderDebugMode = this.addressfinderDebugMode
-
-      this._initPlugin = this._initPlugin.bind(this)
 
       this._initOnDOMLoaded()
     }
@@ -116,7 +116,6 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
     */
     addressfinderDebugMode() {
       w.AddressFinderConfig.debug = true
-      console.log(this)
       this._initPlugin()
     }
   }
@@ -124,9 +123,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   var s = d.createElement('script')
   s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
   s.async = 1;
-  s.onload = function() {
-    new WooCommercePlugin 
-  }
+  s.onload = function() {new WooCommercePlugin}
   d.body.appendChild(s)
 
 })(document, window)
