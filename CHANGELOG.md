@@ -1,3 +1,7 @@
+# AddressFinder 1.3.1 (Sept 18, 2019)
+
+* Update addressfinder-webpage-tools package to v1.6.0
+
 # AddressFinder 1.3.0 (May 14, 2019)
 
 * Update to use addressfinder-webpage-tools package

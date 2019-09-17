@@ -120,14 +120,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     function WooCommercePlugin() {
       _classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.3.0"; // Manages the mapping of the form configurations to the DOM. 
+      this.version = "1.3.1"; // Manages the mapping of the form configurations to the DOM. 
 
       this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
 
       this.ConfigManager = null;
+      this._initPlugin = this._initPlugin.bind(this);
       this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this);
       w.addressfinderDebugMode = this.addressfinderDebugMode;
-      this._initPlugin = this._initPlugin.bind(this);
 
       this._initOnDOMLoaded();
     }
@@ -237,7 +237,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       key: "addressfinderDebugMode",
       value: function addressfinderDebugMode() {
         w.AddressFinderConfig.debug = true;
-        console.log(this);
 
         this._initPlugin();
       }
