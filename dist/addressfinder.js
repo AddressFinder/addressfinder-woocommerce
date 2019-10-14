@@ -120,9 +120,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     function WooCommercePlugin() {
       _classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.3.1"; // Manages the mapping of the form configurations to the DOM. 
+      this.version = "1.3.1"; // Manages the mapping of the form configurations to the DOM.
 
-      this.PageManager = null; // Manages the form configuraions, and creates any dynamic forms
+      this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
       this.ConfigManager = null;
       this._initPlugin = this._initPlugin.bind(this);
@@ -226,7 +226,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           // An event listener with this event type is attached to country element. When the country changes the active country for the widget is set.
           countryChangeEventToListenFor: 'blur'
         });
+
+        this._setVersionNumbers();
+
         w.AddressFinder._woocommercePlugin = this.PageManager;
+      }
+    }, {
+      key: "_setVersionNumbers",
+      value: function _setVersionNumbers() {
+        // rename webpage tools version from 'version' to 'webpageToolsVersion'
+        this.PageManager['webpageToolsVersion'] = this.PageManager.version;
+        this.PageManager.version = this.version;
       }
       /*
       * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
