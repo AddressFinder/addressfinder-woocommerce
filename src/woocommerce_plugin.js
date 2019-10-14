@@ -7,10 +7,10 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
 
       this.version = "1.3.1"
 
-      // Manages the mapping of the form configurations to the DOM. 
+      // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
 
-      // Manages the form configuraions, and creates any dynamic forms
+      // Manages the form configurations, and creates any dynamic forms
       this.ConfigManager = null
 
       this._initPlugin = this._initPlugin.bind(this)
@@ -33,17 +33,17 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       if(jsonObject == undefined){
         return null;
       }
-  
+
       try {
         jsonObject = JSON.parse(jsonObject);
       } catch (e) {
         if (AFC.debug) {
           alert('Invalid widget option: ' + jsonObject);
         }
-  
+
         return null;
       }
-  
+
       return jsonObject;
     }
 
@@ -51,9 +51,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       // In WooCommerce/Wordpress a country change event is fired during the DOM loading process.
       // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
       // This function makes sure AddressFinder is initalised after this event.
-    
+
       repetitions = repetitions || 10
-    
+
       if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
         setTimeout(() => {
           console.log('ready state')
@@ -61,14 +61,14 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         }, 1000)
         return
       }
-    
+
       if (repetitions == 0) {
         // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
         console.log('repetition zero')
         this._initPlugin()
         return
       }
-    
+
       setTimeout(() => {
         // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
         this._initOnDOMLoaded('ignoredEvent', repetitions - 1)
@@ -79,7 +79,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
       let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
       let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
-    
+
       const widgetConfig = {
         nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
         auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
@@ -107,7 +107,15 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         countryChangeEventToListenFor: 'blur'
       })
 
+      this._setVersionNumbers()
+
       w.AddressFinder._woocommercePlugin = this.PageManager
+    }
+
+    _setVersionNumbers() {
+      // rename webpage tools version from 'version' to 'webpageToolsVersion'
+      this.PageManager['webpageToolsVersion'] = this.PageManager.version
+      this.PageManager.version = this.version
     }
 
     /*
