@@ -1,11 +1,7 @@
 const webpack = require("webpack");
 const pathLib = require("path");
 
-const config = {
-  entry: [
-    "./src/woocommerce_plugin.js"
-  ],
-  devtool: "source-map",
+let config = {
   output: {
     path: pathLib.resolve(__dirname, "./dist"),
   },
@@ -20,20 +16,23 @@ const config = {
       }
     ]
   }
-};
+}
 
 switch (process.env.NODE_ENV) {
   case "production":
-    config.output.filename = "addressfinder.min.js";
+    config.entry = ["./dist/addressfinder.js"]
+    config.devtool = "source-map"
+    config.output.filename = "addressfinder.min.js"
     config.plugins = [
       new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
         compress: { warnings: false }
       })
     ]
     break;
   default:
-    config.output.filename = "addressfinder.js";
-    config.plugins = [];
+    config.entry = ["./src/woocommerce_plugin.js"]
+    config.output.filename = "addressfinder.js"
 }
 
 module.exports = config;
