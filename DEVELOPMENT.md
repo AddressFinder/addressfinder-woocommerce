@@ -10,11 +10,28 @@ Follow the setup instructions in [BUILD.md](BUILD.md), and then:
 
 This will open up a browser window (https://127.0.0.1:8080) with the `dist` directory contents displayed.
 
+# Live reload
+
+In a separate window, run:
+
+1. `npm run watch`
+
+Then whenever a file is edited, it will be re-compiled and available for reloading.
+
+
+# Test Servers
+We have two test servers
+
+1. The first uses Wordpress v5.1.3 and Woocommerce v3.6.2.
+2. The second uses Wordpress v5.3 and Woocommerce v3.8.1
+
+# Developing and testing Test Server 1
+
 To develop and test this plugin, you should:
 
 1. Visit the Abletech Woocommerce test server. You can find url and the credentials [here](https://github.com/abletech/wiki/tree/ba4de9312525902fafc89e41a94e99904ddde88f/clients/addressfinder/addressfinder-woocommerce)
-1. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
-1. Edit the plugin file `woocommerce-addressfinder.php`.
+2. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
+3. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
 
     ```
@@ -34,29 +51,24 @@ To develop and test this plugin, you should:
 
   This points the WooCommerce plugin at the file being served by live-server
 
-1. Click 'Update File'
+4. Click 'Update File'
 
 Now you can click the _Visit Store_ link and trial the plugin by selecting an item to purchase and
 visiting the checkout.
 
-# Live reload
+# Developing and testing Test Server 2
 
-In a separate window, run:
+Unfortunately you can't edit `woocommerce-addressfinder.php` in the browser on Test Server 2. This is to avoid users making syntax errors by editing their php.
 
-1. `npm run watch`
-
-Then whenever a file is edited, it will be re-compiled and available for reloading.
-
-# Developing PHP or JS
-Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts. You will need to do this if you want to make changes the the php code.
+Instead login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts.
 
 1. To login to the WooCommerce server your public ssh key has to be added. Ask Nigel about this.
 
-2. If you are using the Woocommerce 2 test server, Run ssh root@45.55.11.166 in the terminal. For WooCommerce 3 run ssh root@45.77.50.98
+2. If you are using the Woocommerce 2 test server, Run ssh root@149.28.164.196 in the terminal. (You can also use this method for Test Server 1, with ssh root@45.55.11.166)
 
-3. Find the file that you want to update. From the root the path to WooCommerce files is: /var/www/html/wp-content/plugins/addressfinder-woo
+3. `cd /var/www/html/wp-content/plugins/addressfinder-woo/woocommerce-addressfinder.php`
 
-4. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://github.com/abletech/wiki/blob/8ef2a180153ad25bf3f900db85d91ae28546159c/technology_tips/beginners_guide_to_vi.md
+4. Copy step 3 from the Test Server 1 above. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://github.com/abletech/wiki/blob/8ef2a180153ad25bf3f900db85d91ae28546159c/technology_tips/beginners_guide_to_vi.md
 
 5. When you save the files they update on the WooCommerce store.
 
@@ -70,7 +82,7 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 ### Restarting the Server
 
 1. Run ssh root command in the terminal.
-  * Woocommerce 2: ssh root@45.55.11.166
+   For example, for Test Server 1: ssh root@45.55.11.166
 2. sudo reboot
 
 ### Dealing with PHP errors
