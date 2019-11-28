@@ -25,9 +25,9 @@ To develop and test this plugin, you should:
   - Replace it with:
 
     ```
-    echo "    
+    echo "
      let s = document.createElement('script')
-     s.src = 'https://127.0.0.1:8080/addressfinder.js'
+     s.src = 'https://127.0.0.1:52537/addressfinder.js'
      s.async = 1
      document.body.appendChild(s)</script>";
     ```
