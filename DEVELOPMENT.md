@@ -66,7 +66,8 @@ Instead login to the WooCommerce server and copy and paste your local files into
 
 2. If you are using the Woocommerce 2 test server, Run ssh root@149.28.164.196 in the terminal. (You can also use this method for Test Server 1, with ssh root@45.55.11.166)
 
-3. `cd /var/www/html/wp-content/plugins/addressfinder-woo/woocommerce-addressfinder.php`
+3. `cd /var/www/html/wp-content/plugins/addressfinder-woo`
+`vim woocommerce-addressfinder.php`
 
 4. Copy step 3 from the Test Server 1 above. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://github.com/abletech/wiki/blob/8ef2a180153ad25bf3f900db85d91ae28546159c/technology_tips/beginners_guide_to_vi.md
 

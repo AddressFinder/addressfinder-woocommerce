@@ -125,7 +125,9 @@ __webpack_require__.r(__webpack_exports__);
   'West Coast Region': 'WC',
   'No Region (Chatham Islands)': null
 });
+
 // CONCATENATED MODULE: ./src/address_form_config/billing_address.js
+
 
 /* harmony default export */ var billing_address = ({
   label: "Billing Checkout",
@@ -139,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
       suburb: '#billing_address_2',
       city: '#billing_city',
       region: '#billing_state',
-      postcode: '#billing_postcode'
+      postcode: '#billing_postcode',
     },
     regionMappings: region_mappings
   },
@@ -150,12 +152,13 @@ __webpack_require__.r(__webpack_exports__);
       address2: '#billing_address_2',
       suburb: '#billing_city',
       state: '#billing_state',
-      postcode: '#billing_postcode'
+      postcode: '#billing_postcode',
     },
     stateMappings: null
   }
 });
 // CONCATENATED MODULE: ./src/address_form_config/shipping_address.js
+
 
 /* harmony default export */ var shipping_address = ({
   label: "Shipping Checkout",
@@ -169,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
       suburb: '#shipping_address_2',
       city: '#shipping_city',
       region: '#shipping_state',
-      postcode: '#shipping_postcode'
+      postcode: '#shipping_postcode',
     },
     regionMappings: region_mappings
   },
@@ -180,206 +183,171 @@ __webpack_require__.r(__webpack_exports__);
       address2: '#shipping_address_2',
       suburb: '#shipping_city',
       state: '#shipping_state',
-      postcode: '#shipping_postcode'
+      postcode: '#shipping_postcode',
     },
     stateMappings: null
   }
 });
 // CONCATENATED MODULE: ./src/config_manager.js
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
+class config_manager_ConfigManager {
 
-var config_manager_ConfigManager =
-/*#__PURE__*/
-function () {
-  function ConfigManager() {
-    _classCallCheck(this, ConfigManager);
+   load() {
+    // This function is called when the page mutates and returns our form configurations
+    const addressFormConfigurations = [
+      billing_address,
+      shipping_address
+    ]
+
+    return addressFormConfigurations
   }
-
-  _createClass(ConfigManager, [{
-    key: "load",
-    value: function load() {
-      // This function is called when the page mutates and returns our form configurations
-      var addressFormConfigurations = [billing_address, shipping_address];
-      return addressFormConfigurations;
-    }
-  }]);
-
-  return ConfigManager;
-}();
-
-
+}
 // EXTERNAL MODULE: ./node_modules/@addressfinder/addressfinder-webpage-tools/lib/addressfinder-webpage-tools.min.js
 var addressfinder_webpage_tools_min = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./src/woocommerce_plugin.js
-function woocommerce_plugin_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function woocommerce_plugin_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { if (protoProps) woocommerce_plugin_defineProperties(Constructor.prototype, protoProps); if (staticProps) woocommerce_plugin_defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
+(function(d, w) {
+  class WooCommercePlugin {
+    constructor() {
 
-(function (d, w) {
-  var WooCommercePlugin =
-  /*#__PURE__*/
-  function () {
-    function WooCommercePlugin() {
-      woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
+      console.log('hi')
 
-      this.version = "1.3.2"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.3.2"
 
-      this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
+      // Manages the mapping of the form configurations to the DOM.
+      this.PageManager = null
 
-      this.ConfigManager = null;
-      this._initPlugin = this._initPlugin.bind(this);
-      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this);
-      w.addressfinderDebugMode = this.addressfinderDebugMode;
+      // Manages the form configurations, and creates any dynamic forms
+      this.ConfigManager = null
 
-      this._initOnDOMLoaded();
+      this._initPlugin = this._initPlugin.bind(this)
+
+      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
+      w.addressfinderDebugMode = this.addressfinderDebugMode
+
+      this._initOnDOMLoaded()
     }
 
-    woocommerce_plugin_createClass(WooCommercePlugin, [{
-      key: "mutationEventHandler",
-      value: function mutationEventHandler() {
-        // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
-        var addressFormConfigurations = this.ConfigManager.load();
-
-        if (this.PageManager) {
-          this.PageManager.reload(addressFormConfigurations);
-        }
+    mutationEventHandler() {
+      // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
+      let addressFormConfigurations = this.ConfigManager.load()
+      if (this.PageManager) {
+        this.PageManager.reload(addressFormConfigurations)
       }
-    }, {
-      key: "_safeParseJSONObject",
-      value: function _safeParseJSONObject(jsonObject) {
-        if (jsonObject == undefined) {
-          return null;
-        }
+    }
 
-        try {
-          jsonObject = JSON.parse(jsonObject);
-        } catch (e) {
-          if (AFC.debug) {
-            alert('Invalid widget option: ' + jsonObject);
-          }
+    _safeParseJSONObject(jsonObject) {
+      if(jsonObject == undefined){
+        return null;
+      }
 
-          return null;
+      try {
+        jsonObject = JSON.parse(jsonObject);
+      } catch (e) {
+        if (AFC.debug) {
+          alert('Invalid widget option: ' + jsonObject);
         }
 
-        return jsonObject;
+        return null;
       }
-    }, {
-      key: "_initOnDOMLoaded",
-      value: function _initOnDOMLoaded(event, repetitions) {
-        var _this = this;
 
-        // In WooCommerce/Wordpress a country change event is fired during the DOM loading process.
-        // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
-        // This function makes sure AddressFinder is initalised after this event.
-        repetitions = repetitions || 10;
+      return jsonObject;
+    }
 
-        if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
-          setTimeout(function () {
-            console.log('ready state');
+    _initOnDOMLoaded(event, repetitions) {
+      // In WooCommerce/Wordpress a country change event is fired during the DOM loading process.
+      // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
+      // This function makes sure AddressFinder is initalised after this event.
 
-            _this._initPlugin();
-          }, 1000);
-          return;
-        }
+      repetitions = repetitions || 10
 
-        if (repetitions == 0) {
-          // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
-          console.log('repetition zero');
-
-          this._initPlugin();
-
-          return;
-        }
-
-        setTimeout(function () {
-          // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
-          _this._initOnDOMLoaded('ignoredEvent', repetitions - 1);
-        }, 1000);
+      if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
+        setTimeout(() => {
+          console.log('ready state')
+          this._initPlugin()
+        }, 1000)
+        return
       }
-    }, {
-      key: "_initPlugin",
-      value: function _initPlugin() {
-        var parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
 
-        var parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
-
-        var parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
-
-        var widgetConfig = {
-          nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
-          auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
-          nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
-          auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-          defaultCountry: w.AddressFinderConfig.default_country || 'nz',
-          debug: w.AddressFinderConfig.debug || false
-        };
-        this.ConfigManager = new config_manager_ConfigManager(); // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
-
-        new addressfinder_webpage_tools_min["MutationManager"]({
-          widgetConfig: widgetConfig,
-          mutationEventHandler: this.mutationEventHandler.bind(this),
-          ignoredClass: "af_list"
-        });
-        this.PageManager = new addressfinder_webpage_tools_min["PageManager"]({
-          addressFormConfigurations: this.ConfigManager.load(),
-          widgetConfig: widgetConfig,
-          // When an address is selected dispatch this event on all the updated form fields. This tells the store the fields have been changed.
-          formFieldChangeEventToDispatch: 'change',
-          // An event listener with this event type is attached to country element. When the country changes the active country for the widget is set.
-          countryChangeEventToListenFor: 'blur'
-        });
-
-        this._setVersionNumbers();
-
-        w.AddressFinder._woocommercePlugin = this.PageManager;
+      if (repetitions == 0) {
+        // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
+        console.log('repetition zero')
+        this._initPlugin()
+        return
       }
-    }, {
-      key: "_setVersionNumbers",
-      value: function _setVersionNumbers() {
-        // rename webpage tools version from 'version' to 'webpageToolsVersion'
-        this.PageManager['webpageToolsVersion'] = this.PageManager.version;
-        this.PageManager.version = this.version;
+
+      setTimeout(() => {
+        // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
+        this._initOnDOMLoaded('ignoredEvent', repetitions - 1)
+      }, 1000)
+    }
+
+    _initPlugin() {
+      let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
+      let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
+      let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
+
+      const widgetConfig = {
+        nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
+        auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
+        nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
+        auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
+        defaultCountry: w.AddressFinderConfig.default_country || 'nz',
+        debug: w.AddressFinderConfig.debug || false
       }
-      /*
-      * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
-      * This allows us to debug more easily on customer sites.
-      */
 
-    }, {
-      key: "addressfinderDebugMode",
-      value: function addressfinderDebugMode() {
-        w.AddressFinderConfig.debug = true;
+      this.ConfigManager = new config_manager_ConfigManager()
 
-        this._initPlugin();
-      }
-    }]);
+      // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
+      new addressfinder_webpage_tools_min["MutationManager"]({
+        widgetConfig: widgetConfig,
+        mutationEventHandler: this.mutationEventHandler.bind(this),
+        ignoredClass: "af_list"
+      })
 
-    return WooCommercePlugin;
-  }();
+      this.PageManager = new addressfinder_webpage_tools_min["PageManager"]({
+        addressFormConfigurations: this.ConfigManager.load(),
+        widgetConfig,
+        // When an address is selected dispatch this event on all the updated form fields. This tells the store the fields have been changed.
+        formFieldChangeEventToDispatch: 'change',
+        // An event listener with this event type is attached to country element. When the country changes the active country for the widget is set.
+        countryChangeEventToListenFor: 'blur'
+      })
 
-  var s = d.createElement('script');
-  s.src = 'https://api.addressfinder.io/assets/v3/widget.js';
+      this._setVersionNumbers()
+
+      w.AddressFinder._woocommercePlugin = this.PageManager
+    }
+
+    _setVersionNumbers() {
+      // rename webpage tools version from 'version' to 'webpageToolsVersion'
+      this.PageManager['webpageToolsVersion'] = this.PageManager.version
+      this.PageManager.version = this.version
+    }
+
+    /*
+    * When addressfinderDebugMode() is typed into the Javascript console the plugin will be reinitialised with debug set to true.
+    * This allows us to debug more easily on customer sites.
+    */
+    addressfinderDebugMode() {
+      w.AddressFinderConfig.debug = true
+      this._initPlugin()
+    }
+  }
+
+  var s = d.createElement('script')
+  s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
   s.async = 1;
+  s.onload = function() {new WooCommercePlugin}
+  d.body.appendChild(s)
 
-  s.onload = function () {
-    new WooCommercePlugin();
-  };
+})(document, window)
 
-  d.body.appendChild(s);
-})(document, window);
 
 /***/ })
 /******/ ]);
