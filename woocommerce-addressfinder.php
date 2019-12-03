@@ -127,11 +127,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );
 		return $settings;
+	}
 
-		function add_styles() {
-			wp_register_style('addressfinder-woocommerce', '/wp-content/plugins/addressfinder-woo/addressfinder-styles.css');
-			wp_enqueue_style('addressfinder-woocommerce');
-		}
+	function add_styles() {
+		wp_register_style('addressfinder-woocommerce', '/wp-content/plugins/addressfinder-woo/addressfinder-styles.css');
+		wp_enqueue_style('addressfinder-woocommerce');
 	}
 }
 ?>
