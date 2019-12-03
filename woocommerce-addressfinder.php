@@ -18,7 +18,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_billing', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_shipping', 'add_addressfinder_widget' );
-	add_action( 'wp_print_styles', 'add_styles' );
+	add_action( 'wp_enqueue_scripts', 'add_styles' );
 
 	function add_addressfinder_widget( $checkout ) {
 		$path = plugin_dir_path( __FILE__ );
