@@ -18,6 +18,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_billing', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_shipping', 'add_addressfinder_widget' );
+	add_action( 'wp_print_styles', 'add_styles' );
 
 	function add_addressfinder_widget( $checkout ) {
 		$path = plugin_dir_path( __FILE__ );
@@ -126,6 +127,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		$settings[] = array( 'type' => 'sectionend', 'id' => 'addressfinder-widget' );
 		return $settings;
+
+		function add_styles() {
+			wp_register_style('addressfinder-woocommerce', '/wp-content/plugins/addressfinder-woo/addressfinder-styles.css');
+			wp_enqueue_style('addressfinder-woocommerce');
+		}
 	}
 }
 ?>

@@ -72,7 +72,7 @@ Another way to test changes is to login to the WooCommerce server and copy and p
 
 1. To login to the WooCommerce server your public ssh key has to be added. Ask Nigel about this.
 
-2. If you are using the Woocommerce 2 test server, Run ssh root@45.55.11.166 in the terminal. For WooCommerce 3 run ssh root@45.77.50.98
+2. If you are using the Test Server Two Run `ssh root@149.28.164.196` in the terminal. For Test Server One run `ssh root@45.55.11.166`. You may be asked for a password, which can be found in 1password
 
 3. Find the file that you want to update. You can update all the plugin files in the terminal using vim, or if you prefer, you can follow the third step in Method One, replacing the javascript path with your own local javascript.
 
