@@ -1,6 +1,11 @@
+# AddressFinder 1.3.3 (December 4, 2019)
+
+* Override styling for addressfinder `li` elements
+* Update the tested to value
+
 # AddressFinder 1.3.2 (October 19, 2019)
 
-* Differentiate between Magento version and webpage tools version
+* Differentiate between WooCommerce version and webpage tools version
 
 # AddressFinder 1.3.1 (Sept 18, 2019)
 
