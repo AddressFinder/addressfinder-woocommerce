@@ -5,6 +5,7 @@ const config = {
   entry: [
     "./src/woocommerce_plugin.js"
   ],
+  devtool: 'source-map',
   output: {
     path: pathLib.resolve(__dirname, "./dist"),
   },
@@ -23,7 +24,6 @@ const config = {
 
 switch (process.env.NODE_ENV) {
   case "production":
-    config.devtool = 'source-map'
     config.output.filename = "addressfinder.min.js";
     config.optimization = {
       minimizer: [
