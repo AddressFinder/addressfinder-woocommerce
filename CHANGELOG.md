@@ -1,4 +1,4 @@
-# AddressFinder 1.3.4 (December 5, 2019)
+# AddressFinder 1.3.5 (December 5, 2019)
 
 * Override styling for addressfinder `li` elements
 * Update the tested to value
