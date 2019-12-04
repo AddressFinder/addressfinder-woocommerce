@@ -115,6 +115,9 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.3.3 =
+* Override styling for addressfinder `li` elements
+* Update the tested to value
 = 1.3.2 =
 * Differentiate between Magento version and webpage tools version
 = 1.3.1 =
