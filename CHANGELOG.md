@@ -1,3 +1,9 @@
+# AddressFinder 1.4.0 (December 6, 2019)
+
+* Update dependencies
+* Update the WC tested to value
+* Add source maps
+
 # AddressFinder 1.3.6 (December 5, 2019)
 
 * Override styling for addressfinder `li` elements

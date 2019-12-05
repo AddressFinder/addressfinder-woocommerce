@@ -1,11 +1,11 @@
-const webpack = require("webpack");
+const TerserPlugin = require('terser-webpack-plugin');
 const pathLib = require("path");
 
 const config = {
   entry: [
     "./src/woocommerce_plugin.js"
   ],
-  devtool: "source-map",
+  devtool: 'source-map',
   output: {
     path: pathLib.resolve(__dirname, "./dist"),
   },
@@ -13,7 +13,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
         }
@@ -25,15 +25,21 @@ const config = {
 switch (process.env.NODE_ENV) {
   case "production":
     config.output.filename = "addressfinder.min.js";
-    config.plugins = [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false }
-      })
-    ]
+    config.optimization = {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            warnings: false
+          }
+        })
+      ]
+    }
     break;
   default:
     config.output.filename = "addressfinder.js";
-    config.plugins = [];
+    config.optimization = {
+      minimizer: []
+    }
 }
 
 module.exports = config;
