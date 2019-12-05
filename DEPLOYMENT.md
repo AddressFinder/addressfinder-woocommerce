@@ -27,6 +27,8 @@ cp ../addressfinder-woocommerce/CHANGELOG.md trunk/
 
 cp ../addressfinder-woocommerce/readme.txt trunk/
 
+cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
+
 svn cp ./trunk/ ./tags/<version> (note: no v prefix)
 
 svn --username abletech ci . -m "Release v<version>"
