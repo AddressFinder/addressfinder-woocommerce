@@ -1,4 +1,4 @@
-# AddressFinder 1.4.0 (December 6, 2019)
+# AddressFinder 1.4.1 (December 6, 2019)
 
 * Update dependencies
 * Update the WC tested to value
