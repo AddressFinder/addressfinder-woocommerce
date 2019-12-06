@@ -20,16 +20,15 @@ mv addressfinder-woo addressfinder-woocommerce-svn
 cd addressfinder-woocommerce-svn
 
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
-
+cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
-
 cp ../addressfinder-woocommerce/CHANGELOG.md trunk/
-
 cp ../addressfinder-woocommerce/readme.txt trunk/
-
 cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
 
 svn cp ./trunk/ ./tags/<version> (note: no v prefix)
 
 svn --username abletech ci . -m "Release v<version>"
 ```
+
+If you need to add any new files you will need to run `svn add FILENAME` so that svn knows about the file.
