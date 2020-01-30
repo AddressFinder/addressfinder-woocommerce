@@ -25,13 +25,17 @@ We have two test servers
  - Wordpress v5.1.3
  - Woocommerce v3.6.2
  - Test store: http://45.55.11.166/
+ - Admin page: http://45.55.11.166/wp-admin
  - Server access: ssh root@45.55.11.166
 
 ## Test Server Two
  - Wordpress v5.3
  - Woocommerce v3.8.1
  - Test store: http://149.28.164.196/
+ - Admin page: http://149.28.164.196/wp-admin
  - Server access: ssh root@149.28.164.196
+
+ When logging into Test Server Two admin backend you made need 2 sets of credentials. The first is the wp-admin page, and the second is wp-login. Both of these are saved in one password.
 
 # Developing and testing
 
