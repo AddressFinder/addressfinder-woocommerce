@@ -5,7 +5,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.4.1"
+      this.version = "1.4.2"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
@@ -37,7 +37,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       try {
         jsonObject = JSON.parse(jsonObject);
       } catch (e) {
-        if (AFC.debug) {
+        if (w.AddressFinderConfig.debug) {
           alert('Invalid widget option: ' + jsonObject);
         }
 

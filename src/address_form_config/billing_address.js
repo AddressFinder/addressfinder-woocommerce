@@ -9,6 +9,7 @@ export default {
     countryValue: "NZ",
     elements: {
       address1: '#billing_address_1',
+      address2: null,
       suburb: '#billing_address_2',
       city: '#billing_city',
       region: '#billing_state',
