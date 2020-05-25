@@ -37,7 +37,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       try {
         jsonObject = JSON.parse(jsonObject);
       } catch (e) {
-        if (AFC.debug) {
+        if (w.AddressFinderConfig.debug) {
           alert('Invalid widget option: ' + jsonObject);
         }
 
