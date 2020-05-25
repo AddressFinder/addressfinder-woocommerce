@@ -1,3 +1,8 @@
+# AddressFinder 1.4.2 (May 26th, 2020)
+
+* Bug fix - prevent plugin reloading when suburb field is missing for NZ addresses
+* Bug fix - prevent error when plugin is in debug mode, and widget options are invalid
+
 # AddressFinder 1.4.1 (December 6, 2019)
 
 * Update dependencies
