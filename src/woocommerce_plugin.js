@@ -1,6 +1,5 @@
 import ConfigManager from './config_manager'
-// import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
-import { PageManager, MutationManager } from './addressfinder-webpage-tools'
+import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function(d, w) {
   class WooCommercePlugin {
@@ -38,7 +37,7 @@ import { PageManager, MutationManager } from './addressfinder-webpage-tools'
       try {
         jsonObject = JSON.parse(jsonObject);
       } catch (e) {
-        if (AFC.debug) {
+        if (w.AddressFinderConfig.debug) {
           alert('Invalid widget option: ' + jsonObject);
         }
 

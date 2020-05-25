@@ -3279,7 +3279,9 @@
             _objectEntries(config[countryCode].elements).forEach(function (_ref2) {
               var _ref3 = _slicedToArray(_ref2, 2),
                   key = _ref3[0],
-                  element = _ref3[1];
+                  element = _ref3[1]; // Some forms don't have the address_line_2 or suburb fields.
+              // We allow these fields to be missing without reloading the widget
+
 
               if (!(config[countryCode].optionalElements.includes(key) && element === null)) {
                 filteredElements[key] = element;
@@ -3363,7 +3365,7 @@
                   countryValue: addressFormConfig.nz.countryValue,
                   elements: {
                     address_line_1: document.querySelector(addressFormConfig.nz.elements.address1),
-                    address_line_2: document.querySelector(addressFormConfig.au.elements.address2),
+                    address_line_2: document.querySelector(addressFormConfig.nz.elements.address2),
                     suburb: document.querySelector(addressFormConfig.nz.elements.suburb),
                     city: document.querySelector(addressFormConfig.nz.elements.city),
                     region: document.querySelector(addressFormConfig.nz.elements.region),
@@ -3821,7 +3823,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
         try {
           jsonObject = JSON.parse(jsonObject);
         } catch (e) {
-          if (AFC.debug) {
+          if (w.AddressFinderConfig.debug) {
             alert('Invalid widget option: ' + jsonObject);
           }
 

@@ -53,7 +53,7 @@ There are two ways to swap out the Woocommerce plugin javascript for your own lo
 
     ```
     echo "
-     let s = document.createElement('script')
+     var s = document.createElement('script')
      s.src = 'https://127.0.0.1:8080/addressfinder.js'
      s.async = 1
      document.body.appendChild(s)</script>";

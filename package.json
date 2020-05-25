@@ -11,12 +11,12 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "babel-loader": "^8.0.6",
-    "terser-webpack-plugin": "^2.2.1",
+    "terser-webpack-plugin": "^2.3.6",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "@addressfinder/addressfinder-webpage-tools": "^1.8.1",
+    "@addressfinder/addressfinder-webpage-tools": "^1.8.2",
     "core-js": "^2.5.0"
   },
   "scripts": {
