@@ -2429,7 +2429,7 @@ function _objectEntries(obj) {
   return entries;
 }
 
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2460,7 +2460,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
 
     page_manager_classCallCheck(this, PageManager);
 
-    this.version = "1.8.2"; // Each formHelper is an instance of the FormManager class
+    this.version = "1.8.3"; // Each formHelper is an instance of the FormManager class
 
     this.formHelpers = []; // An object containing identifying information about an address form, such as the id values
 
@@ -2656,7 +2656,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
               postcode: document.querySelector(addressFormConfig.au.elements.postcode)
             },
             stateMappings: addressFormConfig.au.stateMappings,
-            optionalElements: []
+            optionalElements: ['address_line_2']
           }
         };
         this.identifiedFormHelperConfig.push(formHelperConfig);
@@ -2871,6 +2871,7 @@ module.exports = __webpack_require__(2);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/address_form_config/region_mappings.js
@@ -2965,9 +2966,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var config_manager_ConfigManager =
-/*#__PURE__*/
-function () {
+var config_manager_ConfigManager = /*#__PURE__*/function () {
   function ConfigManager() {
     _classCallCheck(this, ConfigManager);
   }
@@ -2999,9 +2998,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
 
 
 (function (d, w) {
-  var WooCommercePlugin =
-  /*#__PURE__*/
-  function () {
+  var WooCommercePlugin = /*#__PURE__*/function () {
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
