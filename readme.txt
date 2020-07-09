@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 5.3
 WC tested up to: 3.8
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -116,6 +116,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.4.3 =
+* Bug fix: prevent plugin reloading when address line 2 field is missing for AU addresses
 = 1.4.2 =
 * Bug fix: prevent plugin reloading when suburb field is missing for NZ addresses
 * Bug fix: prevent error when plugin is in debug mode, and widget options are invalid
