@@ -1,3 +1,7 @@
+# AddressFinder 1.4.3 (July 10th, 2020)
+
+* Bug fix - prevent plugin reloading when address line 2 field is missing for AU addresses
+
 # AddressFinder 1.4.2 (May 26th, 2020)
 
 * Bug fix - prevent plugin reloading when suburb field is missing for NZ addresses
