@@ -39,7 +39,7 @@ There are two ways to swap out the Woocommerce plugin javascript for your own lo
 
 ## Method One
 
-1. Visit the Abletech Woocommerce test store
+1. Visit the Abletech Woocommerce test store (http://ninja.abletech.net.nz/wp-admin, signin credentials available in 1Password under `Wordpress - WooCommerce test server 1`)
 1. On the store's admin pages click on Plugins. If the AddressFinder plugin is listed click 'edit', otherwise install it by clicking the 'Add New' button at the top of the page.
 1. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
