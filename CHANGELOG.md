@@ -1,3 +1,7 @@
+# AddressFinder 1.4.4 (August 6th, 2020)
+
+* Bug fix - prevent reloading the widget on mutation if the country element was never present
+
 # AddressFinder 1.4.3 (July 10th, 2020)
 
 * Bug fix - prevent plugin reloading when address line 2 field is missing for AU addresses
