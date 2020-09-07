@@ -1,11 +1,11 @@
 import ConfigManager from './config_manager'
 import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
-(function(d, w) {
+(function (d, w) {
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.4.4"
+      this.version = "1.4.5"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
@@ -30,7 +30,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
     }
 
     _safeParseJSONObject(jsonObject) {
-      if(jsonObject == undefined){
+      if (jsonObject == undefined) {
         return null;
       }
 
@@ -131,7 +131,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   var s = d.createElement('script')
   s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
   s.async = 1;
-  s.onload = function() {new WooCommercePlugin}
+  s.onload = function () { new WooCommercePlugin }
   d.body.appendChild(s)
 
 })(document, window)

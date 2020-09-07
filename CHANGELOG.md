@@ -1,3 +1,8 @@
+# AddressFinder 1.4.5 (September 7, 2020)
+
+* Confirm compatibility with Wordpress 5.5.1
+* Confirm compatibility with WooCommerce 4.4.1
+
 # AddressFinder 1.4.4 (August 6th, 2020)
 
 * Bug fix - prevent reloading the widget on mutation if the country element was never present
