@@ -32,6 +32,7 @@ We have two test servers
  - Woocommerce v4.4.1
  - Test store: http://woocommerce.addressfinder.net
  - Server access: _See 1Password_
+ - Cloud provider: https://my.vultr.com/
 
 # Developing and testing
 
