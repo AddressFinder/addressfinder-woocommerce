@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  addressfinder-woocommerce:
+    image: node:12-stretch
+    volumes:
+      - .:/addressfinder-woocommerce
+
