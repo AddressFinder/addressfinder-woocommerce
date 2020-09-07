@@ -28,10 +28,10 @@ We have two test servers
  - Server access: ssh root@45.55.11.166
 
 ## Test Server Two
- - Wordpress v5.3
- - Woocommerce v3.8.1
- - Test store: http://149.28.164.196/
- - Server access: ssh root@149.28.164.196
+ - Wordpress v5.5.1
+ - Woocommerce v4.4.1
+ - Test store: http://woocommerce.addressfinder.net
+ - Server access: _See 1Password_
 
 # Developing and testing
 
