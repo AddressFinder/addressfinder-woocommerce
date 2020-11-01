@@ -65,8 +65,8 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a free account at one of these links:
 
-* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Free%20Plans)
-* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Free%20Plans)
+* [Free Account for Australia](https://portal.addressfinder.net/signup/au/au_free_5?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Free%20Plans)
+* [Free Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_free_5?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Free%20Plans)
 
 Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
 
