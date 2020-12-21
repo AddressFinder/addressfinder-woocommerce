@@ -3,9 +3,9 @@
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, validation
 Requires at least: 4.1
-Tested up to: 5.5
-WC tested up to: 4.4
-Stable tag: 1.4.5
+Tested up to: 5.6
+WC tested up to: 4.8
+Stable tag: 1.4.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,10 +65,10 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a free account at one of these links:
 
-* [Free Account for Australia](https://portal.addressfinder.io/signup/au/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Free%20Plans)
-* [Free Account for New Zealand](https://portal.addressfinder.io/signup/nz/free?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Free%20Plans)
+* [Free Account for Australia](https://portal.addressfinder.net/signup/au/au_free_5?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Australia%20Free%20Plans)
+* [Free Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_free_5?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20New%20Zealand%20Free%20Plans)
 
-Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.io/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
+Existing users can obtain their API key from the [AddressFinder Portal](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=AddressFinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
 
 Read more on the AddressFinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Woocommerce%20Plugin&utm_content=Register%20for%20a%20free%20account) page.
 
@@ -111,11 +111,14 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 1. Autocomplete billing and shipping address in checkout page.
 1. In the Admin section of your Wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on AddressFinder.
-1. Find your AddressFinder API key at [https://portal.addressfinder.io](https://portal.addressfinder.io/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20AddressFinder%20API%20key&utm_content=Screenshots)
+1. Find your AddressFinder API key at [https://portal.addressfinder.net](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20AddressFinder%20API%20key&utm_content=Screenshots)
 1. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for AddressFinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
 
 
 == Changelog ==
+= 1.4.6 =
+* Confirm compatibility with Wordpress 5.6
+* Confirm compatibility with WooCommerce 4.8.0
 = 1.4.5 =
 * Confirm compatibility with Wordpress 5.5.1
 * Confirm compatibility with WooCommerce 4.4.1
@@ -211,6 +214,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
+= 1.4.6 =
+* No changes are necessary
 = 1.4.5 =
 * No changes are necessary
 = 1.2.16 =

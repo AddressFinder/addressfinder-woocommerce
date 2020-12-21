@@ -2,7 +2,7 @@
 /*
 Plugin Name: AddressFinder
 Plugin URI: https://github.com/Abletech/woocommerce-addressfinder
-Version: 1.4.5
+Version: 1.4.6
 Author: Abletech
 Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
  */
@@ -70,7 +70,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
 
 			$settings[] = array(
@@ -78,7 +78,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
 		} elseif ($af_key_au) {
 				$settings[] = array(
@@ -86,7 +86,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
 					'id'       => 'af-key-au',
 					'type'     => 'text',
-					'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+					'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 				);
 		} else {
 			$settings[] = array(
@@ -94,7 +94,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.io" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
 			);
 		}
 

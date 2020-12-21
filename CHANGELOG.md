@@ -1,3 +1,8 @@
+# AddressFinder 1.4.6 (December 21, 2020)
+
+* Confirm compatibility with Wordpress 5.6
+* Confirm compatibility with WooCommerce 4.8.0
+
 # AddressFinder 1.4.5 (September 7, 2020)
 
 * Confirm compatibility with Wordpress 5.5.1
