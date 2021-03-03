@@ -116,7 +116,7 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
-= 1.4.7 =
+= 1.4.8 =
 * Confirm compatibility with Wordpress 5.7
 = 1.4.6 =
 * Confirm compatibility with Wordpress 5.6
@@ -215,7 +215,7 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
-= 1.4.7 =
+= 1.4.8 =
 * No changes are necessary
 = 1.4.6 =
 * No changes are necessary
