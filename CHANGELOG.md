@@ -1,3 +1,7 @@
+# AddressFinder 1.4.7 (December 21, 2020)
+
+* Confirm compatibility with Wordpress 5.7
+
 # AddressFinder 1.4.6 (December 21, 2020)
 
 * Confirm compatibility with Wordpress 5.6
