@@ -1,4 +1,4 @@
-=== WooCommerce AddressFinder ===
+=== AddressFinder for WooCommerce ===
 
 Contributors: Abletech
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, validation
