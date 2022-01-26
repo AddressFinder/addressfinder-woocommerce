@@ -54,7 +54,7 @@ We have a variety of plan sizes to suit any retailer - from the 300 lookups per 
 
 With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support. 
 
-View our full suite of plans here https://addressfinder.com.au/plans/
+View our full suite of plans here https://addressfinder.com/plans/
 
 = Demonstration Video =
 
