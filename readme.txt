@@ -1,7 +1,7 @@
-=== AddressFinder for WooCommerce ===
+=== WooCommerce Address Validation and Autocomplete | AddressFinder ===
 
 Contributors: AddressFinder
-Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, validation
+Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validatoin, address verification, address autocomplete, validate address, checkout address, postal address
 Requires at least: 4.1
 Tested up to: 5.7
 WC tested up to: 4.8
@@ -9,32 +9,63 @@ Stable tag: 1.4.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Enables autocomplete of Shipping and Billing Addresses for New Zealand and Australian WooCommerce stores.
+Allow your users to checkout faster with verified address autocomplete for shipping and billing addresses in Australian and New Zealand WooCommerce stores.
 
 == Description ==
 
-The AddressFinder plugin for WooCommerce adds an autocomplete capability to the delivery and billing address fields of your online store.
+The AddressFinder plugin for WooCommerce adds verified address autocomplete capability to the shipping and billing address fields of your online store. The plugin suggests verified addresses to your customers as they type and then auto-fills the address elements into the appropriate fields on selection.
+
+This plugin aids in validating the addresses of your customers before they place their order on your store, maximising your data quality and limiting misdeliveries costs resulting from incorrect address entry.
 
 = Get Verified Addresses =
 
-No more mistakes. Save verified addresses straight from your checkout to your database.
+No more mistakes. Save verified addresses straight from your checkout to your database. The AddressFinder address database is the most comprehensive address dataset in Australia and New Zealand. Our addresses are directly verified by authoritative sources such as Australia Post, New Zealand Post, and more. When AddressFinder suggests a postal address, you can be sure that it is accurate and that your delivery is heading to the right place.
 
 = Access the latest addresses =
 
-Leave the hard work to us. The AddressFinder address database is frequently refreshed from multiple sources so you can rely on the data you collect.
+Leave the hard work to us. The AddressFinder address database is refreshed monthly so you can rely on the data being available and up to date. Our data sources provide us with the freshest data so customers living in new developments or multi-dwelling apartments will still be able to validate their addresses. 
 
 = No programming required =
 
-This plugin is super easy to set up. It does not require any experience and you can have it working in minutes.
+This plugin is super easy to set up. It does not require any coding experience and you can have it working and validating addresses in minutes.
+
+= Reduce time to checkout =
+
+On average, our address autocomplete will display the desired address in 10-12 keystrokes, greatly reducing data entry time and potential for errors. Users can be sure their address is correct and move through to the checkout with confidence. 
+
+= Enhance mobile UX =
+
+User experience is critical to conversion rate. By using AddressFinder, your checkout experience is made simple for users inputting fields, greatly reducing required keystrokes on small mobile keyboards. Our plugin is responsive and friendly across popular devices and browsers. 
+
+= Dedicated support =
+
+Customer success is core to what we do. Our account managers and support team are here to support you through integration and any other questions you may have about our service.
 
 = Supported Countries =
 
 * [Australia](https://addressfinder.com.au/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
 * [New Zealand](https://addressfinder.nz/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
 
+= Pricing =
+
+No setup fee, lock-in contracts or credit card is required. 
+
+We have a variety of plan sizes to suit any retailer - from the 300 lookups per month Free Plan to larger paid plans with additional lookups and features. 
+
+With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support. 
+
+View our full suite of plans here https://addressfinder.com/plans/
+
 = Demonstration Video =
 
 Watch a short 2 min video showing the [installation and configuration of AddressFinder for WooCommerce](https://vimeo.com/307188204).
+
+= What do our users think of AddressFinder? = 
+
+See how others have integrated with AddressFinder within our case studies - 
+https://addressfinder.com/case-studies/
+https://addressfinder.com/case-studies/better-batt/
+https://addressfinder.com/case-studies/cove/
 
 = Compatibility =
 
