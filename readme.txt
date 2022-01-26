@@ -63,9 +63,9 @@ Watch a short 2 min video showing the [installation and configuration of Address
 = What do our users think of AddressFinder? = 
 
 See how others have integrated with AddressFinder within our case studies - 
-https://addressfinder.com.au/case-studies/
-https://addressfinder.com.au/case-studies/better-batt/
-https://addressfinder.com.au/case-studies/cove/
+https://addressfinder.com/case-studies/
+https://addressfinder.com/case-studies/better-batt/
+https://addressfinder.com/case-studies/cove/
 
 = Compatibility =
 
