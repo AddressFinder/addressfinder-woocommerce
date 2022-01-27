@@ -2,7 +2,7 @@
 /*
 Plugin Name: AddressFinder
 Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-Version: 1.4.8
+Version: 1.4.9
 Author: AddressFinder
 Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
  */
