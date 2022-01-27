@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: AddressFinder
-Plugin URI: https://github.com/Abletech/woocommerce-addressfinder
-Version: 1.4.6
-Author: Abletech
+Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
+Version: 1.4.9
+Author: AddressFinder
 Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
  */
 
@@ -18,7 +18,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_billing', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_shipping', 'add_addressfinder_widget' );
-	add_action( 'wp_enqueue_scripts', 'add_styles' );
+	add_action( 'wp_enqueue_scripts', 'addressfinder_add_styles' );
 
 	function add_addressfinder_widget( $checkout ) {
 		$path = plugin_dir_path( __FILE__ );
@@ -129,7 +129,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		return $settings;
 	}
 
-	function add_styles() {
+	function addressfinder_add_styles() {
 		$plugin_url = plugin_dir_url( __FILE__ );
 		wp_enqueue_style( 'addressfinder-woocommerce', $plugin_url . 'addressfinder-styles.css' );
 	}

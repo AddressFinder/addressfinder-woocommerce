@@ -33,4 +33,4 @@ Manually:
 
 ### Export
 
-Instructions for exporting the WooCommerce plugin are on the [Abletech Wiki](https://sites.google.com/a/abletech.co.nz/wiki/addressfinder/plugins)
+Instructions for exporting the WooCommerce plugin are in the [Wiki](https://github.com/abletech/wiki/tree/master/clients/addressfinder/addressfinder-woocommerce)
