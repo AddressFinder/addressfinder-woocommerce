@@ -1,3 +1,7 @@
+# AddressFinder 1.4.9 (January 28, 2022)
+
+* Documentation update
+
 # AddressFinder 1.4.8 (March 3, 2021)
 
 * Confirm compatibility with Wordpress 5.7
