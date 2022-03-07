@@ -1,5 +1,13 @@
 #Deployment
 
+## Pass code checks
+WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it.
+- Install [https://getcomposer.org/](composer)
+- Run `composer install` to fetch dependencies
+- Run `vendor/bin/phpcs --standard=WooCommerce-Core -n woocommerce-addressfinder.php` and fix any errors reported
+- You can use bundled `phpcbf` to fix any errors marked with `[x]` by running `vendor/bin/phpcbf --standard=WooCommerce-Core -n woocommerce-addressfinder.php`
+
+## Publish code (probably obsolete)
 When you create a new release many of the files will need a version number change.
 - CHANGELOG.md
 - addressfinder.js
