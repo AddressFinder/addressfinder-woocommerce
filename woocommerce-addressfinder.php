@@ -8,7 +8,7 @@
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
 	@package AddressFinder/WooCommerce
- **/
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,7 +30,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 * Adds necessary js code to load and initializes our autocomplete widget
 	 *
 	 * @param string[] $_checkout unused.
-	 **/
+	 */
 	function add_addressfinder_widget( $_checkout ) {
 		$path               = plugin_dir_path( __FILE__ );
 		$af_key_nz          = esc_attr( get_option( 'af-key' ) );
@@ -71,7 +71,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 * Injects AF related settings into the checkout's settings page
 	 *
 	 * @param Array[] $settings existing settings to append to.
-	 **/
+	 */
 	function addressfinder_settings( $settings ) {
 		$settings[] = array(
 			'name' => __( 'AddressFinder Settings', 'text-domain' ),
