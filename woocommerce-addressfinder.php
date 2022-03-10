@@ -42,24 +42,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		echo "<script>\nvar AddressFinderConfig = {};\n";
 
 		if ( $af_key_nz ) {
-			$escaped_af_key_nz = esc_js( $af_key_nz );
-			// Safe to ignore the check because esc_js() is called on the user provided $af_key_nz
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "AddressFinderConfig.key_nz = '{$escaped_af_key_nz}';\n";
+			printf( "AddressFinderConfig.key_nz = '%s'\n", esc_js( $af_key_nz ) );
 		}
 
 		if ( $af_key_au ) {
-			$escaped_af_key_au = esc_js( $af_key_au );
-			// Safe to ignore the check because esc_js() is called on the user provided $af_key_au
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "AddressFinderConfig.key_au = '{$escaped_af_key_au}';\n";
+			printf( "AddressFinderConfig.key_au = '%s'\n", esc_js( $af_key_au ) );
 		}
 
-		if ( $af_widget_options ) {
-			$encoded_json = json_encode( $af_widget_options );
-			// Safe to ignore the check because the user providerd $af_widget_options are passed through json_encode() first
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "AddressFinderConfig.widget_options = {$encoded_json};\n";
+		if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
+			printf( "AddressFinderConfig.widget_options = %s\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 		}
 
 		if ( 'yes' == $af_debug ) {
@@ -67,10 +58,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		if ( $af_default_country ) {
-			$escaped_af_default_country = esc_js( $af_default_country );
-			// Safe to ignore the check because esc_js() is called on the user provided $af_default_country.
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "AddressFinderConfig.default_country = '{$escaped_af_default_country}';\n";
+			printf( "AddressFinderConfig.default_country = '%s'\n", esc_js( $af_default_country ) );
 		}
 
 		echo "\n</script>";
