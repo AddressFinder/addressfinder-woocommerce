@@ -3,9 +3,9 @@
 Contributors: AddressFinder
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validatoin, address verification, address autocomplete, validate address, checkout address, postal address
 Requires at least: 4.1
-Tested up to: 5.7
-WC tested up to: 4.8
-Stable tag: 1.4.9
+Tested up to: 6.0.1
+WC tested up to: 6.7.0
+Stable tag: 1.4.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,6 +147,9 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.4.10 =
+* Confirm compatibility with Wordpress 6.0.1
+* Confirm compatibility with WooCommerce 6.7.0
 = 1.4.9 =
 * Documentation update
 = 1.4.8 =
@@ -248,6 +251,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
+= 1.4.10 =
+* No changes are necessary
 = 1.4.9 =
 * No changes are necessary
 = 1.4.8 =

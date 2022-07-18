@@ -3,7 +3,7 @@
 	AddressFinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: AddressFinder
 	Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-	Version: 1.4.9
+	Version: 1.4.10
 	Author: AddressFinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.4.9' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.4.10' );
 }
 
 /**
