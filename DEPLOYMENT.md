@@ -7,7 +7,7 @@ WooCommerce run an automated phpcs check on the plugin, we need to make sure we 
 - Run `vendor/bin/phpcs --standard=WooCommerce-Core -n woocommerce-addressfinder.php` and fix any errors reported
 - You can use bundled `phpcbf` to fix any errors marked with `[x]` by running `vendor/bin/phpcbf --standard=WooCommerce-Core -n woocommerce-addressfinder.php`
 
-## Publish code (probably obsolete)
+## Publish code
 When you create a new release many of the files will need a version number change.
 - CHANGELOG.md
 - addressfinder.js
@@ -15,10 +15,8 @@ When you create a new release many of the files will need a version number chang
 - readme.txt (Update the stable tag AND the changelog)
 - package.json
 
-
-When you are ready to deploy the version to the WooCommerce Store run these commands.
-A few minutes afterwards you will see your update in the woocommerce store.
-
+When you are ready to deploy the version to the Wordpress store run these commands.
+A few minutes afterwards you will see your update in the Wordpress store.
 
 ```
 svn co https://plugins.svn.wordpress.org/addressfinder-woo/
@@ -30,12 +28,13 @@ cd addressfinder-woocommerce-svn
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
-cp ../addressfinder-woocommerce/CHANGELOG.md trunk/
-cp ../addressfinder-woocommerce/readme.txt trunk/
 cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
+cp ../addressfinder-woocommerce/changelog.txt trunk/
+cp ../addressfinder-woocommerce/readme.txt trunk/
 
 svn cp ./trunk/ ./tags/<version> (note: no v prefix)
 
+# login details are in 1Password
 svn --username abletech ci . -m "Release v<version>"
 ```
 
