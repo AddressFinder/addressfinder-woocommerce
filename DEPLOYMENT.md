@@ -9,11 +9,13 @@ WooCommerce run an automated phpcs check on the plugin, we need to make sure we 
 
 ## Publish code
 When you create a new release many of the files will need a version number change.
-- CHANGELOG.md
+- changelog.txt
 - addressfinder.js
 - woocommerce-addressfinder.php
 - readme.txt (Update the stable tag AND the changelog)
 - package.json
+
+Describe changes done in `changelog.txt`.
 
 When you are ready to deploy the version to the Wordpress store run these commands.
 A few minutes afterwards you will see your update in the Wordpress store.
