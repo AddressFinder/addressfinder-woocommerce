@@ -10,8 +10,8 @@ WooCommerce run an automated phpcs check on the plugin, we need to make sure we 
 ## Publish code
 When you create a new release many of the files will need a version number change.
 - changelog.txt
-- addressfinder.js
 - woocommerce-addressfinder.php
+- woocommerce_plugin.js
 - readme.txt (Update the stable tag AND the changelog)
 - package.json
 
@@ -28,7 +28,7 @@ mv addressfinder-woo addressfinder-woocommerce-svn
 cd addressfinder-woocommerce-svn
 
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
-cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
+cp ../addressfinder-woocommerce/dist/addressfinder.js.map trunk/addressfinder.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
 cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
 cp ../addressfinder-woocommerce/changelog.txt trunk/

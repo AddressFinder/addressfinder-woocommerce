@@ -1,3 +1,9 @@
+2022-07-26 - version 1.4.12
+* Fix version used
+
+2022-07-26 - version 1.4.11
+* Load styles using Wordpress hook
+
 2022-07-18 - version 1.4.10
 * Confirm compatibility with Wordpress 6.0.1
 * Confirm compatibility with Wordpress 6.7.0

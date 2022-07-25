@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 6.0.1
 WC tested up to: 6.7.0
-Stable tag: 1.4.10
+Stable tag: 1.4.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,7 +23,7 @@ No more mistakes. Save verified addresses straight from your checkout to your da
 
 = Access the latest addresses =
 
-Leave the hard work to us. The AddressFinder address database is refreshed monthly so you can rely on the data being available and up to date. Our data sources provide us with the freshest data so customers living in new developments or multi-dwelling apartments will still be able to validate their addresses. 
+Leave the hard work to us. The AddressFinder address database is refreshed monthly so you can rely on the data being available and up to date. Our data sources provide us with the freshest data so customers living in new developments or multi-dwelling apartments will still be able to validate their addresses.
 
 = No programming required =
 
@@ -31,11 +31,11 @@ This plugin is super easy to set up. It does not require any coding experience a
 
 = Reduce time to checkout =
 
-On average, our address autocomplete will display the desired address in 10-12 keystrokes, greatly reducing data entry time and potential for errors. Users can be sure their address is correct and move through to the checkout with confidence. 
+On average, our address autocomplete will display the desired address in 10-12 keystrokes, greatly reducing data entry time and potential for errors. Users can be sure their address is correct and move through to the checkout with confidence.
 
 = Enhance mobile UX =
 
-User experience is critical to conversion rate. By using AddressFinder, your checkout experience is made simple for users inputting fields, greatly reducing required keystrokes on small mobile keyboards. Our plugin is responsive and friendly across popular devices and browsers. 
+User experience is critical to conversion rate. By using AddressFinder, your checkout experience is made simple for users inputting fields, greatly reducing required keystrokes on small mobile keyboards. Our plugin is responsive and friendly across popular devices and browsers.
 
 = Dedicated support =
 
@@ -48,11 +48,11 @@ Customer success is core to what we do. Our account managers and support team ar
 
 = Pricing =
 
-No setup fee, lock-in contracts or credit card is required. 
+No setup fee, lock-in contracts or credit card is required.
 
-We have a variety of plan sizes to suit any retailer - from the 300 lookups per month Free Plan to larger paid plans with additional lookups and features. 
+We have a variety of plan sizes to suit any retailer - from the 300 lookups per month Free Plan to larger paid plans with additional lookups and features.
 
-With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support. 
+With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support.
 
 View our full suite of plans here https://addressfinder.com/plans/
 
@@ -60,9 +60,9 @@ View our full suite of plans here https://addressfinder.com/plans/
 
 Watch a short 2 min video showing the [installation and configuration of AddressFinder for WooCommerce](https://vimeo.com/307188204).
 
-= What do our users think of AddressFinder? = 
+= What do our users think of AddressFinder? =
 
-See how others have integrated with AddressFinder within our case studies - 
+See how others have integrated with AddressFinder within our case studies -
 https://addressfinder.com/case-studies/
 https://addressfinder.com/case-studies/better-batt/
 https://addressfinder.com/case-studies/cove/
@@ -147,6 +147,10 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.4.12 =
+* Fix version used
+= 1.4.11 =
+* Load styles using Wordpress hook
 = 1.4.10 =
 * Confirm compatibility with Wordpress 6.0.1
 * Confirm compatibility with WooCommerce 6.7.0
@@ -251,6 +255,10 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 * Initial release, enjoy!
 
 == Upgrade Notice ==
+= 1.4.12 =
+* No changes are necessary
+= 1.4.11 =
+* No changes are necessary
 = 1.4.10 =
 * No changes are necessary
 = 1.4.9 =
