@@ -144,6 +144,25 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			),
 		);
 
+		if ( in_array( 'woocommerce-paypal-payments/woocommerce-paypal-payments.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			$text = 'If the Save button is not displayed it is likely to be '
+				. 'the result of a conflict with the Paypal plugin settings '
+				. 'which appear to take over the page. To resolve this:<br/>'
+				. '<ol>'
+				. '<li>Click the Paypal plugin within the Settings &gt; Payments page</li>'
+				. '<li>Untick the \'Enable the PayPal Gateway\' box then Save</li>'
+				. '<li>Populate the Addressfinder settings then Save</li>'
+				. '<li>Then you can Re-Tick the \'Enable the Paypal Gateway\' box and Save again. This will restore the Paypal plugin and retain the AddressFinder settings.</li>'
+				. '</ol>';
+
+			// Find out what the Paypal name is and do render the message if found...
+			$settings[] = array(
+				'name' => __( 'Saving the settings', 'text-domain' ),
+				'type' => 'info',
+				'text' => $text,
+			);
+		}
+
 		$settings[] = array(
 			'type' => 'sectionend',
 			'id'   => 'addressfinder-widget',
