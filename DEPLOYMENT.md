@@ -1,8 +1,7 @@
 #Deployment
 
 ## Pass code checks
-WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it.
-- Install [https://getcomposer.org/](composer)
+WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it. - Install [https://getcomposer.org/](composer)
 - Run `composer install` to fetch dependencies
 - Run `vendor/bin/phpcs --standard=WooCommerce-Core -n woocommerce-addressfinder.php` and fix any errors reported
 - You can use bundled `phpcbf` to fix any errors marked with `[x]` by running `vendor/bin/phpcbf --standard=WooCommerce-Core -n woocommerce-addressfinder.php`
@@ -28,7 +27,7 @@ mv addressfinder-woo addressfinder-woocommerce-svn
 cd addressfinder-woocommerce-svn
 
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
-cp ../addressfinder-woocommerce/dist/addressfinder.js.map trunk/addressfinder.js.map
+cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
 cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
 cp ../addressfinder-woocommerce/changelog.txt trunk/
