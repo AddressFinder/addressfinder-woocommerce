@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 6.0.1
 WC tested up to: 6.7.0
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,10 +147,12 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.5.2 =
+* Make the plugin compatible with the twenty twenty-two theme
 = 1.5.1 =
 * Fix loading the js source map
 = 1.5.0 =
-* Display a help tip when the save button in settings might be hidden due to PayPal extension.
+* Display a help tip when the save button in settings might be hidden due to PayPal extension
 = 1.4.12 =
 * Fix version used
 = 1.4.11 =
