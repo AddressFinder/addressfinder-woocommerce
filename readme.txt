@@ -147,6 +147,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.5.3 =
+* Fix custom options not being applied
 = 1.5.2 =
 * Make the plugin compatible with the twenty twenty-two theme
 = 1.5.1 =

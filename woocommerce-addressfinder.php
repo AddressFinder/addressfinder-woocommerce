@@ -3,7 +3,7 @@
 	AddressFinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: AddressFinder
 	Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-	Version: 1.5.2
+	Version: 1.5.3
 	Author: AddressFinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.5.2' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.5.3' );
 }
 
 /**
@@ -43,15 +43,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		echo "<script>\nvar AddressFinderConfig = {};\n";
 
 		if ( $af_key_nz ) {
-			printf( "AddressFinderConfig.key_nz = '%s'\n", esc_js( $af_key_nz ) );
+			printf( "AddressFinderConfig.key_nz = '%s';\n", esc_js( $af_key_nz ) );
 		}
 
 		if ( $af_key_au ) {
-			printf( "AddressFinderConfig.key_au = '%s'\n", esc_js( $af_key_au ) );
+			printf( "AddressFinderConfig.key_au = '%s';\n", esc_js( $af_key_au ) );
 		}
 
 		if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
-			printf( "AddressFinderConfig.widget_options = %s\n", wp_json_encode( json_decode( $af_widget_options ) ) );
+			printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 		}
 
 		if ( 'yes' == $af_debug ) {
@@ -59,7 +59,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		if ( $af_default_country ) {
-			printf( "AddressFinderConfig.default_country = '%s'\n", esc_js( $af_default_country ) );
+			printf( "AddressFinderConfig.default_country = '%s';\n", esc_js( $af_default_country ) );
 		}
 
 		echo "\n</script>";
