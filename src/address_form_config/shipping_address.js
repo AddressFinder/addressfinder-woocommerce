@@ -15,7 +15,7 @@ export default {
       region: '#shipping_state',
       postcode: '#shipping_postcode',
     },
-    regionMappings: regionMappings
+    regionMappings: regionMappings('#shipping_state')
   },
   au: {
     countryValue: "AU",
