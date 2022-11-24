@@ -10,7 +10,7 @@ export default {
     elements: {
       address1: '#billing-address_1',
       address2: null,
-      suburb: '#billing_address_2',
+      suburb: '#billing-address_2',
       city: '#billing-city',
       region: '#components-form-token-input-1',
       postcode: '#billing-postcode',
@@ -21,7 +21,7 @@ export default {
     countryValue: "Australia",
     elements: {
       address1: '#billing-address_1',
-      address2: null,
+      address2: '#billing-address_2',
       suburb: '#billing-city',
       state: '#components-form-token-input-1',
       postcode: '#billing-postcode',
