@@ -2998,12 +2998,44 @@ __webpack_require__.r(__webpack_exports__);
     stateMappings: null
   }
 });
+// CONCATENATED MODULE: ./src/address_form_config/block_address.js
+
+/* harmony default export */ var block_address = ({
+  label: "Block Checkout",
+  layoutSelectors: ["#billing-address_1"],
+  countryIdentifier: '#components-form-token-input-0',
+  searchIdentifier: '#billing-address_1',
+  nz: {
+    countryValue: "New Zealand",
+    elements: {
+      address1: '#billing-address_1',
+      address2: null,
+      suburb: '#billing_address_2',
+      city: '#billing-city',
+      region: '#components-form-token-input-1',
+      postcode: '#billing-postcode'
+    },
+    regionMappings: region_mappings('#components-form-token-input-1')
+  },
+  au: {
+    countryValue: "Australia",
+    elements: {
+      address1: '#billing-address_1',
+      address2: null,
+      suburb: '#billing-city',
+      state: '#components-form-token-input-1',
+      postcode: '#billing-postcode'
+    },
+    stateMappings: null
+  }
+});
 // CONCATENATED MODULE: ./src/config_manager.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -3017,7 +3049,7 @@ var config_manager_ConfigManager = /*#__PURE__*/function () {
     key: "load",
     value: function load() {
       // This function is called when the page mutates and returns our form configurations
-      var addressFormConfigurations = [billing_address, shipping_address];
+      var addressFormConfigurations = [billing_address, shipping_address, block_address];
       return addressFormConfigurations;
     }
   }]);
@@ -3044,7 +3076,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.5.3"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.5.4"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
