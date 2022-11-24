@@ -26,6 +26,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	add_action( 'woocommerce_after_edit_address_form_billing', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_shipping', 'add_addressfinder_widget' );
 	add_action( 'wp_enqueue_scripts', 'addressfinder_add_styles' );
+	add_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_after', 'add_addressfinder_widget' );
 
 	/**
 	 * Adds necessary js code to load and initializes our autocomplete widget
