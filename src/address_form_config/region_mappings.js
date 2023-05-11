@@ -41,7 +41,7 @@ export default (state_field) => {
     'No Region (Chatham Islands)': null
   };
 
-  if (element && Array.from(element.querySelectorAll("option")).map((el) => el.value).filter((val) => val.length > 0)[0].length == 2) {
+  if (element && Array.from(element.querySelectorAll("option")).map((el) => el.value).filter((val) => val.length > 0)[0]?.length == 2) {
     return two_letter_mapping;
   }
 
