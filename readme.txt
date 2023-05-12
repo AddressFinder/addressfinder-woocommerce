@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 6.0.1
 WC tested up to: 7.1.0
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,6 +147,8 @@ The AddressFinder website has a large [FAQ section](https://addressfinder.com.au
 
 
 == Changelog ==
+= 1.5.6 =
+* Workaround for the select2 plugin causing the billing/shipping element to be not found
 = 1.5.5 =
 * Make the plugin compatible with the block checkout
 = 1.5.4 =

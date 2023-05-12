@@ -2888,6 +2888,8 @@ __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/address_form_config/region_mappings.js
 /* harmony default export */ var region_mappings = (function (state_field) {
+  var _Array$from$map$filte;
+
   var element = document.querySelector(state_field);
   var three_letter_mapping = {
     'Auckland Region': 'AUK',
@@ -2928,11 +2930,11 @@ __webpack_require__.r(__webpack_exports__);
     'No Region (Chatham Islands)': null
   };
 
-  if (element && Array.from(element.querySelectorAll("option")).map(function (el) {
+  if (element && ((_Array$from$map$filte = Array.from(element.querySelectorAll("option")).map(function (el) {
     return el.value;
   }).filter(function (val) {
     return val.length > 0;
-  })[0].length == 2) {
+  })[0]) === null || _Array$from$map$filte === void 0 ? void 0 : _Array$from$map$filte.length) == 2) {
     return two_letter_mapping;
   }
 
@@ -3078,7 +3080,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.5.5"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.5.6"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
