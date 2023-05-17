@@ -50,7 +50,7 @@ Customer success is core to what we do. Our account managers and support team ar
 
 No setup fee, lock-in contracts or credit card is required.
 
-We have a variety of plan sizes to suit any retailer - from the 300 lookups per month Trial Plan to larger paid plans with additional lookups and features.
+We have a variety of plan sizes to suit any retailer. Trial the service for free then upgrade to a paid plan for ongoing access to the service and additional features.
 
 With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support.
 
@@ -94,7 +94,7 @@ This section describes how to install the plugin and get it working.
 5. Use the WooCommerce -> Settings -> Payments screen to input your Addressfinder API keys.
 6. Done
 
-New users can register for a free account at one of these links:
+New users can register for a trial account at one of these links:
 
 * [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_agile_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Australia%20Free%20Plans)
 * [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_agile_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20New%20Zealand%20Free%20Plans)
@@ -124,9 +124,7 @@ Then reload the checkout page, and the Addressfinder advertising will disappear.
 
 = Which Addressfinder plan is right for you? =
 
-Addressfinder offers both free and paid plans, we recommend you start with the free plan which gives you up to 1000 completed address searches per month.
-
-If you need more than 1000 address lookups per month from day one then upgrade to a paid plan, these start from $42 per month.
+AddressFinder offers a variety of different sized plans to suit a variety of different sized businesses. The plans are also flexible so you can change your plan when it suits your business needs.
 
 You can read more about Addressfinder plans here:
 
