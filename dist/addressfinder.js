@@ -2888,35 +2888,29 @@ __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/address_form_config/region_mappings.js
 /* harmony default export */ var region_mappings = (function (state_field) {
+  var _Array$from$map$filte;
+
   var element = document.querySelector(state_field);
-
-  if (element && Array.from(element.querySelectorAll("option")).map(function (el) {
-    return el.value;
-  }).filter(function (val) {
-    return val.length > 0;
-  })[0].length == 3) {
-    return {
-      'Auckland Region': 'AUK',
-      'Bay of Plenty Region': 'BOP',
-      'Canterbury Region': 'CAN',
-      'Gisborne Region': 'GIS',
-      'Hawke\'s Bay Region': 'HKB',
-      'Manawatu-Wanganui Region': 'MWT',
-      'Marlborough Region': 'MBH',
-      'Nelson Region': 'NSN',
-      'Northland Region': 'NTL',
-      'Otago Region': 'OTA',
-      'Southland Region': 'STL',
-      'Taranaki Region': 'TKI',
-      'Tasman Region': 'TAS',
-      'Waikato Region': 'WKO',
-      'Wellington Region': 'WGN',
-      'West Coast Region': 'WTC',
-      'No Region (Chatham Islands)': null
-    };
-  }
-
-  return {
+  var three_letter_mapping = {
+    'Auckland Region': 'AUK',
+    'Bay of Plenty Region': 'BOP',
+    'Canterbury Region': 'CAN',
+    'Gisborne Region': 'GIS',
+    'Hawke\'s Bay Region': 'HKB',
+    'Manawatu-Wanganui Region': 'MWT',
+    'Marlborough Region': 'MBH',
+    'Nelson Region': 'NSN',
+    'Northland Region': 'NTL',
+    'Otago Region': 'OTA',
+    'Southland Region': 'STL',
+    'Taranaki Region': 'TKI',
+    'Tasman Region': 'TAS',
+    'Waikato Region': 'WKO',
+    'Wellington Region': 'WGN',
+    'West Coast Region': 'WTC',
+    'No Region (Chatham Islands)': null
+  };
+  var two_letter_mapping = {
     'Auckland Region': 'AK',
     'Bay of Plenty Region': 'BP',
     'Canterbury Region': 'CT',
@@ -2935,6 +2929,16 @@ __webpack_require__.r(__webpack_exports__);
     'West Coast Region': 'WC',
     'No Region (Chatham Islands)': null
   };
+
+  if (element && ((_Array$from$map$filte = Array.from(element.querySelectorAll("option")).map(function (el) {
+    return el.value;
+  }).filter(function (val) {
+    return val.length > 0;
+  })[0]) === null || _Array$from$map$filte === void 0 ? void 0 : _Array$from$map$filte.length) == 2) {
+    return two_letter_mapping;
+  }
+
+  return three_letter_mapping;
 });
 // CONCATENATED MODULE: ./src/address_form_config/billing_address.js
 
@@ -2998,12 +3002,44 @@ __webpack_require__.r(__webpack_exports__);
     stateMappings: null
   }
 });
+// CONCATENATED MODULE: ./src/address_form_config/block_address.js
+
+/* harmony default export */ var block_address = ({
+  label: "Block Checkout",
+  layoutSelectors: ["#billing-address_1"],
+  countryIdentifier: '#components-form-token-input-0',
+  searchIdentifier: '#billing-address_1',
+  nz: {
+    countryValue: "New Zealand",
+    elements: {
+      address1: '#billing-address_1',
+      address2: null,
+      suburb: '#billing-address_2',
+      city: '#billing-city',
+      region: '#components-form-token-input-1',
+      postcode: '#billing-postcode'
+    },
+    regionMappings: region_mappings('#components-form-token-input-1')
+  },
+  au: {
+    countryValue: "Australia",
+    elements: {
+      address1: '#billing-address_1',
+      address2: '#billing-address_2',
+      suburb: '#billing-city',
+      state: '#components-form-token-input-1',
+      postcode: '#billing-postcode'
+    },
+    stateMappings: null
+  }
+});
 // CONCATENATED MODULE: ./src/config_manager.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -3017,7 +3053,7 @@ var config_manager_ConfigManager = /*#__PURE__*/function () {
     key: "load",
     value: function load() {
       // This function is called when the page mutates and returns our form configurations
-      var addressFormConfigurations = [billing_address, shipping_address];
+      var addressFormConfigurations = [billing_address, shipping_address, block_address];
       return addressFormConfigurations;
     }
   }]);
@@ -3044,7 +3080,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.5.3"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.5.6"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 

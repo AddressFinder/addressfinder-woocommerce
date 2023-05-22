@@ -8,13 +8,24 @@ WooCommerce run an automated phpcs check on the plugin, we need to make sure we 
 
 ## Publish code
 When you create a new release many of the files will need a version number change.
-- changelog.txt
 - woocommerce-addressfinder.php
 - woocommerce_plugin.js
+- changelog.txt (describe your changes)
 - readme.txt (Update the stable tag AND the changelog)
 - package.json
 
-Describe changes done in `changelog.txt`.
+Since you have changed the version in `package.json` you need to run the build
+process again to update the version number in the minified files as well:
+`docker compose run addressfinder-woocommerce /addressfinder-woocommerce/bin/build_production.sh`
+
+It's good to double check that you have not missed anything by grepping for the previous version
+and making sure only `changelog.txt` and `readme.txt` show up since they contain references to
+all previous versions:
+```
+rg '1\.5\.4' -l # using ripgrep to skip .git and friends, -l to just list files that matched`
+changelog.txt
+readme.txt
+```
 
 When you are ready to deploy the version to the Wordpress store run these commands.
 A few minutes afterwards you will see your update in the Wordpress store.

@@ -4,8 +4,8 @@ Contributors: Addressfinder
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validatoin, address verification, address autocomplete, validate address, checkout address, postal address
 Requires at least: 4.1
 Tested up to: 6.0.1
-WC tested up to: 6.7.0
-Stable tag: 1.5.4
+WC tested up to: 7.1.0
+Stable tag: 1.5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,9 +139,10 @@ The Addressfinder website has a large [FAQ section](https://addressfinder.com.au
 == Screenshots ==
 
 1. Autocomplete billing and shipping address in checkout page.
-1. In the Admin section of your Wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on Addressfinder.
-1. Find your Addressfinder API key at [https://portal.addressfinder.net](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20Addressfinder%20API%20key&utm_content=Screenshots)
-1. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for Addressfinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
+2. In the Admin section of your Wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on Addressfinder.
+3. Find your Addressfinder API key at [https://portal.addressfinder.net](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20Addressfinder%20API%20key&utm_content=Screenshots)
+4. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for Addressfinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
+
 
 == Contributors ==
 

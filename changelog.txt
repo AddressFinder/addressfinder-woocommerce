@@ -1,3 +1,9 @@
+2023-05-12 - version 1.5.6
+* Workaround for the select2 plugin causing the billing/shipping element to be not found
+
+2022-11-25 - version 1.5.5
+* Make the plugin compatible with the block checkout
+
 2022-11-21 - version 1.5.4
 * Fix region code change for New Zealand from WooCommerce 7.1
 
