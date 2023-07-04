@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 6.0.1
 WC tested up to: 7.1.0
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -101,7 +101,7 @@ New users can register for a trial account at one of these links:
 
 Existing users can obtain their API key from the [Addressfinder Portal](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
 
-Read more on the Addressfinder [WooCommerce Plugin](https://addressfinder.nz/docs/woocommerce/?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Woocommerce%20Plugin&utm_content=Register%20for%20a%20free%20account) page.
+Read more on the Addressfinder [WooCommerce Plugin](https://addressfinder.nz/plugins/woocommerce/?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Woocommerce%20Plugin&utm_content=Register%20for%20a%20free%20account) page.
 
 
 == Frequently Asked Questions ==
