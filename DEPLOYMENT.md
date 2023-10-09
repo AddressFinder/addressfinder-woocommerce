@@ -37,6 +37,8 @@ mv addressfinder-woo addressfinder-woocommerce-svn
 
 cd addressfinder-woocommerce-svn
 
+svn up # to sync with remote
+
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
