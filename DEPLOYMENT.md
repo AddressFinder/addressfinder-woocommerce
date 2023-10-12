@@ -1,4 +1,4 @@
-#Deployment
+# Deployment
 
 ## Pass code checks
 WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it. - Install [https://getcomposer.org/](composer)
