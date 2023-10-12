@@ -10,7 +10,6 @@ WooCommerce run an automated phpcs check on the plugin, we need to make sure we 
 When you create a new release many of the files will need a version number change.
 - woocommerce-addressfinder.php
 - woocommerce_plugin.js
-- changelog.txt (describe your changes)
 - readme.txt (Update the stable tag AND the changelog)
 - package.json
 
@@ -19,11 +18,10 @@ process again to update the version number in the minified files as well:
 `docker compose run addressfinder-woocommerce /addressfinder-woocommerce/bin/build_production.sh`
 
 It's good to double check that you have not missed anything by grepping for the previous version
-and making sure only `changelog.txt` and `readme.txt` show up since they contain references to
+and making sure only `readme.txt` show up since it contains references to
 all previous versions:
 ```
 rg '1\.5\.4' -l # using ripgrep to skip .git and friends, -l to just list files that matched`
-changelog.txt
 readme.txt
 ```
 
@@ -43,7 +41,6 @@ cp ../addressfinder-woocommerce/dist/addressfinder.min.js trunk/addressfinder.js
 cp ../addressfinder-woocommerce/dist/addressfinder.min.js.map trunk/addressfinder.min.js.map
 cp ../addressfinder-woocommerce/woocommerce-addressfinder.php trunk/
 cp ../addressfinder-woocommerce/styles/addressfinder-styles.css trunk/
-cp ../addressfinder-woocommerce/changelog.txt trunk/
 cp ../addressfinder-woocommerce/readme.txt trunk/
 
 svn cp ./trunk/ ./tags/<version> (note: no v prefix)
