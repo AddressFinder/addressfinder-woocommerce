@@ -1,7 +1,7 @@
 === WooCommerce Address Validation and Autocomplete | Addressfinder ===
 
 Contributors: Addressfinder
-Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validatoin, address verification, address autocomplete, validate address, checkout address, postal address
+Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validation, address verification, address autocomplete, validate address, checkout address, postal address
 Requires at least: 4.1
 Tested up to: 6.3.1
 WC tested up to: 8.1.1
@@ -134,6 +134,194 @@ You can read more about Addressfinder plans here:
 = Many more FAQ questions and answers
 
 The Addressfinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=Addressfinder%20FAQ%20NZ) with many questions answered.
+
+== Changelog ==
+
+2023-10-09 - version 1.5.8
+* Confirm compatibility with Wordpress up to version 6.3.1
+* Confirm compatibility with WooCommerce up to version 8.1.1
+
+2023-07-04 - version 1.5.7
+* Documentation and asset updates
+
+2023-05-12 - version 1.5.6
+* Workaround for the select2 plugin causing the billing/shipping element to be not found
+
+2022-11-25 - version 1.5.5
+* Make the plugin compatible with the block checkout
+
+2022-11-21 - version 1.5.4
+* Fix region code change for New Zealand from WooCommerce 7.1
+
+2022-10-10 - version 1.5.3
+* Fix custom options not being applied
+
+2022-10-04 - version 1.5.2
+* Make the plugin compatible with the twenty twenty-two theme
+
+2022-08-03 - version 1.5.1
+* Fix loading the js source map
+
+2022-08-03 - version 1.5.0
+* Display a help tip when the save button in settings might be hidden due to PayPal extension
+
+2022-07-26 - version 1.4.12
+* Fix version used
+
+2022-07-26 - version 1.4.11
+* Load styles using Wordpress hook
+
+2022-07-18 - version 1.4.10
+* Confirm compatibility with Wordpress 6.0.1
+* Confirm compatibility with Wordpress 6.7.0
+
+2022-01-28 - version 1.4.9
+* Documentation update
+
+2021-03-03 - version 1.4.8
+* Confirm compatibility with Wordpress 5.7
+
+2020-12-21 - version 1.4.6
+* Confirm compatibility with Wordpress 5.6
+* Confirm compatibility with WooCommerce 4.8.0
+
+2020-09-07 - version 1.4.5
+* Confirm compatibility with Wordpress 5.5.1
+* Confirm compatibility with WooCommerce 4.4.1
+
+2020-08-06 - version 1.4.4
+* Bug fix - prevent reloading the widget on mutation if the country element was never present
+
+2020-07-10 - version 1.4.3
+* Bug fix - prevent plugin reloading when address line 2 field is missing for AU addresses
+
+2020-05-26 - version 1.4.2
+* Bug fix - prevent plugin reloading when suburb field is missing for NZ addresses
+* Bug fix - prevent error when plugin is in debug mode, and widget options are invalid
+
+2019-12-06 - version 1.4.1
+* Update dependencies
+* Update the WC tested to value
+* Add source maps
+
+2019-12-05 - version 1.3.6
+* Override styling for addressfinder `li` elements
+* Update the tested to value
+
+2019-10-19 - version 1.3.2
+* Differentiate between WooCommerce version and webpage tools version
+
+2019-Sept-18 - version 1.3.1
+* Update addressfinder-webpage-tools package to v1.6.0
+
+2019-05-14 - version 1.3.0
+* Update to use addressfinder-webpage-tools package
+
+2019-03-06 - version 1.2.17
+* Documentation update after testing on Wordpress 5.1
+
+2019-01-14 - version 1.2.16
+* Support state/region fields of type input
+
+2018-12-20 - version 1.2.15
+* Documentation update
+* New installation video
+* Wordpress 5.0 compatibility confirmation
+
+2018-04-24 - version 1.2.14
+* Removes redundant positioning function to reflect api updates
+
+2018-04-24 - version 1.2.13
+* Dispatches update checkout event on address selection
+
+2018-03-06 - version 1.2.12
+* Fixes errors when checkouts are missing address_line_2 field
+
+2018-03-05 - version 1.2.11
+* Checks window.AddressFinder is loaded before intialising plugin
+
+2018-01-16 - version 1.2.10
+* Emit a change event when field values are updated
+
+2017-11-15 - version 1.2.9
+* Documentation update
+
+2017-11-06 - version 1.2.8
+* Fix configuration loading fault
+* Load Javascript with external file rather than embedding
+
+2017-11-02 - version 1.2.7
+* Prevents country change event clearing account address details on page load.
+
+2017-11-01 - version 1.2.6
+* Removes redundant core-js functions.
+
+2017-10-17 - version 1.2.5
+* Preserves address field values on page load.
+
+2017-10-17 - version 1.2.4
+* Add support for checkout pages without a country form field
+* Add a default country option in the settings
+
+2017-08-24 - version 1.2.3
+* Adjusts position of the widget
+
+2017-08-22 - version 1.2.2
+* Plugin now uses a single licence key by default
+* Moved to webpack for script development
+
+2017-06-12 - version 1.1.2
+* Minor fixes
+
+2017-06-09 - version 1.1.1
+* Allows users to add additional options to adjust default behaviour of the widget
+
+2017-05-09 - version 1.1.0
+* Move to NPM for development
+* Remove superfluous CSS
+* Use a minified script
+
+2016-11-24 - version 1.0.14
+* Support checkout pages without country fields
+
+2016-11-09 - version 1.0.13
+* Z-index fix
+
+2016-11-09 - version 1.0.12
+* Region code mappings fix
+
+2016-10-05 - version 1.0.11
+* Confirm compatibility with Wordpress 4.6 series
+
+2016-05-02 - version 1.0.10
+* Added debug flag to admin screen
+* Improve handling of missing form fields
+
+2016-04-23 - version 1.0.9
+* Confirm compatibility with Wordpress 4.5
+
+2016-04-23 - version 1.0.8
+* Clean up WooCommerce settings page
+
+2016-04-12 - version 1.0.7
+* Minor fixes
+
+2016-04-11 - version 1.0.6
+* Add a default z-index style to handle sites that use positioned elements
+* Load AddressFinder widget later to improve compatibility with the multistep-checkout-wizard plugin
+
+2016-03-01 - version 1.0.5
+* Fix fault with New Zealand city field
+* Ignore WooCommerce placeholder instruction. Instead populate address_1 and address_2 as per Australian standards
+
+2016-01-21 - version 1.0.3
+* Use proper Woothemes supported version
+
+2016-01-21 - version 1.0.2
+* Minor bug fixes
+
+2016-01-20 - version 1.0.0
+* Initial public release
 
 
 == Screenshots ==
