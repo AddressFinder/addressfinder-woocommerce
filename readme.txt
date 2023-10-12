@@ -5,7 +5,7 @@ Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia,
 Requires at least: 4.1
 Tested up to: 6.3.1
 WC tested up to: 8.1.1
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -137,6 +137,8 @@ The Addressfinder website has a large [FAQ section](https://addressfinder.com.au
 
 == Changelog ==
 
+= 1.5.9 =
+* Reupload changelog
 = 1.5.8 =
 * Confirm compatibility with Wordpress up to version 6.3.1
 * Confirm compatibility with WooCommerce up to version 8.1.1
