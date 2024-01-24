@@ -70,9 +70,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	// Add the tab to the tabs array
 	function filter_addressfinder_settings_tabs_array( $settings_tabs ) {
-	    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder Settings', 'woocommerce' );
+    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder Settings', 'woocommerce' );
 
-	    return $settings_tabs;
+    return $settings_tabs;
 	}
 	add_filter( 'woocommerce_settings_tabs_array', 'filter_addressfinder_settings_tabs_array', 99 );
 	add_filter( 'woocommerce_settings_addressfinder-settings', 'add_settings', 10, 1 );
@@ -157,25 +157,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			),
 		);
 
-		if ( in_array( 'woocommerce-paypal-payments/woocommerce-paypal-payments.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-			$text = 'If the Save button is not displayed it is likely to be '
-				. 'the result of a conflict with the Paypal plugin settings '
-				. 'which appear to take over the page. To resolve this:<br/>'
-				. '<ol>'
-				. '<li>Click the Paypal plugin within the Settings &gt; Payments page</li>'
-				. '<li>Untick the \'Enable the PayPal Gateway\' box then Save</li>'
-				. '<li>Populate the Addressfinder settings then Save</li>'
-				. '<li>Then you can Re-Tick the \'Enable tohe Paypal Gateway\' box and Save again. This will restore the Paypal plugin and retain the AddressFinder settings.</li>'
-				. '</ol>';
-
-			// Find out what the Paypal name is and do render the message if found...
-			$settings[] = array(
-				'name' => __( 'Saving the settings', 'text-domain' ),
-				'type' => 'info',
-				'text' => $text,
-			);
-		}
-
 		$settings[] = array(
 			'type' => 'sectionend',
 			'id'   => 'addressfinder-widget',
@@ -185,7 +166,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	}
 
 	// Process save the settings
-function action_woocommerce_settings_save_addressfinder_settings() {
+	function action_woocommerce_settings_save_addressfinder_settings() {
     global $current_section;
 
     $tab_id = 'addressfinder-settings';
@@ -196,7 +177,7 @@ function action_woocommerce_settings_save_addressfinder_settings() {
     WC_Admin_Settings::save_fields( $settings );
 
     if ( $current_section ) {
-        do_action( 'woocommerce_update_options_' . $tab_id . '_' . $current_section );
+	    do_action( 'woocommerce_update_options_' . $tab_id . '_' . $current_section );
     }
 	}
 	add_action( 'woocommerce_settings_save_addressfinder-settings', 'action_woocommerce_settings_save_addressfinder_settings', 10 );
