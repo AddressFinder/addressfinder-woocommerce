@@ -3,7 +3,7 @@
 	Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: Addressfinder
 	Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-	Version: 1.5.9
+	Version: 1.6.0
 	Author: Addressfinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.5.9' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.6.0' );
 }
 
 /**
@@ -68,13 +68,25 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
 	}
 
-	add_filter( 'woocommerce_get_settings_checkout', 'addressfinder_settings', 10, 1 );
+	// Add the tab to the tabs array
+	function filter_addressfinder_settings_tabs_array( $settings_tabs ) {
+	    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder Settings', 'woocommerce' );
+
+	    return $settings_tabs;
+	}
+	add_filter( 'woocommerce_settings_tabs_array', 'filter_addressfinder_settings_tabs_array', 99 );
+	add_filter( 'woocommerce_settings_addressfinder-settings', 'add_settings', 10, 1 );
+
+	function add_settings( ) {
+		return WC_Admin_Settings::output_fields( addressfinder_settings() );
+	}
 	/**
-	 * Injects AF related settings into the checkout's settings page
-	 *
-	 * @param Array[] $settings existing settings to append to.
+	 * Injects AF related settings into the AF settings page
 	 */
-	function addressfinder_settings( $settings ) {
+	function addressfinder_settings( ) {
+
+		$settings = array();
+
 		$settings[] = array(
 			'name' => __( 'AddressFinder Settings', 'text-domain' ),
 			'type' => 'title',
@@ -153,7 +165,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				. '<li>Click the Paypal plugin within the Settings &gt; Payments page</li>'
 				. '<li>Untick the \'Enable the PayPal Gateway\' box then Save</li>'
 				. '<li>Populate the Addressfinder settings then Save</li>'
-				. '<li>Then you can Re-Tick the \'Enable the Paypal Gateway\' box and Save again. This will restore the Paypal plugin and retain the AddressFinder settings.</li>'
+				. '<li>Then you can Re-Tick the \'Enable tohe Paypal Gateway\' box and Save again. This will restore the Paypal plugin and retain the AddressFinder settings.</li>'
 				. '</ol>';
 
 			// Find out what the Paypal name is and do render the message if found...
@@ -168,8 +180,27 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'type' => 'sectionend',
 			'id'   => 'addressfinder-widget',
 		);
+
 		return $settings;
 	}
+
+	// Process save the settings
+function action_woocommerce_settings_save_addressfinder_settings() {
+    global $current_section;
+
+    $tab_id = 'addressfinder-settings';
+
+    // Call settings function
+    $settings = addressfinder_settings();
+
+    WC_Admin_Settings::save_fields( $settings );
+
+    if ( $current_section ) {
+        do_action( 'woocommerce_update_options_' . $tab_id . '_' . $current_section );
+    }
+	}
+	add_action( 'woocommerce_settings_save_addressfinder-settings', 'action_woocommerce_settings_save_addressfinder_settings', 10 );
+
 
 	/**
 	 * Load AddressFinder styles
