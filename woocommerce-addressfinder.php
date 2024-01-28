@@ -3,7 +3,7 @@
 	Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: Addressfinder
 	Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-	Version: 1.6.0
+	Version: 1.6.1
 	Author: Addressfinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.6.0' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.6.1' );
 }
 
 /**
@@ -70,7 +70,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	// Add the tab to the tabs array
 	function filter_addressfinder_settings_tabs_array( $settings_tabs ) {
-    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder Settings', 'woocommerce' );
+    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder', 'woocommerce' );
 
     return $settings_tabs;
 	}
@@ -88,9 +88,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$settings = array();
 
 		$settings[] = array(
-			'name' => __( 'AddressFinder Settings', 'text-domain' ),
+			'name' => __( 'Addressfinder', 'text-domain' ),
 			'type' => 'title',
-			'desc' => __( 'AddressFinder supports New Zealand and Australia.', 'text-domain' ),
+			'desc' => __( 'Addressfinder supports Australian and New Zealand data verification services.', 'text-domain' ),
 			'id'   => 'addressfinder-widget',
 		);
 
@@ -99,34 +99,34 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		if ( $af_key_nz && $af_key_au ) {
 			$settings[] = array(
 				'name'     => __( 'Licence key for New Zealand', 'text-domain' ),
-				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the Addressfinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
 			);
 
 			$settings[] = array(
 				'name'     => __( 'Licence key for Australia', 'text-domain' ),
-				'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the Addressfinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
 			);
 		} elseif ( $af_key_au ) {
 			$settings[] = array(
 				'name'     => __( 'Licence key', 'text-domain' ),
-				'desc_tip' => __( 'The key shown in the AddressFinder Australian portal', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the Addressfinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
 			);
 		} else {
 			$settings[] = array(
 				'name'     => __( 'Licence key', 'text-domain' ),
-				'desc_tip' => __( 'The key shown in the AddressFinder portal', 'text-domain' ),
+				'desc_tip' => __( 'The key shown in the Addressfinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your AddressFinder Key from <a href="https://portal.addressfinder.net" target="_blank">AddressFinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
 			);
 		}
 
@@ -147,9 +147,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		$settings[] = array(
 			'name'    => __( 'Default Country', 'text-domain' ),
-			'desc'    => __( 'If the checkout page does not have country selector form field, addresses from this country will be displayed', 'text-domain' ),
+			'desc'    => __( 'If your checkout page does not have a country select field, addresses from this country will be displayed', 'text-domain' ),
 			'id'      => 'af-default-country',
-			'default' => 'NZ',
+			'default' => 'AU',
 			'type'    => 'select',
 			'options' => array(
 				'au' => __( 'Australia', 'text-domain' ),
@@ -184,7 +184,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 
 	/**
-	 * Load AddressFinder styles
+	 * Load Addressfinder styles
 	 */
 	function addressfinder_add_styles() {
 		$plugin_url = plugin_dir_url( __FILE__ );
