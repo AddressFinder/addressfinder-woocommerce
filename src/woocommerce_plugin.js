@@ -5,7 +5,7 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.5.9"
+      this.version = "1.6.1"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
