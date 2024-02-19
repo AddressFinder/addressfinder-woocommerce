@@ -22,7 +22,7 @@ if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
  * Check if WooCommerce is active
  */
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
+   	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_billing', 'add_addressfinder_widget' );
 	add_action( 'woocommerce_after_edit_address_form_shipping', 'add_addressfinder_widget' );
 	add_action( 'wp_enqueue_scripts', 'addressfinder_add_styles' );
@@ -65,7 +65,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		echo "\n</script>";
 
-		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
+		$args = array(
+            'in_footer' => true,
+            'strategy'  => 'defer'
+        );
+
+		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, $args );
 	}
 
 	// Add the tab to the tabs array
