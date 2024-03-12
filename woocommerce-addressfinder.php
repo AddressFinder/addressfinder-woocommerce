@@ -34,12 +34,33 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 * @param string[] $_checkout unused.
 	 */
 	function add_addressfinder_widget( $_checkout ) {
-		$path               = plugin_dir_path( __FILE__ );
-		$af_key_nz          = esc_attr( get_option( 'af-key' ) );
-		$af_key_au          = esc_attr( get_option( 'af-key-au' ) );
-		$af_widget_options  = get_option( 'af-widget-options' );
-		$af_debug           = esc_attr( get_option( 'af-debug' ) );
-		$af_default_country = esc_attr( get_option( 'af-default-country' ) );
+		$path                = plugin_dir_path( __FILE__ );
+		$af_key_nz           = esc_attr( get_option( 'af-key' ) );
+		$af_key_au           = esc_attr( get_option( 'af-key-au' ) );
+		$af_widget_options   = get_option( 'af-widget-options' );
+		$af_default_country  = esc_attr( get_option( 'af-default-country' ) );
+		$af_widget_au_options = esc_attr( get_option( 'af-widget-au-options' ) );
+		$af_widget_nz_options = esc_attr( get_option( 'af-widget-nz-options' ) );
+		$af_widget_nz_po_box = esc_attr( get_option( 'af-widget-nz-pobox' ) );
+		$af_widget_au_po_box = esc_attr( get_option( 'af-widget-au-pobox' ) );
+
+    // email
+    $af_ev_widget_enabled = esc_attr( get_option( 'af-ev-widget-enabled' ) );
+    $af_ev_widget_public = esc_attr( get_option( 'af-ev-widget-public' ) );
+    $af_ev_widget_role = esc_attr( get_option( 'af-ev-widget-role' ) );
+    $af_ev_widget_disposable = esc_attr( get_option( 'af-ev-widget-disposable' ) );
+    $af_ev_widget_unverified = esc_attr( get_option( 'af-ev-widget-unverified' ) );
+    $af_ev_widget_options = get_option( 'af-ev-widget-options' );
+
+    // phone
+    $af_pv_widget_enabled = esc_attr( get_option( 'af-pv-widget-enabled' ) );
+    $af_pv_default_country = esc_attr( get_option( 'af-pv-widget-default-country' ) );
+    $af_pv_allowed_countries = esc_attr( get_option( 'af-pv-widget-allowed-countries' ) );
+    $af_pv_widget_non_mobile = esc_attr( get_option( 'af-pv-widget-non-mobile' ) );
+    $af_pv_widget_disallowed_country = esc_attr( get_option( 'af-pv-widget-disallowed-country' ) );
+    $af_pv_widget_unverified = esc_attr( get_option( 'af-pv-widget-unverified' ) );
+    $af_pv_widget_options = get_option( 'af-pv-widget-options' );
+
 		$addressfinder_js   = file_get_contents( $path . 'addressfinder.js' );
 		echo "<script>\nvar AddressFinderConfig = {};\n";
 
@@ -53,17 +74,65 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
 			printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
-		}
+		} else {
+      $au_post_box = ($af_widget_au_po_box == 'yes') ? "1" : "0";
+      $nz_post_box = ($af_widget_nz_po_box == 'yes') ? "1" : "0";
 
-		if ( 'yes' == $af_debug ) {
-			echo "AddressFinderConfig.debug = true;\n";
-		}
+      if ('postal_and_physical' == $af_widget_au_options) {
+        printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode(json_decode('{"address_params": {"source": "gnaf,paf", "post_box": "' . $au_post_box . '"}}')));
+      } elseif ('postal' == $af_widget_au_options) {
+        printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode(json_decode('{"address_params": {"source": "paf", "post_box": "' . $au_post_box . '"}}')));
+      } else {
+        printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode(json_decode('{"address_params": {"source": "gnaf", "post_box": "' . $au_post_box . '"}}')));
+      }
 
-		if ( $af_default_country ) {
-			printf( "AddressFinderConfig.default_country = '%s';\n", esc_js( $af_default_country ) );
-		}
+      if ('postal_and_physical' == $af_widget_nz_options) {
+        printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode(json_decode('{"address_params": {"post_box": "' . $nz_post_box . '"}}')));
+      } else {
+        printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode(json_decode('{"address_params": {"delivered": "1", "post_box": "' . $nz_post_box . '"}}')));
+      }
+    }
 
-		echo "\n</script>";
+    // Email Settings
+    if ('yes' == $af_ev_widget_enabled) {
+      echo "AddressFinderConfig.email = {};\n";
+
+      if (null !== $af_ev_widget_options && ! empty( trim( $af_ev_widget_options ))) {
+        printf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode($af_ev_widget_options)));
+      } else {
+        $public_rule     = ($af_ev_widget_public == 'yes') ? "allow" : "block";
+        $role_rule       = ($af_ev_widget_role == 'yes') ? "allow" : "block";
+        $disposable_rule = ($af_ev_widget_disposable == 'yes') ? "allow" : "block";
+        $unverified_rule = ($af_ev_widget_unverified == 'yes') ? "allow" : "block";
+
+        printf("AddressFinderConfig.email.rules = '%s';\n", wp_json_encode(json_decode('{"public": {"rule": "' . $public_rule . '"}, "role": {"rule": "' . $role_rule . '"}, "disposable": {"rule": "' . $disposable_rule . '"}, "unverified": {"rule": "' . $unverified_rule . '"}}')));
+      }
+    }
+
+    // Phone Settings
+    if ('yes' == $af_pv_widget_enabled) {
+      echo "AddressFinderConfig.phone = {};\n";
+
+      if ( $af_pv_default_country ) {
+        printf( "AddressFinderConfig.phone.defaultCountryCode = '%s';\n", esc_js( $af_pv_default_country ) );
+      }
+
+      if ( $af_pv_allowed_countries ) {
+        printf( "AddressFinderConfig.phone.allowedCountryCodes = '%s';\n", esc_js( $af_pv_allowed_countries ) );
+      }
+
+      if (null !== $af_pv_widget_options && ! empty( trim( $af_pv_widget_options ))) {
+        printf( "AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode( json_decode($af_pv_widget_options)));
+      } else {
+        $non_mobile_rule         = ($af_pv_widget_non_mobile == 'yes') ? "allow" : "block";
+        $disallowed_country_rule = ($af_pv_widget_disallowed_country == 'yes') ? "allow" : "block";
+        $unverified_phone_rule         = ($af_pv_widget_unverified == 'yes') ? "allow" : "block";
+
+        printf("AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode(json_decode('{"nonMobile": {"rule": "' . $non_mobile_rule . '"}, "countryNotAllowed": {"rule": "' . $disallowed_country_rule . '"}, "unverified": {"rule": "' . $unverified_phone_rule . '"}}')));
+      }
+    }
+
+    echo "\n</script>";
 
 		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
 	}
@@ -88,10 +157,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$settings = array();
 
 		$settings[] = array(
-			'name' => __( 'Addressfinder', 'text-domain' ),
+			'name' => __( 'Addressfinder Settings', 'text-domain' ),
 			'type' => 'title',
 			'desc' => __( 'Addressfinder supports Australian and New Zealand data verification services.', 'text-domain' ),
-			'id'   => 'addressfinder-widget',
+			'id'   => 'addressfinder-general',
 		);
 
 		$af_key_nz = esc_attr( get_option( 'af-key' ) );
@@ -102,7 +171,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the Addressfinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>.', 'text-domain' ),
 			);
 
 			$settings[] = array(
@@ -110,7 +179,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the Addressfinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
-				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>.', 'text-domain' ),
 			);
 		} elseif ( $af_key_au ) {
 			$settings[] = array(
@@ -118,7 +187,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the Addressfinder Australian portal', 'text-domain' ),
 				'id'       => 'af-key-au',
 				'type'     => 'text',
-				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>.', 'text-domain' ),
 			);
 		} else {
 			$settings[] = array(
@@ -126,28 +195,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'desc_tip' => __( 'The key shown in the Addressfinder portal', 'text-domain' ),
 				'id'       => 'af-key',
 				'type'     => 'text',
-				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
+				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>.', 'text-domain' ),
 			);
 		}
 
-		$settings[] = array(
-			'name'        => __( 'Widget Options', 'text-domain' ),
-			'id'          => 'af-widget-options',
-			'type'        => 'textarea',
-			'placeholder' => __( 'Eg: {&quot;byline&quot;: true}', 'text-domain' ),
-			'desc'        => __( '<p>Additional options that allow you to adjust the default behaviour of the widget. These options should be in the form of a JSON string with proper quoting of keys. </p><p>This section may be left blank for default behaviour.</p><p>For a full list of possible options <a href="https://addressfinder.nz/docs/widget_docs/">see our Widget documentation</a></p>', 'text-domain' ),
+    $settings[] = array(
+			'type' => 'sectionend',
+			'id'   => 'addressfinder-general',
 		);
 
-		$settings[] = array(
-			'name' => __( 'Debug Mode', 'text-domain' ),
-			'id'   => 'af-debug',
-			'type' => 'checkbox',
-			'desc' => __( 'Show error messages when expected fields are missing', 'text-domain' ),
+    $settings[] = array(
+			'name' => __( 'Address Verification', 'text-domain' ),
+			'type' => 'title',
+			'id'   => 'addressfinder-widget',
 		);
 
-		$settings[] = array(
+    $settings[] = array(
 			'name'    => __( 'Default Country', 'text-domain' ),
-			'desc'    => __( 'If your checkout page does not have a country select field, addresses from this country will be displayed', 'text-domain' ),
+			'desc'    => __( 'If your checkout page does not have a country select field, addresses from this country will be displayed.', 'text-domain' ),
 			'id'      => 'af-default-country',
 			'default' => 'AU',
 			'type'    => 'select',
@@ -157,9 +222,172 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			),
 		);
 
+    $settings[] = array(
+      'name'    => __( 'Australian Address Options', 'text-domain' ),
+			'id'      => 'af-widget-au-options',
+			'default' => 'postal_and_physical',
+			'type'    => 'radio',
+			'options' => array(
+        'postal_and_physical' => __( 'Search all addresses (Postal and Physical)', 'text-domain' ),
+				'postal' => __( 'Search Australia Post delivered addresses only', 'text-domain' ),
+				'physical' => __( 'Search physical addresses only', 'text-domain' ),
+			),
+		);
+
+    $settings[] = array(
+			'id'   => 'af-widget-au-pobox',
+			'type' => 'checkbox',
+			'desc' => __( 'Include PO Boxes', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+    $settings[] = array(
+      'name'    => __( 'New Zealand Address Options', 'text-domain' ),
+			'id'      => 'af-widget-nz-options',
+			'default' => 'postal_and_physical',
+			'type'    => 'radio',
+			'options' => array(
+        'postal_and_physical' => __( 'Search all addresses (Postal and Physical)', 'text-domain' ),
+				'postal' => __( 'Search New Zealand Post delivered addresses only', 'text-domain' )
+			),
+		);
+
+    $settings[] = array(
+			'id'   => 'af-widget-nz-pobox',
+			'type' => 'checkbox',
+			'desc' => __( 'Include PO Boxes', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+		$settings[] = array(
+			'name'        => __( 'Advanced Javascript Options', 'text-domain' ),
+			'id'          => 'af-widget-options',
+			'type'        => 'textarea',
+      'desc_tip' => __( 'This will override the above options.', 'text-domain' ),
+      'placeholder' => __( 'Eg: {"address_params": {"source": "gnaf,paf"}}', 'text-domain' ),
+			'desc'        => __( '<p>Examples can be found <a href="https://addressfinder.nz/docs/code-examples/">here</a>.</p>', 'text-domain' ),
+		);
+
 		$settings[] = array(
 			'type' => 'sectionend',
 			'id'   => 'addressfinder-widget',
+		);
+
+    $settings[] = array(
+			'name' => __( 'Email Verification', 'text-domain' ),
+			'type' => 'title',
+			'id'   => 'addressfinder-ev-widget',
+		);
+
+    $settings[] = array(
+			'name' => __( 'Enable', 'text-domain' ),
+			'id'   => 'af-ev-widget-enabled',
+			'type' => 'checkbox',
+			'desc' => __( 'Verify email addresses at the point of capture', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'name' => __( 'Allowed Email Types', 'text-domain' ),
+			'id'   => 'af-ev-widget-public',
+			'type' => 'checkbox',
+			'desc' => __( 'Public', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+    $settings[] = array(
+			'id'   => 'af-ev-widget-role',
+			'type' => 'checkbox',
+			'desc' => __( 'Role', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+    $settings[] = array(
+			'id'   => 'af-ev-widget-disposable',
+			'type' => 'checkbox',
+			'desc' => __( 'Disposable', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'id'   => 'af-ev-widget-unverified',
+			'type' => 'checkbox',
+			'desc' => __( 'Unverified', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'name'        => __( 'Advanced Email Rules', 'text-domain' ),
+			'id'          => 'af-ev-widget-options',
+			'type'        => 'textarea',
+      'desc_tip' => __( 'This will override the above allowed email types.', 'text-domain' ),
+      'placeholder' => __( 'Eg: {"public": {"rule": "warn"}}', 'text-domain' ),
+			'desc'        => __( '<p>Examples can be found <a target="_blank" href="https://addressfinder.nz/docs/email/advanced_usage/#custom-rules-messages">here</a>.</p>', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'type' => 'sectionend',
+			'id'   => 'addressfinder-ev-widget',
+		);
+
+    $settings[] = array(
+			'name' => __( 'Phone Verification', 'text-domain' ),
+			'type' => 'title',
+			'id'   => 'addressfinder-pv-widget',
+		);
+
+    $settings[] = array(
+			'name' => __( 'Enable', 'text-domain' ),
+			'id'   => 'af-pv-widget-enabled',
+			'type' => 'checkbox',
+			'desc' => __( 'Verify phone numbers at the point of capture', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'name'        => __( 'Default Country', 'text-domain' ),
+			'id'          => 'af-pv-widget-default-country',
+			'type'        => 'text',
+			'desc'        => __( 'Used to determine what location to query.', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'name'        => __( 'Allowed Countries', 'text-domain' ),
+			'id'          => 'af-pv-widget-allowed-countries',
+			'type'        => 'text',
+      'placeholder' => __( 'AU,NZ', 'text-domain' ),
+			'desc'        => __( '<p>Seperate country codes by a comma.</p><p>A full list of Country Codes can be found <a target="_blank" href="https://www.iban.com/country-codes">here</a>.</p>', 'text-domain' ),
+		);
+
+    $settings[] = array(
+      'name' => __( 'Allowed Line Types', 'text-domain' ),
+ 			'id'   => 'af-pv-widget-non-mobile',
+			'type' => 'checkbox',
+			'desc' => __( 'Non Mobile', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+    $settings[] = array(
+			'id'   => 'af-pv-widget-disallowed-country',
+			'type' => 'checkbox',
+			'desc' => __( 'Disallowed Countries', 'text-domain' ),
+      'default' => 'yes'
+		);
+
+    $settings[] = array(
+			'id'   => 'af-pv-widget-unverified',
+			'type' => 'checkbox',
+			'desc' => __( 'Unverified', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'name'        => __( 'Advanced Phone Rules', 'text-domain' ),
+			'id'          => 'af-pv-widget-options',
+			'type'        => 'textarea',
+      'desc_tip' => __( 'This will override the above accepted line types.', 'text-domain' ),
+      'placeholder' => __( 'Eg: {"unverified": {"rule": "warn"}}', 'text-domain' ),
+			'desc'        => __( '<p>Examples can be found <a target="_blank" href="https://addressfinder.nz/docs/phone/advanced_usage/#custom-rules-messages">here</a>.</p>', 'text-domain' ),
+		);
+
+    $settings[] = array(
+			'type' => 'sectionend',
+			'id'   => 'addressfinder-pv-widget',
 		);
 
 		return $settings;
