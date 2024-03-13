@@ -1,17 +1,22 @@
 import ConfigManager from './config_manager'
+import PhoneWidget from './phone_widget'
+import EmailWidget from './email_widget'
 import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function (d, w) {
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.6.1"
+      this.version = "1.6.2"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
 
       // Manages the form configurations, and creates any dynamic forms
       this.ConfigManager = null
+
+      this.PhoneWidget = null
+      this.EmailWidget = null
 
       this._initPlugin = this._initPlugin.bind(this)
 
@@ -28,8 +33,28 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
         this.PageManager.reload(addressFormConfigurations)
       }
 
-      // Phone widget needs to know there has been a change.
-      checkForCountryChange()
+      // Country selection by a user triggers mutation events, it does not trigger event listeners.
+      if (this.PhoneWidget) {
+        this.PhoneWidget.checkForCountryChange()
+      }
+    }
+
+    _safeParseJSONObject(jsonObject) {
+      if (jsonObject == undefined) {
+        return null;
+      }
+
+      try {
+        jsonObject = JSON.parse(jsonObject);
+      } catch (e) {
+        if (w.AddressFinderConfig.debug) {
+          alert('Invalid widget option: ' + jsonObject);
+        }
+
+        return null;
+      }
+
+      return jsonObject;
     }
 
     _initOnDOMLoaded(event, repetitions) {
@@ -61,9 +86,9 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
     }
 
     _initPlugin() {
-      let parsedWidgetOptions = _safeParseJSONObject(w.AddressFinderConfig.widget_options);
-      let parsedNZWidgetOptions = _safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
-      let parsedAUWidgetOptions = _safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
+      let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
+      let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
+      let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
 
       const widgetConfig = {
         nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
@@ -96,8 +121,15 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
 
       w.AddressFinder._woocommercePlugin = this.PageManager
 
-      _loadEmailWidget()
-      _loadPhoneWidget()
+      if (w.AddressFinderConfig.email) {
+        this.EmailWidget = new EmailWidget(d, w.AddressFinderConfig, this._safeParseJSONObject)
+        this.EmailWidget.loadEmailWidget()
+      }
+
+      if (w.AddressFinderConfig.phone) {
+        this.PhoneWidget = new PhoneWidget(d, w.AddressFinderConfig, this._safeParseJSONObject)
+        this.PhoneWidget.loadPhoneWidget()
+      }
     }
 
     _setVersionNumbers() {
@@ -114,90 +146,6 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       w.AddressFinderConfig.debug = true
       this._initPlugin()
     }
-  }
-
-  function _loadEmailWidget() {
-    if (w.AddressFinderConfig.email) {
-
-      let s = document.createElement("script");
-      s.src = 'https://api.addressfinder.io/assets/email/v2/widget.js'
-      s.async = 1;
-      s.onload = _initialiseEmailWidget
-      d.body.appendChild(s)
-    }
-
-    function _initialiseEmailWidget(){
-      let conf = {
-        key: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key_au || w.AddressFinderConfig.key,
-      }
-
-      conf.rules = _safeParseJSONObject(w.AddressFinderConfig.email.rules)
-
-      new AddressfinderEmail.Email.Widget("input[type=email]", conf.key, conf);
-    };
-  }
-
-  var phoneLoaded = false
-  var previousCountry = null
-  var countryElement = null
-  function _loadPhoneWidget() {
-    if (w.AddressFinderConfig.phone) {
-
-      let s = document.createElement("script");
-      s.src = 'http://api.addressfinder.io/assets/phone/v2/widget.js'
-      s.async = 1;
-      s.onload = _initialisePhoneWidget
-      d.body.appendChild(s)
-    }
-
-    countryElement = document.getElementById('billing_country')
-
-    function _initialisePhoneWidget(){
-      let conf = {
-        key: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key_au || w.AddressFinderConfig.key,
-        defaultCountryCode: w.AddressFinderConfig.phone.defaultCountryCode,
-        countrySelect: "#billing_country"
-      }
-
-      conf.rules = _safeParseJSONObject(w.AddressFinderConfig.phone.rules)
-
-      new AddressfinderPhone.Phone.Widget("input[type=tel]", conf.key, conf);
-
-      if (countryElement) {
-        phoneLoaded = true
-        previousCountry = countryElement.value
-      }
-    };
-  }
-
-  // Phone widget needs to know there has been a change.
-  function checkForCountryChange() {
-    if (phoneLoaded && countryElement.value != previousCountry) {
-      try {
-        previousCountry = countryElement.value
-        countryElement.dispatchEvent(new Event("change", { bubbles: false }));
-      } catch (error) {
-        // do nothing
-      }
-    }
-  }
-
-  function _safeParseJSONObject(jsonObject) {
-    if (jsonObject == undefined) {
-      return null;
-    }
-
-    try {
-      jsonObject = JSON.parse(jsonObject);
-    } catch (e) {
-      if (w.AddressFinderConfig.debug) {
-        alert('Invalid widget option: ' + jsonObject);
-      }
-
-      return null;
-    }
-
-    return jsonObject;
   }
 
   var s = d.createElement('script')
