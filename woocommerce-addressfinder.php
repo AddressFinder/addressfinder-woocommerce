@@ -77,8 +77,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
 			printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 		} else {
-			$au_post_box = ( 'yes' == $af_widget_au_po_box ) ? '1' : '0';
-			$nz_post_box = ( 'yes' == $af_widget_nz_po_box ) ? '1' : '0';
+			$au_post_box = ( 'yes' == $af_widget_au_po_box ) ? '0' : '1';
+			$nz_post_box = ( 'yes' == $af_widget_nz_po_box ) ? '0' : '1';
 
 			if ( 'postal_and_physical' == $af_widget_au_options ) {
 				printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", "post_box": "' . $au_post_box . '"}}' ) ) );
@@ -389,7 +389,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'name'        => __( 'Advanced Phone Rules', 'text-domain' ),
 			'id'          => 'af-pv-widget-options',
 			'type'        => 'textarea',
-			'desc_tip' => __( 'This will override the above accepted line types.', 'text-domain' ),
+			'desc_tip' => __( 'This will override the above allowed line types.', 'text-domain' ),
 			'placeholder' => __( 'Eg: {"unverified": {"rule": "warn"}}', 'text-domain' ),
 			'desc'        => __( '<p>Examples can be found <a target="_blank" href="https://addressfinder.nz/docs/phone/advanced_usage/#custom-rules-messages">here</a>.</p>', 'text-domain' ),
 		);
