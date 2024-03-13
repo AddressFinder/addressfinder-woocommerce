@@ -1,17 +1,22 @@
 import ConfigManager from './config_manager'
+import PhoneWidget from './phone_widget'
+import EmailWidget from './email_widget'
 import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function (d, w) {
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.6.1"
+      this.version = "1.6.2"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
 
       // Manages the form configurations, and creates any dynamic forms
       this.ConfigManager = null
+
+      this.PhoneWidget = null
+      this.EmailWidget = null
 
       this._initPlugin = this._initPlugin.bind(this)
 
@@ -26,6 +31,11 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       let addressFormConfigurations = this.ConfigManager.load()
       if (this.PageManager) {
         this.PageManager.reload(addressFormConfigurations)
+      }
+
+      // Country selection by a user triggers mutation events, it does not trigger event listeners.
+      if (this.PhoneWidget) {
+        this.PhoneWidget.checkForCountryChange()
       }
     }
 
@@ -110,6 +120,16 @@ import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpa
       this._setVersionNumbers()
 
       w.AddressFinder._woocommercePlugin = this.PageManager
+
+      if (w.AddressFinderConfig.email) {
+        this.EmailWidget = new EmailWidget(d, w.AddressFinderConfig, this._safeParseJSONObject)
+        this.EmailWidget.loadEmailWidget()
+      }
+
+      if (w.AddressFinderConfig.phone) {
+        this.PhoneWidget = new PhoneWidget(d, w.AddressFinderConfig, this._safeParseJSONObject)
+        this.PhoneWidget.loadPhoneWidget()
+      }
     }
 
     _setVersionNumbers() {
