@@ -2460,7 +2460,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
 
     page_manager_classCallCheck(this, PageManager);
 
-    this.version = "1.8.4"; // Each formHelper is an instance of the FormManager class
+    this.version = "1.8.7"; // Each formHelper is an instance of the FormManager class
 
     this.formHelpers = []; // An object containing identifying information about an address form, such as the id values
 
@@ -2510,7 +2510,13 @@ var page_manager_PageManager = /*#__PURE__*/function () {
       var currentCountryCode = null;
       var countryCodes = ['nz', 'au'];
       countryCodes.forEach(function (countryCode) {
-        if (config.countryElement.value === config[countryCode].countryValue) {
+        var countryElementValue = config.countryElement.value;
+
+        if (!countryElementValue && config.getCountryValue) {
+          countryElementValue = config.getCountryValue();
+        }
+
+        if (countryElementValue === config[countryCode].countryValue) {
           currentCountryCode = countryCode;
         }
       });
@@ -2550,7 +2556,13 @@ var page_manager_PageManager = /*#__PURE__*/function () {
           return false;
         }
 
-        var currentCountryCode = _this._getCurrentCountryValue(config);
+        var currentCountryCode = _this._getCurrentCountryValue(config); // currentCountryCode will be null for non supported countries.
+        // return true to avoid continuously reloading the widget, which otherwise would be looking for elements associated with a null currentCountryCode. 
+
+
+        if (currentCountryCode == null) {
+          return true;
+        }
 
         if (!_this._areAllElementsStillInTheDOMForCountryCode(config, currentCountryCode)) {
           // if the dom doesn't contain all the elements associated with the current country we must reload
@@ -2634,12 +2646,13 @@ var page_manager_PageManager = /*#__PURE__*/function () {
     value: function _initialiseFormHelper(addressFormConfig) {
       var searchElement = document.querySelector(addressFormConfig.searchIdentifier);
 
-      if (searchElement) {
+      if (searchElement && searchElement instanceof HTMLInputElement) {
         var formHelperConfig = {
           countryElement: document.querySelector(addressFormConfig.countryIdentifier),
           searchElement: document.querySelector(addressFormConfig.searchIdentifier),
           label: addressFormConfig.label,
           layoutSelectors: addressFormConfig.layoutSelectors,
+          getCountryValue: addressFormConfig.getCountryValue,
           nz: {
             countryValue: addressFormConfig.nz.countryValue,
             elements: {
@@ -3080,7 +3093,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.6.1"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.6.2"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 

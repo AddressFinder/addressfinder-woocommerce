@@ -3,7 +3,7 @@
 	Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: Addressfinder
 	Plugin URI: https://github.com/AddressFinder/woocommerce-addressfinder
-	Version: 1.6.1
+	Version: 1.6.2
 	Author: Addressfinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,11 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.6.1' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.6.2' );
 }
 
 /**
  * Check if WooCommerce is active
+ *
+ * @since version 1.0.0
  */
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	add_action( 'woocommerce_after_checkout_form', 'add_addressfinder_widget' );
@@ -68,22 +70,29 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
 	}
 
-	// Add the tab to the tabs array
+	/**
+	 * Add the tab to the tabs array
+	 *
+	 * @param array $settings_tabs adds additional settings.
+	 */
 	function filter_addressfinder_settings_tabs_array( $settings_tabs ) {
-    $settings_tabs['addressfinder-settings'] = __( 'Addressfinder', 'woocommerce' );
+		$settings_tabs['addressfinder-settings'] = __( 'Addressfinder', 'woocommerce' );
 
-    return $settings_tabs;
+		return $settings_tabs;
 	}
 	add_filter( 'woocommerce_settings_tabs_array', 'filter_addressfinder_settings_tabs_array', 99 );
 	add_filter( 'woocommerce_settings_addressfinder-settings', 'add_settings', 10, 1 );
 
-	function add_settings( ) {
+	/**
+	 * Add settings
+	 */
+	function add_settings() {
 		return WC_Admin_Settings::output_fields( addressfinder_settings() );
 	}
 	/**
 	 * Injects AF related settings into the AF settings page
 	 */
-	function addressfinder_settings( ) {
+	function addressfinder_settings() {
 
 		$settings = array();
 
@@ -165,20 +174,27 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		return $settings;
 	}
 
-	// Process save the settings
+	/**
+	 * Process save the settings
+	 */
 	function action_woocommerce_settings_save_addressfinder_settings() {
-    global $current_section;
+		global $current_section;
 
-    $tab_id = 'addressfinder-settings';
+		$tab_id = 'addressfinder-settings';
 
-    // Call settings function
-    $settings = addressfinder_settings();
+		// Call settings function.
+		$settings = addressfinder_settings();
 
-    WC_Admin_Settings::save_fields( $settings );
+		WC_Admin_Settings::save_fields( $settings );
 
-    if ( $current_section ) {
-	    do_action( 'woocommerce_update_options_' . $tab_id . '_' . $current_section );
-    }
+		if ( $current_section ) {
+			/**
+			 * Updates the woocommerce options
+			 *
+			 * @since version 1.0.0
+			 */
+			do_action( 'woocommerce_update_options_' . $tab_id . '_' . $current_section );
+		}
 	}
 	add_action( 'woocommerce_settings_save_addressfinder-settings', 'action_woocommerce_settings_save_addressfinder_settings', 10 );
 
