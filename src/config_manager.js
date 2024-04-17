@@ -1,6 +1,7 @@
 import billingAddress from './address_form_config/billing_address'
 import shippingAddress from './address_form_config/shipping_address'
-import blockAddress from './address_form_config/block_address'
+import blockBillingAddress from './address_form_config/block_billing_address'
+import blockShippingAddress from './address_form_config/block_shipping_address'
 
 export default class ConfigManager {
 
@@ -9,7 +10,8 @@ export default class ConfigManager {
     const addressFormConfigurations = [
       billingAddress,
       shippingAddress,
-      blockAddress
+      blockBillingAddress,
+      blockShippingAddress
     ]
 
     return addressFormConfigurations

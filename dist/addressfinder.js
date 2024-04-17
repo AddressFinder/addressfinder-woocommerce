@@ -3015,12 +3015,12 @@ __webpack_require__.r(__webpack_exports__);
     stateMappings: null
   }
 });
-// CONCATENATED MODULE: ./src/address_form_config/block_address.js
+// CONCATENATED MODULE: ./src/address_form_config/block_billing_address.js
 
-/* harmony default export */ var block_address = ({
-  label: "Block Checkout",
+/* harmony default export */ var block_billing_address = ({
+  label: "Block Billing Checkout",
   layoutSelectors: ["#billing-address_1"],
-  countryIdentifier: '#components-form-token-input-0',
+  countryIdentifier: '#components-form-token-input-2',
   searchIdentifier: '#billing-address_1',
   nz: {
     countryValue: "New Zealand",
@@ -3029,10 +3029,10 @@ __webpack_require__.r(__webpack_exports__);
       address2: null,
       suburb: '#billing-address_2',
       city: '#billing-city',
-      region: '#components-form-token-input-1',
+      region: '#components-form-token-input-3',
       postcode: '#billing-postcode'
     },
-    regionMappings: region_mappings('#components-form-token-input-1')
+    regionMappings: region_mappings('#components-form-token-input-3')
   },
   au: {
     countryValue: "Australia",
@@ -3040,8 +3040,39 @@ __webpack_require__.r(__webpack_exports__);
       address1: '#billing-address_1',
       address2: '#billing-address_2',
       suburb: '#billing-city',
-      state: '#components-form-token-input-1',
+      state: '#components-form-token-input-3',
       postcode: '#billing-postcode'
+    },
+    stateMappings: null
+  }
+});
+// CONCATENATED MODULE: ./src/address_form_config/block_shipping_address.js
+
+/* harmony default export */ var block_shipping_address = ({
+  label: "Block Shipping Checkout",
+  layoutSelectors: ["#shipping-address_1"],
+  countryIdentifier: '#components-form-token-input-0',
+  searchIdentifier: '#shipping-address_1',
+  nz: {
+    countryValue: "New Zealand",
+    elements: {
+      address1: '#shipping-address_1',
+      address2: null,
+      suburb: '#shipping-address_2',
+      city: '#shipping-city',
+      region: '#components-form-token-input-1',
+      postcode: '#shipping-postcode'
+    },
+    regionMappings: region_mappings('#components-form-token-input-1')
+  },
+  au: {
+    countryValue: "Australia",
+    elements: {
+      address1: '#shipping-address_1',
+      address2: '#shipping-address_2',
+      suburb: '#shipping-city',
+      state: "#components-form-token-input-1",
+      postcode: '#shipping-postcode'
     },
     stateMappings: null
   }
@@ -3057,6 +3088,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
 var config_manager_ConfigManager = /*#__PURE__*/function () {
   function ConfigManager() {
     _classCallCheck(this, ConfigManager);
@@ -3066,7 +3098,7 @@ var config_manager_ConfigManager = /*#__PURE__*/function () {
     key: "load",
     value: function load() {
       // This function is called when the page mutates and returns our form configurations
-      var addressFormConfigurations = [billing_address, shipping_address, block_address];
+      var addressFormConfigurations = [billing_address, shipping_address, block_billing_address, block_shipping_address];
       return addressFormConfigurations;
     }
   }]);
@@ -3093,7 +3125,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.6.2"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.6.3"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
