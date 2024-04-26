@@ -1,4 +1,5 @@
 import regionMappings from './region_mappings'
+import internationalStateMappings from './international_state_mappings'
 
 export default {
   label: "Billing Checkout",
@@ -37,7 +38,7 @@ export default {
       state: '#billing_state',
       postcode: '#billing_postcode',
     },
-    stateMappings: null,
+    stateMappings: internationalStateMappings('standardForm'),
     optionalElements: {'be': ['address_line_2', 'state_territory'], 'ca': ['address_line_2'], 'cz': ['address_line_2'], 'de': ['address_line_2', 'state_territory'], 'fr': ['address_line_2'], 'dk': ['address_line_2'], 'ie': ['address_line_2'], 'nl': ['address_line_2', 'state_territory'], 'pt': ['address_line_2', 'state_territory'], 'sg': ['address_line_2', 'state_territory'], 'es': ['address_line_2'], 'se': ['address_line_2'], 'gb': ['address_line_2'], 'us': ['address_line_2']}
   }
 }
