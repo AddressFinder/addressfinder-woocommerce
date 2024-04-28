@@ -3340,7 +3340,6 @@ __webpack_require__.r(__webpack_exports__);
       postcode: '#shipping-postcode'
     },
     stateMappings: international_state_mappings('blockForm'),
-    // add link to addressfinder tools
     optionalElements: {
       'be': ['address_line_2', 'state_territory'],
       'ca': ['address_line_2'],
@@ -3415,7 +3414,6 @@ __webpack_require__.r(__webpack_exports__);
       postcode: '#billing-postcode'
     },
     stateMappings: international_state_mappings('blockForm'),
-    // add link to addressfinder tools
     optionalElements: {
       'be': ['address_line_2', 'state_territory'],
       'ca': ['address_line_2'],
