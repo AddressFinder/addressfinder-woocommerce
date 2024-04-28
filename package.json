@@ -16,7 +16,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@addressfinder/addressfinder-webpage-tools": "^1.8.7",
+    "@addressfinder/addressfinder-webpage-tools": "^2.0.0",
     "core-js": "^2.6.11"
   },
   "scripts": {

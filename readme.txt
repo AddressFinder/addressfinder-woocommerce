@@ -137,7 +137,7 @@ The Addressfinder website has a large [FAQ section](https://addressfinder.com.au
 
 == Changelog ==
 = 1.6.3 =
-* Add support for block checkout forms
+* Add support for block checkout forms and international addresses
 = 1.6.2 =
 * Avoid widget reloading for non supported countries
 = 1.6.1 =
