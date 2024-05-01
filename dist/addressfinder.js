@@ -3061,6 +3061,8 @@ __webpack_require__.r(__webpack_exports__);
   return three_letter_mapping;
 });
 // CONCATENATED MODULE: ./src/address_form_config/international_state_mappings.js
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ var international_state_mappings = (function (form_type) {
   if (form_type == 'blockForm') {
     var block_form_mapping = {
@@ -3099,7 +3101,26 @@ __webpack_require__.r(__webpack_exports__);
     };
     return block_form_mapping;
   } else {
+    var _ES;
+
     var standard_form_mapping = {
+      'ES': (_ES = {
+        "A Coruña": "C",
+        "Alacant*": "A",
+        "Albacete": "AB",
+        "Almería": "AL",
+        "Andalucía": "AN",
+        "Araba*": "VI",
+        "Aragón": "AR",
+        "Asturias": "O",
+        "Principado de Asturias": "AS",
+        "Badajoz": "BA",
+        "Barcelona": "B",
+        "Bizkaia": "BI",
+        "Burgos": "BU",
+        "Canarias": "CN",
+        "Cantabria": "S"
+      }, _defineProperty(_ES, "Cantabria", "CB"), _defineProperty(_ES, "Castelló*", "CS"), _defineProperty(_ES, "Castilla y León", "CL"), _defineProperty(_ES, "Castilla-La Mancha", "CM"), _defineProperty(_ES, "Catalunya", "CT"), _defineProperty(_ES, "Ceuta", "CE"), _defineProperty(_ES, "Ciudad Real", "CR"), _defineProperty(_ES, "Cuenca", "CU"), _defineProperty(_ES, "Cáceres", "CC"), _defineProperty(_ES, "Cádiz", "CA"), _defineProperty(_ES, "Córdoba", "CO"), _defineProperty(_ES, "Euskal Herria", "PV"), _defineProperty(_ES, "Extremadura", "EX"), _defineProperty(_ES, "Galicia", "GA"), _defineProperty(_ES, "Gipuzkoa", "SS"), _defineProperty(_ES, "Girona", "GI"), _defineProperty(_ES, "Granada", "GR"), _defineProperty(_ES, "Guadalajara", "GU"), _defineProperty(_ES, "Huelva", "H"), _defineProperty(_ES, "Huesca", "HU"), _defineProperty(_ES, "Illes Balears", "PM"), _defineProperty(_ES, "Illes Balears", "IB"), _defineProperty(_ES, "Jaén", "J"), _defineProperty(_ES, "La Rioja", "LO"), _defineProperty(_ES, "La Rioja", "RI"), _defineProperty(_ES, "Las Palmas", "GC"), _defineProperty(_ES, "León", "LE"), _defineProperty(_ES, "Lleida", "L"), _defineProperty(_ES, "Lugo", "LU"), _defineProperty(_ES, "Madrid", "M"), _defineProperty(_ES, "Comunidad de Madrid", "MD"), _defineProperty(_ES, "Melilla", "ML"), _defineProperty(_ES, "Murcia", "MU"), _defineProperty(_ES, "Región de Murcia", "MC"), _defineProperty(_ES, "Málaga", "MA"), _defineProperty(_ES, "Nafarroa*", "NA"), _defineProperty(_ES, "Nafarroako Foru Komunitatea*", "NC"), _defineProperty(_ES, "Ourense", "OR"), _defineProperty(_ES, "Palencia", "P"), _defineProperty(_ES, "Pontevedra", "PO"), _defineProperty(_ES, "Salamanca", "SA"), _defineProperty(_ES, "Santa Cruz de Tenerife", "TF"), _defineProperty(_ES, "Segovia", "SG"), _defineProperty(_ES, "Sevilla", "SE"), _defineProperty(_ES, "Soria", "SO"), _defineProperty(_ES, "Tarragona", "T"), _defineProperty(_ES, "Teruel", "TE"), _defineProperty(_ES, "Toledo", "TO"), _defineProperty(_ES, "Valencia", "V"), _defineProperty(_ES, "Comunidad Valenciana", "V"), _defineProperty(_ES, "Valladolid", "VA"), _defineProperty(_ES, "Zamora", "ZA"), _defineProperty(_ES, "Zargoza", "Z"), _defineProperty(_ES, "Ávila", "AV"), _ES),
       'IE': {
         "County Cavan": "CN",
         "County Clare": "CE",
@@ -3320,6 +3341,7 @@ __webpack_require__.r(__webpack_exports__);
       'Belgium': 'be',
       'Canada': 'ca',
       'Czechia': 'cz',
+      'Czech Republic': 'cz',
       'Denmark': 'dk',
       'France': 'fr',
       'Germany': 'de',
@@ -3343,7 +3365,7 @@ __webpack_require__.r(__webpack_exports__);
     optionalElements: {
       'be': ['address_line_2', 'state_territory'],
       'ca': ['address_line_2'],
-      'cz': ['address_line_2'],
+      'cz': ['address_line_2', 'state_territory'],
       'de': ['address_line_2', 'state_territory'],
       'fr': ['address_line_2'],
       'dk': ['address_line_2', 'state_territory'],
@@ -3394,6 +3416,7 @@ __webpack_require__.r(__webpack_exports__);
       'Belgium': 'be',
       'Canada': 'ca',
       'Czechia': 'cz',
+      'Czech Republic': 'cz',
       'Denmark': 'dk',
       'France': 'fr',
       'Germany': 'de',
@@ -3417,7 +3440,7 @@ __webpack_require__.r(__webpack_exports__);
     optionalElements: {
       'be': ['address_line_2', 'state_territory'],
       'ca': ['address_line_2'],
-      'cz': ['address_line_2'],
+      'cz': ['address_line_2', 'state_territory'],
       'de': ['address_line_2', 'state_territory'],
       'fr': ['address_line_2'],
       'dk': ['address_line_2', 'state_territory'],
@@ -3545,7 +3568,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.6.3"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.7.0"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
