@@ -2186,13 +2186,10 @@ var FormManager = /*#__PURE__*/function () {
       this.widgets["nz"] = nzWidget;
       var auWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "au", this.widgetConfig.auWidgetOptions);
       auWidget.on("result:select", this._auAddressSelected.bind(this));
-      this.widgets["au"] = auWidget; // Prevents the widget from throwing errors if the activeCountry is not 'nz' or 'au'
-
-      this.widgets["null"] = {
-        enable: function enable() {},
-        disable: function disable() {},
-        destroy: function destroy() {}
-      };
+      this.widgets["au"] = auWidget;
+      var intWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "us", {});
+      intWidget.on("result:select", this._intAddressSelected.bind(this));
+      this.widgets["int"] = intWidget;
       this.boundCountryChangedListener = this._countryChanged.bind(this); // save this so we can unbind in the destroy() method
 
       if (this.formHelperConfig.countryElement) {
@@ -2223,8 +2220,13 @@ var FormManager = /*#__PURE__*/function () {
           activeCountry = "au";
           break;
 
-        default:
+        case "":
+        case null:
           activeCountry = "null";
+          break;
+
+        default:
+          activeCountry = this.formHelperConfig["int"].countryValue[this.formHelperConfig.countryElement.value] || "null";
       }
 
       this._setActiveCountry(activeCountry);
@@ -2238,7 +2240,16 @@ var FormManager = /*#__PURE__*/function () {
         return widget.disable();
       });
 
-      this.widgets[countryCode].enable();
+      if (countryCode == "null") {
+        return;
+      }
+
+      if (["nz", "au"].includes(countryCode)) {
+        this.widgets[countryCode].enable();
+      } else {
+        this.widgets["int"].enable();
+        this.widgets["int"].setCountry(countryCode);
+      }
     }
   }, {
     key: "_combineAddressElements",
@@ -2330,6 +2341,38 @@ var FormManager = /*#__PURE__*/function () {
         this._setElementValue(elements.state_territory, translatedStateValue, "state_territory");
       } else {
         this._setElementValue(elements.state_territory, metaData.state_territory, "state_territory");
+      }
+    }
+  }, {
+    key: "_intAddressSelected",
+    value: function _intAddressSelected(fullAddress, metaData) {
+      var elements = this.formHelperConfig["int"].elements;
+
+      if (!elements.address_line_2) {
+        // If we only have address_line_1, put both address 1 and 2 into this line
+        var combined = this._combineAddressElements([metaData.address.address_line_1, metaData.address.address_line_2]);
+
+        this._setElementValue(elements.address_line_1, combined, "address_line_1");
+      } else {
+        this._setElementValue(elements.address_line_1, metaData.address.address_line_1, "address_line_1"); // metaData.address_line_2 could be undefined, in which case we replace it with an empty string
+
+
+        var address_line_2 = metaData.address.address_line_2 || "";
+
+        this._setElementValue(elements.address_line_2, address_line_2, "address_line_2");
+      }
+
+      this._setElementValue(elements.locality_name, metaData.address.city, "suburb");
+
+      this._setElementValue(elements.postcode, metaData.address.postcode, "postcode");
+
+      if (this.formHelperConfig["int"].stateMappings && this.formHelperConfig["int"].stateMappings[metaData.address.country_code]) {
+        // matches the state returned by the api with the state values in the select field
+        var translatedStateValue = this.formHelperConfig["int"].stateMappings[metaData.address.country_code][metaData.address.state];
+
+        this._setElementValue(elements.state_territory, translatedStateValue, "state_territory");
+      } else {
+        this._setElementValue(elements.state_territory, metaData.address.state, "state_territory");
       }
     }
   }, {
@@ -2460,7 +2503,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
 
     page_manager_classCallCheck(this, PageManager);
 
-    this.version = "1.8.7"; // Each formHelper is an instance of the FormManager class
+    this.version = "2.0.0"; // Each formHelper is an instance of the FormManager class
 
     this.formHelpers = []; // An object containing identifying information about an address form, such as the id values
 
@@ -2482,7 +2525,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
   page_manager_createClass(PageManager, [{
     key: "reload",
     value: function reload(addressFormConfigurations) {
-      if (!this._areAllElementsStillInTheDOM()) {
+      if (!this._areAllElementsStillInTheDOM() || this._newFormsIdentified(addressFormConfigurations)) {
         this.identifiedFormHelperConfig = [];
         this.addressFormConfigurations = addressFormConfigurations;
         this.loadFormHelpers();
@@ -2508,7 +2551,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
       // If the user does not provide a country element, we set the current country value to the default
       if (!config.countryElement) return this.widgetConfig.defaultCountry;
       var currentCountryCode = null;
-      var countryCodes = ['nz', 'au'];
+      var countryCodes = ['nz', 'au', 'int'];
       countryCodes.forEach(function (countryCode) {
         var countryElementValue = config.countryElement.value;
 
@@ -2516,8 +2559,14 @@ var page_manager_PageManager = /*#__PURE__*/function () {
           countryElementValue = config.getCountryValue();
         }
 
-        if (countryElementValue === config[countryCode].countryValue) {
-          currentCountryCode = countryCode;
+        if (countryCode == 'int') {
+          if (config[countryCode].countryValue[countryElementValue]) {
+            currentCountryCode = config[countryCode].countryValue[countryElementValue];
+          }
+        } else {
+          if (countryElementValue === config[countryCode].countryValue) {
+            currentCountryCode = countryCode;
+          }
         }
       });
       return currentCountryCode;
@@ -2557,7 +2606,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
         }
 
         var currentCountryCode = _this._getCurrentCountryValue(config); // currentCountryCode will be null for non supported countries.
-        // return true to avoid continuously reloading the widget, which otherwise would be looking for elements associated with a null currentCountryCode. 
+        // return true to avoid continuously reloading the widget, which otherwise would be looking for elements associated with a null currentCountryCode.
 
 
         if (currentCountryCode == null) {
@@ -2577,17 +2626,31 @@ var page_manager_PageManager = /*#__PURE__*/function () {
     value: function _ignoreOptionalNullElements(config, countryCode) {
       var filteredElements = {};
 
-      _objectEntries(config[countryCode].elements).forEach(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            key = _ref3[0],
-            element = _ref3[1];
+      if (['au', 'nz'].includes(countryCode)) {
+        _objectEntries(config[countryCode].elements).forEach(function (_ref2) {
+          var _ref3 = _slicedToArray(_ref2, 2),
+              key = _ref3[0],
+              element = _ref3[1];
 
-        // Some forms don't have the address_line_2 or suburb fields.
-        // We allow these fields to be missing without reloading the widget
-        if (!(config[countryCode].optionalElements.includes(key) && element === null)) {
-          filteredElements[key] = element;
-        }
-      });
+          // Some forms don't have the address_line_2 or suburb fields.
+          // We allow these fields to be missing without reloading the widget
+          if (!(config[countryCode].optionalElements.includes(key) && element === null)) {
+            filteredElements[key] = element;
+          }
+        });
+      } else {
+        _objectEntries(config['int'].elements).forEach(function (_ref4) {
+          var _ref5 = _slicedToArray(_ref4, 2),
+              key = _ref5[0],
+              element = _ref5[1];
+
+          // Some forms don't have the address_line_2 or suburb fields.
+          // We allow these fields to be missing without reloading the widget
+          if (!(config['int'].optionalElements[countryCode].includes(key) && element === null)) {
+            filteredElements[key] = element;
+          }
+        });
+      }
 
       return filteredElements;
     }
@@ -2639,6 +2702,38 @@ var page_manager_PageManager = /*#__PURE__*/function () {
       } finally {
         _iterator.f();
       }
+    } // Checks if additional forms have been identified since last 'reload'.
+
+  }, {
+    key: "_newFormsIdentified",
+    value: function _newFormsIdentified(addressFormConfigurations) {
+      var identifiedForms = [];
+
+      var _iterator2 = _createForOfIteratorHelper(addressFormConfigurations),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var addressFormConfig = _step2.value;
+
+          if (this._identifyingElementsPresentAndVisible(addressFormConfig)) {
+            identifiedForms.push(addressFormConfig);
+          }
+        } // returns true if additional forms have been identified.
+        // this will trigger a full reload of all the widgets for each form.
+
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      if (identifiedForms.length > this.identifiedAddressFormConfigurations.length) {
+        this.log("Identified addtional forms");
+        return true;
+      }
+
+      return false;
     } // For each configuration, create a formHelperConfig. This maps our form configurations to the corresponding DOM elements.
 
   }, {
@@ -2677,6 +2772,18 @@ var page_manager_PageManager = /*#__PURE__*/function () {
             },
             stateMappings: addressFormConfig.au.stateMappings,
             optionalElements: ['address_line_2']
+          },
+          "int": {
+            countryValue: addressFormConfig["int"].countryValue,
+            elements: {
+              address_line_1: document.querySelector(addressFormConfig["int"].elements.address1),
+              address_line_2: document.querySelector(addressFormConfig["int"].elements.address2),
+              locality_name: document.querySelector(addressFormConfig["int"].elements.suburb),
+              state_territory: document.querySelector(addressFormConfig["int"].elements.state),
+              postcode: document.querySelector(addressFormConfig["int"].elements.postcode)
+            },
+            stateMappings: addressFormConfig["int"].stateMappings,
+            optionalElements: addressFormConfig["int"].optionalElements
           }
         };
         this.identifiedFormHelperConfig.push(formHelperConfig); // if the country element is present, we set countryElementWasPresent to true
@@ -2830,7 +2937,7 @@ var MutationManager = /*#__PURE__*/function () {
      * If the store continously triggers mutations the mutationEventHandler will never be called. If it is reset 20 times in a row,
      * the page is considered to be mutating excessively. In this case we initialise AddressFinder, and in debug mode we warn the user
      * that excessive mutations may stop AddressFinder from working.
-     * 
+     *
      */
 
   }, {
@@ -2953,7 +3060,105 @@ __webpack_require__.r(__webpack_exports__);
 
   return three_letter_mapping;
 });
+// CONCATENATED MODULE: ./src/address_form_config/international_state_mappings.js
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/* harmony default export */ var international_state_mappings = (function (form_type) {
+  if (form_type == 'blockForm') {
+    var block_form_mapping = {
+      'IE': {
+        "County Cavan": "CN",
+        "County Clare": "CE",
+        "County Westmeath": "WH",
+        "County Longford": "LD",
+        "County Munster": "M",
+        "County Meath": "MH",
+        "County Dublin": "DU",
+        "County Carlow": "CW",
+        "County Kerry": "KY",
+        "County Kilkenny": "KK",
+        "County Kildare": "KE",
+        "County Wicklow": "WW",
+        "County Connaught": "C",
+        "County Cork": "CO",
+        "County Donegal": "D",
+        "County Galway": "G",
+        "County Leinster": "L",
+        "County Laois": "LS",
+        "County Leitrim": "LM",
+        "County Limerick": "LK",
+        "County Wexford": "WX",
+        "County Louth": "LH",
+        "County Mayo": "MO",
+        "County Monaghan": "MN",
+        "County Offaly": "OY",
+        "County Waterford": "WD",
+        "County Roscommon": "RN",
+        "County Sligo": "SO",
+        "County Tipperary": "TA",
+        "County Ulster": "U"
+      }
+    };
+    return block_form_mapping;
+  } else {
+    var _ES;
+
+    var standard_form_mapping = {
+      'ES': (_ES = {
+        "A Coruña": "C",
+        "Alacant*": "A",
+        "Albacete": "AB",
+        "Almería": "AL",
+        "Andalucía": "AN",
+        "Araba*": "VI",
+        "Aragón": "AR",
+        "Asturias": "O",
+        "Principado de Asturias": "AS",
+        "Badajoz": "BA",
+        "Barcelona": "B",
+        "Bizkaia": "BI",
+        "Burgos": "BU",
+        "Canarias": "CN",
+        "Cantabria": "S"
+      }, _defineProperty(_ES, "Cantabria", "CB"), _defineProperty(_ES, "Castelló*", "CS"), _defineProperty(_ES, "Castilla y León", "CL"), _defineProperty(_ES, "Castilla-La Mancha", "CM"), _defineProperty(_ES, "Catalunya", "CT"), _defineProperty(_ES, "Ceuta", "CE"), _defineProperty(_ES, "Ciudad Real", "CR"), _defineProperty(_ES, "Cuenca", "CU"), _defineProperty(_ES, "Cáceres", "CC"), _defineProperty(_ES, "Cádiz", "CA"), _defineProperty(_ES, "Córdoba", "CO"), _defineProperty(_ES, "Euskal Herria", "PV"), _defineProperty(_ES, "Extremadura", "EX"), _defineProperty(_ES, "Galicia", "GA"), _defineProperty(_ES, "Gipuzkoa", "SS"), _defineProperty(_ES, "Girona", "GI"), _defineProperty(_ES, "Granada", "GR"), _defineProperty(_ES, "Guadalajara", "GU"), _defineProperty(_ES, "Huelva", "H"), _defineProperty(_ES, "Huesca", "HU"), _defineProperty(_ES, "Illes Balears", "PM"), _defineProperty(_ES, "Illes Balears", "IB"), _defineProperty(_ES, "Jaén", "J"), _defineProperty(_ES, "La Rioja", "LO"), _defineProperty(_ES, "La Rioja", "RI"), _defineProperty(_ES, "Las Palmas", "GC"), _defineProperty(_ES, "León", "LE"), _defineProperty(_ES, "Lleida", "L"), _defineProperty(_ES, "Lugo", "LU"), _defineProperty(_ES, "Madrid", "M"), _defineProperty(_ES, "Comunidad de Madrid", "MD"), _defineProperty(_ES, "Melilla", "ML"), _defineProperty(_ES, "Murcia", "MU"), _defineProperty(_ES, "Región de Murcia", "MC"), _defineProperty(_ES, "Málaga", "MA"), _defineProperty(_ES, "Nafarroa*", "NA"), _defineProperty(_ES, "Nafarroako Foru Komunitatea*", "NC"), _defineProperty(_ES, "Ourense", "OR"), _defineProperty(_ES, "Palencia", "P"), _defineProperty(_ES, "Pontevedra", "PO"), _defineProperty(_ES, "Salamanca", "SA"), _defineProperty(_ES, "Santa Cruz de Tenerife", "TF"), _defineProperty(_ES, "Segovia", "SG"), _defineProperty(_ES, "Sevilla", "SE"), _defineProperty(_ES, "Soria", "SO"), _defineProperty(_ES, "Tarragona", "T"), _defineProperty(_ES, "Teruel", "TE"), _defineProperty(_ES, "Toledo", "TO"), _defineProperty(_ES, "Valencia", "V"), _defineProperty(_ES, "Comunidad Valenciana", "V"), _defineProperty(_ES, "Valladolid", "VA"), _defineProperty(_ES, "Zamora", "ZA"), _defineProperty(_ES, "Zargoza", "Z"), _defineProperty(_ES, "Ávila", "AV"), _ES),
+      'IE': {
+        "County Cavan": "CN",
+        "County Clare": "CE",
+        "County Westmeath": "WH",
+        "County Longford": "LD",
+        "County Munster": "M",
+        "County Meath": "MH",
+        "County Dublin": "D",
+        "County Carlow": "CW",
+        "County Kerry": "KY",
+        "County Kilkenny": "KK",
+        "County Kildare": "KE",
+        "County Wicklow": "WW",
+        "County Connaught": "C",
+        "County Cork": "CO",
+        "County Donegal": "DL",
+        "County Galway": "G",
+        "County Leinster": "L",
+        "County Laois": "LS",
+        "County Leitrim": "LM",
+        "County Limerick": "LK",
+        "County Wexford": "WX",
+        "County Louth": "LH",
+        "County Mayo": "MO",
+        "County Monaghan": "MN",
+        "County Offaly": "OY",
+        "County Waterford": "WD",
+        "County Roscommon": "RN",
+        "County Sligo": "SO",
+        "County Tipperary": "TA",
+        "County Ulster": "U"
+      }
+    };
+    return standard_form_mapping;
+  }
+});
 // CONCATENATED MODULE: ./src/address_form_config/billing_address.js
+
 
 /* harmony default export */ var billing_address = ({
   label: "Billing Checkout",
@@ -2982,9 +3187,52 @@ __webpack_require__.r(__webpack_exports__);
       postcode: '#billing_postcode'
     },
     stateMappings: null
+  },
+  "int": {
+    countryValue: {
+      'BE': 'be',
+      'CA': 'ca',
+      'CZ': 'cz',
+      'DE': 'de',
+      'FR': 'fr',
+      'DK': 'dk',
+      'IE': 'ie',
+      'NL': 'nl',
+      'PT': 'pt',
+      'SG': 'sg',
+      'ES': 'es',
+      'SE': 'se',
+      'GB': 'gb',
+      'US': 'us'
+    },
+    elements: {
+      address1: '#billing_address_1',
+      address2: '#billing_address_2',
+      suburb: '#billing_city',
+      state: '#billing_state',
+      postcode: '#billing_postcode'
+    },
+    stateMappings: international_state_mappings('standardForm'),
+    optionalElements: {
+      'be': ['address_line_2', 'state_territory'],
+      'ca': ['address_line_2'],
+      'cz': ['address_line_2'],
+      'de': ['address_line_2', 'state_territory'],
+      'fr': ['address_line_2'],
+      'dk': ['address_line_2'],
+      'ie': ['address_line_2'],
+      'nl': ['address_line_2', 'state_territory'],
+      'pt': ['address_line_2', 'state_territory'],
+      'sg': ['address_line_2', 'state_territory'],
+      'es': ['address_line_2'],
+      'se': ['address_line_2'],
+      'gb': ['address_line_2'],
+      'us': ['address_line_2']
+    }
   }
 });
 // CONCATENATED MODULE: ./src/address_form_config/shipping_address.js
+
 
 /* harmony default export */ var shipping_address = ({
   label: "Shipping Checkout",
@@ -3013,14 +3261,132 @@ __webpack_require__.r(__webpack_exports__);
       postcode: '#shipping_postcode'
     },
     stateMappings: null
+  },
+  "int": {
+    countryValue: {
+      'BE': 'be',
+      'CA': 'ca',
+      'CZ': 'cz',
+      'DE': 'de',
+      'FR': 'fr',
+      'DK': 'dk',
+      'IE': 'ie',
+      'NL': 'nl',
+      'PT': 'pt',
+      'SG': 'sg',
+      'ES': 'es',
+      'SE': 'se',
+      'GB': 'gb',
+      'US': 'us'
+    },
+    elements: {
+      address1: '#shipping_address_1',
+      address2: '#shipping_address_2',
+      suburb: '#shipping_city',
+      state: '#shipping_state',
+      postcode: '#shipping_postcode'
+    },
+    stateMappings: international_state_mappings('standardForm'),
+    optionalElements: {
+      'be': ['address_line_2', 'state_territory'],
+      'ca': ['address_line_2'],
+      'cz': ['address_line_2'],
+      'de': ['address_line_2', 'state_territory'],
+      'fr': ['address_line_2'],
+      'dk': ['address_line_2'],
+      'ie': ['address_line_2'],
+      'nl': ['address_line_2', 'state_territory'],
+      'pt': ['address_line_2', 'state_territory'],
+      'sg': ['address_line_2', 'state_territory'],
+      'es': ['address_line_2'],
+      'se': ['address_line_2', 'state_territory'],
+      'gb': ['address_line_2'],
+      'us': ['address_line_2']
+    }
   }
 });
-// CONCATENATED MODULE: ./src/address_form_config/block_address.js
+// CONCATENATED MODULE: ./src/address_form_config/block_shipping_address.js
 
-/* harmony default export */ var block_address = ({
-  label: "Block Checkout",
-  layoutSelectors: ["#billing-address_1"],
+
+/* harmony default export */ var block_shipping_address = ({
+  label: "Block Shipping Checkout",
+  layoutSelectors: ["#shipping-address_1"],
   countryIdentifier: '#components-form-token-input-0',
+  searchIdentifier: '#shipping-address_1',
+  nz: {
+    countryValue: "New Zealand",
+    elements: {
+      address1: '#shipping-address_1',
+      address2: null,
+      suburb: '#shipping-address_2',
+      city: '#shipping-city',
+      region: '#components-form-token-input-1',
+      postcode: '#shipping-postcode'
+    },
+    regionMappings: region_mappings('#components-form-token-input-1')
+  },
+  au: {
+    countryValue: "Australia",
+    elements: {
+      address1: '#shipping-address_1',
+      address2: '#shipping-address_2',
+      suburb: '#shipping-city',
+      state: "#components-form-token-input-1",
+      postcode: '#shipping-postcode'
+    },
+    stateMappings: null
+  },
+  "int": {
+    countryValue: {
+      'Belgium': 'be',
+      'Canada': 'ca',
+      'Czechia': 'cz',
+      'Czech Republic': 'cz',
+      'Denmark': 'dk',
+      'France': 'fr',
+      'Germany': 'de',
+      'Ireland': 'ie',
+      'Netherlands': 'nl',
+      'Portugal': 'pt',
+      'Singapore': 'sg',
+      'Spain': 'es',
+      'Sweden': 'se',
+      'United Kingdom (UK)': 'gb',
+      'United States (US)': 'us'
+    },
+    elements: {
+      address1: '#shipping-address_1',
+      address2: '#shipping-address_2',
+      suburb: '#shipping-city',
+      state: "#components-form-token-input-1",
+      postcode: '#shipping-postcode'
+    },
+    stateMappings: international_state_mappings('blockForm'),
+    optionalElements: {
+      'be': ['address_line_2', 'state_territory'],
+      'ca': ['address_line_2'],
+      'cz': ['address_line_2', 'state_territory'],
+      'de': ['address_line_2', 'state_territory'],
+      'fr': ['address_line_2'],
+      'dk': ['address_line_2', 'state_territory'],
+      'ie': ['address_line_2'],
+      'nl': ['address_line_2', 'state_territory'],
+      'pt': ['address_line_2', 'state_territory'],
+      'sg': ['address_line_2', 'state_territory'],
+      'es': ['address_line_2'],
+      'se': ['address_line_2', 'state_territory'],
+      'gb': ['address_line_2'],
+      'us': ['address_line_2']
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/address_form_config/block_billing_address.js
+
+
+/* harmony default export */ var block_billing_address = ({
+  label: "Block Billing Checkout",
+  layoutSelectors: ["#billing-address_1"],
+  countryIdentifier: '#components-form-token-input-2',
   searchIdentifier: '#billing-address_1',
   nz: {
     countryValue: "New Zealand",
@@ -3029,10 +3395,10 @@ __webpack_require__.r(__webpack_exports__);
       address2: null,
       suburb: '#billing-address_2',
       city: '#billing-city',
-      region: '#components-form-token-input-1',
+      region: '#components-form-token-input-3',
       postcode: '#billing-postcode'
     },
-    regionMappings: region_mappings('#components-form-token-input-1')
+    regionMappings: region_mappings('#components-form-token-input-3')
   },
   au: {
     countryValue: "Australia",
@@ -3040,18 +3406,121 @@ __webpack_require__.r(__webpack_exports__);
       address1: '#billing-address_1',
       address2: '#billing-address_2',
       suburb: '#billing-city',
-      state: '#components-form-token-input-1',
+      state: '#components-form-token-input-3',
       postcode: '#billing-postcode'
     },
     stateMappings: null
+  },
+  "int": {
+    countryValue: {
+      'Belgium': 'be',
+      'Canada': 'ca',
+      'Czechia': 'cz',
+      'Czech Republic': 'cz',
+      'Denmark': 'dk',
+      'France': 'fr',
+      'Germany': 'de',
+      'Ireland': 'ie',
+      'Netherlands': 'nl',
+      'Portugal': 'pt',
+      'Singapore': 'sg',
+      'Spain': 'es',
+      'Sweden': 'se',
+      'United Kingdom (UK)': 'gb',
+      'United States (US)': 'us'
+    },
+    elements: {
+      address1: '#billing-address_1',
+      address2: '#billing-address_2',
+      suburb: '#billing-city',
+      state: '#components-form-token-input-3',
+      postcode: '#billing-postcode'
+    },
+    stateMappings: international_state_mappings('blockForm'),
+    optionalElements: {
+      'be': ['address_line_2', 'state_territory'],
+      'ca': ['address_line_2'],
+      'cz': ['address_line_2', 'state_territory'],
+      'de': ['address_line_2', 'state_territory'],
+      'fr': ['address_line_2'],
+      'dk': ['address_line_2', 'state_territory'],
+      'ie': ['address_line_2'],
+      'nl': ['address_line_2', 'state_territory'],
+      'pt': ['address_line_2', 'state_territory'],
+      'sg': ['address_line_2', 'state_territory'],
+      'es': ['address_line_2'],
+      'se': ['address_line_2', 'state_territory'],
+      'gb': ['address_line_2'],
+      'us': ['address_line_2']
+    }
   }
 });
-// CONCATENATED MODULE: ./src/config_manager.js
+// CONCATENATED MODULE: ./src/address_form_config/find_block_checkout_ids.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var FindBlockCheckoutIds = /*#__PURE__*/function () {
+  function FindBlockCheckoutIds() {
+    _classCallCheck(this, FindBlockCheckoutIds);
+  }
+
+  _createClass(FindBlockCheckoutIds, [{
+    key: "findElements",
+    value: function findElements(addressFormConfigurations) {
+      var shippingCountry = this._getElementId('shipping-country');
+
+      var shippingState = this._getElementId('shipping-state') || "#shipping-state";
+
+      var billingCountry = this._getElementId('billing-country');
+
+      var billingState = this._getElementId('billing-state') || "#billing-state"; // Set the shipping and billing ids for the elements which are known to change on the block checkout.
+
+      addressFormConfigurations.forEach(function (configuration) {
+        if (configuration.label == "Block Shipping Checkout") {
+          configuration.countryIdentifier = shippingCountry;
+          configuration.nz.elements.region = shippingState;
+          configuration.au.elements.state = shippingState;
+          configuration["int"].elements.state = shippingState;
+        } else if (configuration.label == "Block Billing Checkout") {
+          configuration.countryIdentifier = billingCountry;
+          configuration.nz.elements.region = billingState;
+          configuration.au.elements.state = billingState;
+          configuration["int"].elements.state = billingState;
+        }
+      });
+    }
+  }, {
+    key: "_getElementId",
+    value: function _getElementId(parentId) {
+      var parent = document.getElementById(parentId);
+
+      if (parent) {
+        var inputs = parent.getElementsByTagName('input');
+
+        if (inputs.length == 1) {
+          return "#".concat(inputs[0].id);
+        }
+      }
+
+      return null;
+    }
+  }]);
+
+  return FindBlockCheckoutIds;
+}();
+
+
+// CONCATENATED MODULE: ./src/config_manager.js
+function config_manager_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function config_manager_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function config_manager_createClass(Constructor, protoProps, staticProps) { if (protoProps) config_manager_defineProperties(Constructor.prototype, protoProps); if (staticProps) config_manager_defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 
 
@@ -3059,14 +3528,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var config_manager_ConfigManager = /*#__PURE__*/function () {
   function ConfigManager() {
-    _classCallCheck(this, ConfigManager);
+    config_manager_classCallCheck(this, ConfigManager);
+
+    this.FindBlockCheckoutIds = new FindBlockCheckoutIds();
   }
 
-  _createClass(ConfigManager, [{
+  config_manager_createClass(ConfigManager, [{
     key: "load",
     value: function load() {
       // This function is called when the page mutates and returns our form configurations
-      var addressFormConfigurations = [billing_address, shipping_address, block_address];
+      var addressFormConfigurations = [shipping_address, billing_address, block_shipping_address, block_billing_address]; // The block checkout input fields have different id's depending on:
+      // - country selected
+      // - on form create/destroy
+
+      this.FindBlockCheckoutIds.findElements(addressFormConfigurations);
       return addressFormConfigurations;
     }
   }]);
@@ -3093,7 +3568,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.6.2"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.7.0"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
