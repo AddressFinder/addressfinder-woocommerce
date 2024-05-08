@@ -10,8 +10,8 @@ Supported Countries:
 
 Register for a free Addressfinder account at one of these links:
 
-* [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_agile_trial?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Trial%20account%20for%20Australia)
-* [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_agile_trial?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Trial%20account%20for%20New%20Zealand)
+* [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_business_trial?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Trial%20account%20for%20Australia)
+* [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_business_trial?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Trial%20account%20for%20New%20Zealand)
 
 Existing users can obtain their API key from the [Addressfinder Portal](https://portal.addressfinder.net/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Portal&utm_content=existing%20users).
 

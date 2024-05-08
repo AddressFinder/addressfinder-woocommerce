@@ -96,8 +96,8 @@ This section describes how to install the plugin and get it working.
 
 New users can register for a trial account at one of these links:
 
-* [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_agile_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Australia%20Free%20Plans)
-* [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_agile_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20New%20Zealand%20Free%20Plans)
+* [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_business_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Australia%20Free%20Plans)
+* [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_business_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20New%20Zealand%20Free%20Plans)
 
 Existing users can obtain their API key from the [Addressfinder Portal](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
 
