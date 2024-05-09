@@ -7,6 +7,20 @@ Supported Countries:
 
 * [Australia](https://addressfinder.com.au/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
 * [New Zealand](https://addressfinder.nz/?utm_source=woocommerce%20plugin&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
+* Belgium
+* Canada
+* Czechia
+* Denmark
+* France
+* Germany
+* Ireland
+* Netherlands
+* Portugal
+* Singapore
+* Spain
+* Sweden
+* United Kingdom
+* United States
 
 Register for a free Addressfinder account at one of these links:
 
