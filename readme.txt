@@ -3,9 +3,9 @@
 Contributors: Addressfinder
 Tags: woocommerce, addressfinder, address, autocomplete, new zealand, australia, billing, shipping, valid, address validation, address verification, address autocomplete, validate address, checkout address, postal address
 Requires at least: 4.1
-Tested up to: 6.3.1
+Tested up to: 6.5.3
 WC tested up to: 8.5.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,6 +45,20 @@ Customer success is core to what we do. Our account managers and support team ar
 
 * [Australia](https://addressfinder.com.au/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
 * [New Zealand](https://addressfinder.nz/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
+* Belgium
+* Canada
+* Czechia
+* Denmark
+* France
+* Germany
+* Ireland
+* Netherlands
+* Portugal
+* Singapore
+* Spain
+* Sweden
+* United Kingdom
+* United States
 
 = Pricing =
 
@@ -136,6 +150,8 @@ You can read more about Addressfinder plans here:
 The Addressfinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=Addressfinder%20FAQ%20NZ) with many questions answered.
 
 == Changelog ==
+= 1.7.1 =
+* Confirm compatibility with Wordpress up to version 6.5.3
 = 1.7.0 =
 * Add support for block checkout forms and international addresses
 = 1.6.2 =
