@@ -3017,7 +3017,7 @@ __webpack_require__.r(__webpack_exports__);
     'Canterbury Region': 'CAN',
     'Gisborne Region': 'GIS',
     'Hawke\'s Bay Region': 'HKB',
-    'Manawatu-Wanganui Region': 'MWT',
+    'Manawatū-Whanganui Region': 'MWT',
     'Marlborough Region': 'MBH',
     'Nelson Region': 'NSN',
     'Northland Region': 'NTL',
@@ -3036,7 +3036,7 @@ __webpack_require__.r(__webpack_exports__);
     'Canterbury Region': 'CT',
     'Gisborne Region': 'GI',
     'Hawke\'s Bay Region': 'HB',
-    'Manawatu-Wanganui Region': 'MW',
+    'Manawatū-Whanganui Region': 'MW',
     'Marlborough Region': 'MB',
     'Nelson Region': 'NS',
     'Northland Region': 'NL',
@@ -3568,7 +3568,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.7.1"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.7.2"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the form configurations, and creates any dynamic forms
 
