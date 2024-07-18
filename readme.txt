@@ -19,7 +19,7 @@ This plugin aids in validating the addresses of your customers before they place
 
 = Get Verified Addresses =
 
-No more mistakes. Save verified addresses straight from your checkout to your database. The Addressfinder address database is the most comprehensive address dataset in Australia and New Zealand. Our addresses are directly verified by authoritative sources such as Australia Post, New Zealand Post, and more. When Addressfinder suggests a postal address, you can be sure that it is accurate and that your delivery is heading to the right place.
+No more mistakes. Save verified addresses straight from your checkout to your database. The Addressfinder address database is the most comprehensive address dataset in Australia and New Zealand with support for international addresses in over 15 countries. Our addresses are directly verified by authoritative sources such as Australia Post, New Zealand Post, and more. When Addressfinder suggests a postal address, you can be sure that it is accurate and that your delivery is heading to the right place.
 
 = Access the latest addresses =
 
