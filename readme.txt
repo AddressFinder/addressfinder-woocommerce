@@ -5,7 +5,7 @@ Tags: address autocomplete, address validation, woocommerce, australia, new zeal
 Requires at least: 4.1
 Tested up to: 6.5.3
 WC tested up to: 8.5.1
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Allow users to checkout faster with verified address autocomplete for shipping and billing addresses in Australian and New Zealand WooCommerce stores.
@@ -149,6 +149,8 @@ You can read more about Addressfinder plans here:
 The Addressfinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=Addressfinder%20FAQ%20NZ) with many questions answered.
 
 == Changelog ==
+= 1.7.3 =
+* Updated readme
 = 1.7.2 =
 * Update the NZ region mapping values
 = 1.7.1 =
