@@ -204,11 +204,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				admin_url( 'admin.php' )
 			);
 
-			$current = $current_section == $id ? 'class="current"' : '';
+			$current = $current_section == $id ? 'class=current' : '';
 
 			$separator = end( array_keys( $sections ) ) === $id ? '' : '|';
 
-			echo "<li><a href=\"$url\" $current>$label</a> $separator </li>";
+			echo '<li><a href="' . esc_url( $url ) . '" ' . esc_attr( $current ) . '>' . esc_html( $label ) . '</a> ' . esc_html( $separator ) . ' </li>';
 		}
 
 		echo '</ul><br class="clear" />';
@@ -231,10 +231,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				return addressfinder_email_widget_settings();
 			} else if ( 'af-pv-widget-section' == $_GET['section'] ) {
 				return addressfinder_phone_widget_settings();
-			} else {
-				return addressfinder_general_settings();
 			}
 		}
+
+		// Outside of the 'if' statement to successfully return the general settings on page load.
+		return addressfinder_general_settings();
 	}
 
 	/**
