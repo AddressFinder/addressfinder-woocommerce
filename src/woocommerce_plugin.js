@@ -100,6 +100,7 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
         nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
         auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
+        intWidgetOptions: parsedWidgetOptions || {},
         evWidgetOptions: w.AddressFinderConfig.email || {},
         pvWidgetOptions: w.AddressFinderConfig.phone || {},
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',

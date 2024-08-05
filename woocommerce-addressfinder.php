@@ -93,12 +93,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
 				printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 			} else {
-				$au_post_box = ( 'yes' == $af_au_widget_pobox ) ? '0' : '1';
-				$nz_post_box = ( 'yes' == $af_nz_widget_pobox ) ? '0' : '1';
+				$au_post_box = ( 'yes' == $af_au_widget_pobox ) ? '1' : '0';
+				$nz_post_box = ( 'yes' == $af_nz_widget_pobox ) ? '1' : '0';
 
 				if ( 'postal_and_physical' == $af_au_widget_options ) {
 						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", "post_box": "' . $au_post_box . '"}}' ) ) );
-				} elseif ( 'postal' == $af_widget_au_options ) {
+				} else if ( 'postal' == $af_au_widget_options ) {
 					  printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf", "post_box": "' . $au_post_box . '"}}' ) ) );
 				} else {
 					printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf", "post_box": "' . $au_post_box . '"}}' ) ) );
@@ -269,7 +269,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				'type'     => 'text',
 				'desc'     => __( 'Find your Addressfinder Key from <a href="https://portal.addressfinder.net" target="_blank">Addressfinder Portal</a>', 'text-domain' ),
 			);
-		} elseif ( $af_key_au ) {
+		} else if ( $af_key_au ) {
 			$settings[] = array(
 				'name'     => __( 'Licence key', 'text-domain' ),
 				'desc_tip' => __( 'The key shown in the Addressfinder Australian portal', 'text-domain' ),

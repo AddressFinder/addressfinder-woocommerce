@@ -2193,7 +2193,7 @@ var FormManager = /*#__PURE__*/function () {
       var auWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "au", this.widgetConfig.auWidgetOptions);
       auWidget.on("result:select", this._auAddressSelected.bind(this));
       this.widgets["au"] = auWidget;
-      var intWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "us", {});
+      var intWidget = new window.AddressFinder.Widget(this.formHelperConfig.searchElement, this.widgetConfig.auKey, "us", this.widgetConfig.intWidgetOptions);
       intWidget.on("result:select", this._intAddressSelected.bind(this));
       this.widgets["int"] = intWidget;
       this.boundCountryChangedListener = this._countryChanged.bind(this); // save this so we can unbind in the destroy() method
@@ -2509,7 +2509,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
 
     page_manager_classCallCheck(this, PageManager);
 
-    this.version = "2.1.2"; // Each formHelper is an instance of the FormManager class
+    this.version = "2.1.3"; // Each formHelper is an instance of the FormManager class
 
     this.formHelpers = []; // An object containing identifying information about an address form, such as the id values
 
@@ -4392,6 +4392,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
           auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
           nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
           auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
+          intWidgetOptions: parsedWidgetOptions || {},
           evWidgetOptions: w.AddressFinderConfig.email || {},
           pvWidgetOptions: w.AddressFinderConfig.phone || {},
           defaultCountry: w.AddressFinderConfig.default_country || 'nz',
