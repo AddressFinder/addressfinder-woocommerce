@@ -67,20 +67,8 @@ visiting the checkout.
 
 ## Method Two
 
-Another way to test changes is to login to the WooCommerce server and copy and paste your local files into their WooCommerce counterparts. You will need to do this to test on Woocommerce Test Server 2.
-
-1. To login to the WooCommerce server your public ssh key has to be added. Ask Nigel about this.
-
-2. Run `ssh ubuntu@45.32.247.160` in the terminal.
-
-3. Find the file that you want to update. You can update all the plugin files in the terminal using vim, or if you prefer, you can follow the third step in Method One, replacing the javascript path with your own local javascript.
-
-`cd /var/www/html/wp-content/plugins/addressfinder-woo`
-`vim woocommerce-addressfinder.php`
-
-4. To update the files you'll need to use vim in the terminal. Beginners Guide to Vim may be helpful: https://github.com/abletech/wiki/blob/8ef2a180153ad25bf3f900db85d91ae28546159c/technology_tips/beginners_guide_to_vi.md
-
-5. When you save the files they update on the WooCommerce store.
+Another method is to just copy and paste your changes into the WooCommerce file counter parts on the store.
+Go to Tools -> Plugin File Editor and copy your WooCommerce PHP file and the minified WooCommerce pluigin .js file. This is often a good way for someone else in the team to test the changes before release.
 
 ### Switching between the checkouts
 WooCommerce has two types of checkouts.
