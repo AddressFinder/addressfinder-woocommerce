@@ -3,7 +3,7 @@
 Contributors: abletech
 Tags: address autocomplete, address validation, woocommerce, australia, new zealand
 Requires at least: 4.1
-Tested up to: 6.6
+Tested up to: 6.6.1
 WC tested up to: 9.1.2
 Stable tag: 1.7.5
 License: GPLv3 or later
@@ -149,6 +149,8 @@ You can read more about Addressfinder plans here:
 The Addressfinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=Addressfinder%20FAQ%20NZ) with many questions answered.
 
 == Changelog ==
+= 1.7.6 =
+* Fix Email and Phone Validation support
 = 1.7.5 =
 * Revert Email and phone validation support
 = 1.7.4 =
