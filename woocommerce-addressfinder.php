@@ -93,21 +93,38 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
 				printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 			} else {
-				$au_post_box = ( 'yes' == $af_au_widget_pobox ) ? '' : '"post_box": "0"';
-				$nz_post_box = ( 'yes' == $af_nz_widget_pobox ) ? '' : '"post_box": "0"';
-
 				if ( 'postal_and_physical' == $af_au_widget_options ) {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", ' . $au_post_box . '}}' ) ) );
+					if ( 'yes' == $af_au_widget_pobox ) {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf"}}' ) ) );
+					} else {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", "post_box": "0"}}' ) ) );
+					}
 				} else if ( 'postal' == $af_au_widget_options ) {
-					  printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf", ' . $au_post_box . '}}' ) ) );
-				} else {
-					printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf", ' . $au_post_box . '}}' ) ) );
+					if ( 'yes' == $af_au_widget_pobox ) {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf"}}' ) ) );
+					} else {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf", "post_box": "0"}}' ) ) );
+					}
+				} else if ( 'physical' == $af_au_widget_options ) {
+					if ( 'yes' == $af_au_widget_pobox ) {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf"}}' ) ) );
+					} else {
+						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf", "post_box": "0"}}' ) ) );
+					}
 				}
 
 				if ( 'postal_and_physical' == $af_nz_widget_options ) {
-					printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {' . $nz_post_box . '}}' ) ) );
-				} else {
-					printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1", ' . $nz_post_box . '}}' ) ) );
+					if ( 'yes' == $af_nz_widget_pobox ) {
+						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {}}' ) ) );
+					} else {
+						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"post_box": "0"}}' ) ) );
+					}
+				} else if ( 'postal' == $af_nz_widget_options ) {
+					if ( 'yes' == $af_nz_widget_pobox ) {
+						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1"}}' ) ) );
+					} else {
+						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1", "post_box": "0"}}' ) ) );
+					}
 				}
 			}
 		}
