@@ -1,20 +1,14 @@
 import ConfigManager from './config_manager'
-import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
+import { PageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
 
 (function (d, w) {
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.7.4"
+      this.version = "1.7.5"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
-
-       // Manages the email mapping of the form configurations to the DOM.
-       this.EmailPageManager = null
-
-       // Manages the phone mapping of the form configurations to the DOM.
-       this.PhonePageManager = null
 
       // Manages the form configurations, and creates any dynamic forms
       this.ConfigManager = null
@@ -32,15 +26,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
       let addressFormConfigurations = this.ConfigManager.load()
       if (this.PageManager) {
         this.PageManager.reload(addressFormConfigurations)
-      }
-
-      if (this.EmailPageManager) {
-        this.EmailPageManager.reload(this.ConfigManager.loadEmailConfigurations())
-      }
-
-      if (this.PhonePageManager) {
-        // notify country has changed:
-        this.PhonePageManager.reload(this.ConfigManager.loadPhoneConfigurations())
       }
     }
 
@@ -100,9 +85,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
         nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
         auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-        intWidgetOptions: parsedWidgetOptions || {},
-        evWidgetOptions: w.AddressFinderConfig.email || {},
-        pvWidgetOptions: w.AddressFinderConfig.phone || {},
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',
         debug: w.AddressFinderConfig.debug || false
       }
@@ -116,24 +98,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         ignoredClass: "af_list"
       })
 
-      if (window.AddressFinderConfig.address_widget_enabled) {
-        this._initAddressWidget(widgetConfig)
-      }
-
-      if (window.AddressFinderConfig.email_widget_enabled) {
-        widgetConfig.evWidgetOptions.rules = this._safeParseJSONObject(w.AddressFinderConfig.email.rules);
-        this._initEmailWidget(widgetConfig)
-      }
-
-      if (window.AddressFinderConfig.phone_widget_enabled) {
-        widgetConfig.pvWidgetOptions.rules = this._safeParseJSONObject(w.AddressFinderConfig.phone.rules);
-        // need to map some country names found in the HTML
-        widgetConfig.pvWidgetOptions.countryMappings = {"United Kingdom (UK)" : "GB", "United States (US)" : "US"}
-        this._initPhoneWidget(widgetConfig)
-      }
-    }
-
-    _initAddressWidget(widgetConfig) {
       this.PageManager = new PageManager({
         addressFormConfigurations: this.ConfigManager.load(),
         widgetConfig,
@@ -145,27 +109,7 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
 
       this._setVersionNumbers()
 
-      window.AddressFinder._bigcommercePlugin = this.PageManager
-    }
-
-    _initEmailWidget(widgetConfig) {
-      this.EmailPageManager = new EmailPageManager({
-        formConfigurations: this.ConfigManager.loadEmailConfigurations(),
-        widgetConfig
-      })
-
-      window.AddressFinder._bigcommerceEmailPlugin = this.EmailPageManager
-    }
-
-    _initPhoneWidget(widgetConfig) {
-      this.PhonePageManager = new PhonePageManager({
-        formConfigurations: this.ConfigManager.loadPhoneConfigurations(),
-        widgetConfig,
-        // An event listener with this event type is attached to country element. When the country changes the default country code for the widget is set.
-        countryChangeEventToListenFor: 'blur'
-      })
-
-      window.AddressFinder._bigcommercePhonePlugin = this.PhonePageManager
+      w.AddressFinder._woocommercePlugin = this.PageManager
     }
 
     _setVersionNumbers() {
@@ -184,21 +128,10 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
     }
   }
 
-  function loadAddressfinderScript(script, callback) {
-    let s = document.createElement('script')
-    s.src = script
-    s.async = 1
-    s.onload = callback
-    document.body.appendChild(s)
-  }
-
-  // Nested callbacks to load our scripts asynchronously and sequentially.
-  loadAddressfinderScript('https://api.addressfinder.io/assets/v3/widget.js',
-    function () { loadAddressfinderScript('https://api.staging.addressfinder.io/assets/email/v2/widget.js',
-      function () { loadAddressfinderScript('https://api.staging.addressfinder.io/assets/phone/v2/widget.js',
-        function() { new WooCommercePlugin }
-      )}
-    )}
-  )
+  var s = d.createElement('script')
+  s.src = 'https://api.addressfinder.io/assets/v3/widget.js'
+  s.async = 1;
+  s.onload = function () { new WooCommercePlugin }
+  d.body.appendChild(s)
 
 })(document, window)
