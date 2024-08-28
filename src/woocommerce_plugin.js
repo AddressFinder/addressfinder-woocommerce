@@ -194,8 +194,8 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
 
   // Nested callbacks to load our scripts asynchronously and sequentially.
   loadAddressfinderScript('https://api.addressfinder.io/assets/v3/widget.js',
-    function () { loadAddressfinderScript('https://api.staging.addressfinder.io/assets/email/v2/widget.js',
-      function () { loadAddressfinderScript('https://api.staging.addressfinder.io/assets/phone/v2/widget.js',
+    function () { loadAddressfinderScript('https://api.addressfinder.io/assets/email/v2/widget.js',
+      function () { loadAddressfinderScript('https://api.addressfinder.io/assets/phone/v2/widget.js',
         function() { new WooCommercePlugin }
       )}
     )}
