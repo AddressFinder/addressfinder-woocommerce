@@ -144,8 +144,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
       })
 
       this._setVersionNumbers()
-
-      window.AddressFinder._bigcommercePlugin = this.PageManager
     }
 
     _initEmailWidget(widgetConfig) {
@@ -153,8 +151,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         formConfigurations: this.ConfigManager.loadEmailConfigurations(),
         widgetConfig
       })
-
-      window.AddressFinder._bigcommerceEmailPlugin = this.EmailPageManager
     }
 
     _initPhoneWidget(widgetConfig) {
@@ -164,8 +160,6 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         // An event listener with this event type is attached to country element. When the country changes the default country code for the widget is set.
         countryChangeEventToListenFor: 'blur'
       })
-
-      window.AddressFinder._bigcommercePhonePlugin = this.PhonePageManager
     }
 
     _setVersionNumbers() {

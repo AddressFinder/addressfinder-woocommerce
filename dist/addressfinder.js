@@ -4440,8 +4440,6 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
         });
 
         this._setVersionNumbers();
-
-        window.AddressFinder._bigcommercePlugin = this.PageManager;
       }
     }, {
       key: "_initEmailWidget",
@@ -4450,7 +4448,6 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
           formConfigurations: this.ConfigManager.loadEmailConfigurations(),
           widgetConfig: widgetConfig
         });
-        window.AddressFinder._bigcommerceEmailPlugin = this.EmailPageManager;
       }
     }, {
       key: "_initPhoneWidget",
@@ -4461,7 +4458,6 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
           // An event listener with this event type is attached to country element. When the country changes the default country code for the widget is set.
           countryChangeEventToListenFor: 'blur'
         });
-        window.AddressFinder._bigcommercePhonePlugin = this.PhonePageManager;
       }
     }, {
       key: "_setVersionNumbers",
