@@ -25,7 +25,7 @@ Scripted:
 Run the following command to create a new Debian container, install the relevant NodeJS
 packages, and then build the `/dist/addressfinder.*` files.
 
- - `docker-compose run addressfinder-woocommerce /addressfinder-woocommerce/bin/build_production.sh`
+ - `docker compose run addressfinder-woocommerce /addressfinder-woocommerce/bin/build_production.sh`
 
 Manually:
 
