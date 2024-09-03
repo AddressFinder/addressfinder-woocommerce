@@ -91,20 +91,23 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
     }
 
     _initPlugin() {
-      let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options);
-      let parsedNZWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options);
-      let parsedAUWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options);
+      let parsedWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.widget_options) || {};
+      let parsedNzWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.nz_widget_options) || parsedWidgetOptions;
+      let parsedAuWidgetOptions = this._safeParseJSONObject(w.AddressFinderConfig.au_widget_options) || parsedWidgetOptions;
+      let parsedEvWidgetOptions = w.AddressFinderConfig.email || {};
+      let parsedPvWidgetOptions = w.AddressFinderConfig.phone || {};
+      let clientVersion = { ca: `WooCommerce/${this.version}` };
 
       const widgetConfig = {
         nzKey: w.AddressFinderConfig.key_nz || w.AddressFinderConfig.key || w.AddressFinderConfig.key_au,
         auKey: w.AddressFinderConfig.key_au || w.AddressFinderConfig.key || w.AddressFinderConfig.key_nz,
-        nzWidgetOptions: parsedNZWidgetOptions || parsedWidgetOptions || {},
-        auWidgetOptions: parsedAUWidgetOptions || parsedWidgetOptions || {},
-        intWidgetOptions: parsedWidgetOptions || {},
-        evWidgetOptions: w.AddressFinderConfig.email || {},
-        pvWidgetOptions: w.AddressFinderConfig.phone || {},
+        nzWidgetOptions: {...parsedNzWidgetOptions, ...clientVersion},
+        auWidgetOptions: {...parsedAuWidgetOptions, ...clientVersion},
+        intWidgetOptions: {...parsedWidgetOptions, ...clientVersion},
+        evWidgetOptions: {...parsedEvWidgetOptions, ...clientVersion},
+        pvWidgetOptions: {...parsedPvWidgetOptions, ...clientVersion},
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',
-        debug: w.AddressFinderConfig.debug || false
+        debug: w.AddressFinderConfig.debug || false,
       }
 
       this.ConfigManager = new ConfigManager()
