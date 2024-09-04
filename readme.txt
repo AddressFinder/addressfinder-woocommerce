@@ -4,7 +4,7 @@ Contributors: abletech
 Tags: address autocomplete, address validation, woocommerce, australia, new zealand
 Requires at least: 4.1
 Tested up to: 6.6.1
-WC tested up to: 9.1.2
+WC tested up to: 9.2.3
 Stable tag: 1.7.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
