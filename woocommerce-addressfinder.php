@@ -83,7 +83,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		// address widget.
-		if ( 'yes' == $af_widget_enabled ) {
+		if ( 'yes' == $af_widget_enabled || '1' == $af_widget_enabled ) {
 			echo "AddressFinderConfig.address_widget_enabled = true;\n";
 
 			if ( $af_default_country ) {
@@ -130,7 +130,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		// email widget.
-		if ( 'yes' == $af_ev_widget_enabled ) {
+		if ( 'yes' == $af_ev_widget_enabled || '1' == $af_ev_widget_enabled ) {
 			echo "AddressFinderConfig.email_widget_enabled = true;\n";
 			echo "AddressFinderConfig.email = {};\n";
 
@@ -147,7 +147,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		// phone widget.
-		if ( 'yes' == $af_pv_widget_enabled ) {
+		if ( 'yes' == $af_pv_widget_enabled || '1' == $af_pv_widget_enabled ) {
 			echo "AddressFinderConfig.phone_widget_enabled = true;\n";
 			echo "AddressFinderConfig.phone = {};\n";
 			printf( "AddressFinderConfig.phone.formatNumber = '%s';\n", esc_js( $af_pv_widget_format_number ) );
