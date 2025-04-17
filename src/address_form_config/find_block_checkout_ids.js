@@ -1,9 +1,9 @@
 export default class FindBlockCheckoutIds {
 
   findElements(formConfigurations) {
-    let shippingCountry = this._getElementId('shipping-country')
+    let shippingCountry = this._getElementId('shipping-country') || "#shipping-country"
     let shippingState = this._getElementId('shipping-state') || "#shipping-state"
-    let billingCountry = this._getElementId('billing-country')
+    let billingCountry = this._getElementId('billing-country') || "#billing-country"
     let billingState = this._getElementId('billing-state') || "#billing-state"
 
     // Set the shipping and billing ids for the elements which are known to change on the block checkout.

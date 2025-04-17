@@ -7,7 +7,7 @@ export default {
   countryIdentifier: '#components-form-token-input-0',
   searchIdentifier: '#shipping-address_1',
   nz: {
-    countryValue: "New Zealand",
+    countryValue: ["New Zealand", "NZ"],
     elements: {
       address1: '#shipping-address_1',
       address2: null,
@@ -19,7 +19,7 @@ export default {
     regionMappings: regionMappings('#components-form-token-input-1')
   },
   au: {
-    countryValue: "Australia",
+    countryValue: ["Australia", "AU"],
     elements: {
       address1: '#shipping-address_1',
       address2: '#shipping-address_2',

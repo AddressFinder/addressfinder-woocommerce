@@ -3,34 +3,47 @@
 Contributors: abletech
 Tags: address autocomplete, address validation, woocommerce, australia, new zealand
 Requires at least: 4.1
-Tested up to: 6.6.1
-WC tested up to: 9.2.3
-Stable tag: 1.7.5
+Tested up to: 6.8.1
+WC tested up to: 9.8.3
+Stable tag: 1.7.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Allow users to checkout faster with verified address autocomplete for shipping and billing addresses in Australian and New Zealand WooCommerce stores.
+Prevent failed deliveries and streamline checkout with verified address autocomplete for shipping and billing addresses in Australian and New Zealand WooCommerce stores.
 
 == Description ==
 
-The Addressfinder plugin for WooCommerce adds verified address autocomplete capability to the shipping and billing address fields of your online store. The plugin suggests verified addresses to your customers as they type and then auto-fills the address elements into the appropriate fields on selection.
+Prevent costly shipping errors and failed deliveries with [Addressfinder](https://addressfinder.com/?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=addressfinder); Australia and New Zealand’s leading address autocomplete and verification provider.
 
-This plugin aids in validating the addresses of your customers before they place their order on your store, maximising your data quality and limiting misdeliveries costs resulting from incorrect address entry.
+The Addressfinder plugin for WooCommerce adds verified address autocomplete capability to the shipping and billing address fields of your online store. 
 
-= Get Verified Addresses =
+The plugin suggests verified addresses to your customers as they type and auto-fills the correct address elements into the appropriate fields on selection.
 
-No more mistakes. Save verified addresses straight from your checkout to your database. The Addressfinder address database is the most comprehensive address dataset in Australia and New Zealand with support for international addresses in over 15 countries. Our addresses are directly verified by authoritative sources such as Australia Post, New Zealand Post, and more. When Addressfinder suggests a postal address, you can be sure that it is accurate and that your delivery is heading to the right place.
+The addresses are validated before customers place their order, ensuring accurate address entry, a streamlined purchase process, and reduced delivery issues.
+
+*"The only ones [returns] I’ve been getting back now are unclaimed, actual returns, or Auspost ones that have been damaged. Best widget so far”* - Sanity Music Stores
+
+= Get verified addresses =
+
+No more mistakes. The Addressfinder address database is the most comprehensive address dataset in Australia and New Zealand with support for international addresses in over 15 countries.
+
+Other services such as Google autocomplete just suggests addresses and often don't provide accurate PO Box or unit and level number addresses which make up ~37% of all Australian postal addresses. Addressfinder makes it easy, handling local complexities and only displaying addresses that local carriers such as Australia Post and NZ Post accept - so every package gets delivered. 
 
 = Access the latest addresses =
 
-Leave the hard work to us. The Addressfinder address database is refreshed monthly so you can rely on the data being available and up to date. Our data sources provide us with the freshest data so customers living in new developments or multi-dwelling apartments will still be able to validate their addresses.
+The Addressfinder address database is refreshed monthly so you can rely on the data being available and up to date. Our extensive data sources provide us with the freshest data so customers living in new developments or multi-dwelling apartments will still be able to validate their addresses.
+
+= Built-in email and phone verification =
+
+Don't let a customer slip between the cracks due to a spelling error. Our email and phone verification widgets allow you to collect valid data in the format you require, maintaining your data quality and sender reputation.
+Simple visual cues ensure your customers provide only valid contact information while they are actively engaged on your website.
 
 = No programming required =
 
-This plugin is super easy to set up. It does not require any coding experience and you can have it working and validating addresses in minutes.
+This plugin is easy to set up. It does not require any coding experience and you can have it working and validating addresses in minutes.
 
 = Reduce time to checkout =
 
-On average, our address autocomplete will display the desired address in 10-12 keystrokes, greatly reducing data entry time and potential for errors. Users can be sure their address is correct and move through to the checkout with confidence.
+Our address autocomplete greatly reduces data entry time and potential for errors. Users can be sure their address is correct and move through to the checkout quickly and with confidence.
 
 = Enhance mobile UX =
 
@@ -38,12 +51,12 @@ User experience is critical to conversion rate. By using Addressfinder, your che
 
 = Dedicated support =
 
-Customer success is core to what we do. Our account managers and support team are here to support you through integration and any other questions you may have about our service.
+Customer success is core to what we do. Our support team are here to help you through integration and any other questions you may have about our service.
 
 = Supported Countries =
 
-* [Australia](https://addressfinder.com.au/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Australia&utm_content=Supported%20Countries)
-* [New Zealand](https://addressfinder.nz/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=New%20Zealand&utm_content=Supported%20Countries)
+* Australia
+* New Zealand
 * Belgium
 * Canada
 * Czechia
@@ -61,24 +74,35 @@ Customer success is core to what we do. Our account managers and support team ar
 
 = Pricing =
 
-No setup fee, lock-in contracts or credit card is required.
+No setup fee, no credit card or commitment required. Cancel anytime. 
 
-We have a variety of plan sizes to suit any retailer. Trial the service for free then upgrade to a paid plan for ongoing access to the service and additional features.
+We have a variety of [plan sizes](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=plan+sizes) to suit any retailer. Trial Addressfinder for free then upgrade to a paid plan for ongoing access to the service and additional features.
 
-With Agile and Business plans, you can tailor the features your organisation needs - take advantage of bulk verification, direct API usage, and upgraded support.
+With Agile and Business plans, you can tailor the features your organisation needs – take advantage of bulk verification, direct API usage, and upgraded support.
 
-View our full suite of plans here https://addressfinder.com/plans/
+View our full suite of plans here [https://addressfinder.com/pricing](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=pricing+plans)
 
-= Demonstration Video =
 
-Watch a short 2 min video showing the [installation and configuration of Addressfinder for WooCommerce](https://vimeo.com/307188204).
+= Demo and Installation =
+
+Follow the instructions below to configure Addressfinder for WooCommerce and start verifying data in minutes.
+
+Watch our [WooCommerce integration guide](https://vimeo.com/307188204) for a step-by-step installation video.
+
+Learn more about Addressfinder's address, email and phone verification services at [addressfinder.com](https://addressfinder.com/?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=addressfinder).
+
 
 = What do our users think of Addressfinder? =
 
-See how others have integrated with Addressfinder within our case studies -
-https://addressfinder.com/case-studies/
-https://addressfinder.com/case-studies/better-batt/
-https://addressfinder.com/case-studies/cove/
+See how others have integrated with Addressfinder within our case studies –
+
+* [Case studies](https://addressfinder.com/blog/tag/case-studies?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=case+studies)
+
+* [Sanity Music Stores](https://addressfinder.com/blog/sanity-music-stores?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=sanity+music+stores)
+
+* [Salvos Stores](https://addressfinder.com/blog/salvos-stores?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=salvos+stores)
+
+*"The only ones [returns] I’ve been getting back now are unclaimed, actual returns, or Auspost ones that have been damaged. Best widget so far”* - Sanity Music Stores
 
 = Compatibility =
 
@@ -91,64 +115,62 @@ WooCommerce Addressfinder requires:
 
 
 == Installation ==
+Follow the instructions below to configure Addressfinder for WooCommerce and start verifying data in minutes.
 
-= Demonstration video =
+You can also go to our [WooCommerce integration guide](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=woocommerce+integration_guide) for a step-by-step installation video.
 
-Follow the instructions below, or watch the [installation video](https://vimeo.com/abletech/addressfinder-woocommerce).
+= Install =
 
-= Installation instructions =
+1. In the WordPress Admin Menu, go to **Plugins > Add New Plugin**.
 
-This section describes how to install the plugin and get it working.
+2. Search for `woocommerce-addressfinder` and click **Install Now**.
 
-1. Use the Wordpress Admin Menu, select Plugins -> Add New
-2. Search for `woocommerce-addressfinder`
-3. Press the Install Now button
-4. Activate the plugin through the 'Plugins' screen in WordPress
-5. Use the WooCommerce -> Settings -> Payments screen to input your Addressfinder API keys.
-6. Done
+3. Wait for the installation to complete, then click **Activate**.
 
-New users can register for a trial account at one of these links:
+= Configure =
 
-* [Trial Account for Australia](https://portal.addressfinder.net/signup/au/au_business_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Australia%20Free%20Plans)
-* [Trial Account for New Zealand](https://portal.addressfinder.net/signup/nz/nz_business_trial?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20New%20Zealand%20Free%20Plans)
+1. In the WordPress Admin Menu, go to **WooCommerce > Settings > Addressfinder**.
 
-Existing users can obtain their API key from the [Addressfinder Portal](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Portal&utm_content=Existing%20users%20can%20obtain%20their%20API%20key).
+2. Paste your Addressfinder license key and click **Save changes**. 
 
-Read more on the Addressfinder [WooCommerce Plugin](https://addressfinder.nz/plugins/woocommerce/?rc=woo_readme&utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Woocommerce%20Plugin&utm_content=Register%20for%20a%20free%20account) page.
+3. (Optional) Adjust the default behaviour of each widget in the corresponding tab.
+
+To get a license key, [sign up for a free trial](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=sign+up+for+free+trial).
+
+Already have a subscription? Find your key on the [Addressfinder portal](https://portal.addressfinder.net/sessions/login?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=addressfinder+portal).
+
+Visit our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site to learn more about Addressfinder for WooCommerce.
 
 
 == Frequently Asked Questions ==
 
-= What is the WooCommerce plugin? =
+= What is Addressfinder for WooCommerce? =
 
 The WooCommerce plugin provides the following features:
+Addressfinder for WooCommerce lets you take advantage of Addressfinder's data verification features directly inside your WooCommerce store.
+After installing the plugin, you can enable Address Autocomplete in your checkout and verify your customer's addresses, emails, and phone numbers.
+* Real-time address validation and autocomplete at checkout page
+* Validates against Australia Post, NZ Post and more, ensuring accurate addresses
+* Leverage Addressfinder's deep ANZ address expertise in your checkout
 
-* Autocomplete billing and shipping address in checkout page
-* Autocomplete address in my account page
-* Only enabled when country is selected as New Zealand or Australia
+= Can I try it first? How much does it cost? =
+Yes. We offer a free trial with full access to Addressfinder services. [Learn more](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=pricing+plans)
 
-= How do I remove the Addressfinder byline?
+During the trial you can upgrade to a monthly or annual subscription at any point. 
 
-If you are on a paid plan, you can disable the "byline" by setting a widget option. Use the WooCommerce -> Settings -> Checkout screen, and add the following to the _Widget Options_ box:
+= What if I have more questions? =
+Try searching for what you need in our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site. 
 
-`{"byline": false}`
-
-Then reload the checkout page, and the Addressfinder advertising will disappear.
-
-= Which Addressfinder plan is right for you? =
-
-AddressFinder offers a variety of different sized plans to suit a variety of different sized businesses. The plans are also flexible so you can change your plan when it suits your business needs.
-
-You can read more about Addressfinder plans here:
-
-* [Addressfinder New Zealand Plans](https://addressfinder.nz/plans/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20New%20Zealand%20Plans&utm_content=Which%20Addressfinder%20plan%20is%20right%20for%20you)
-* [Addressfinder Australia Plans](https://addressfinder.com.au/plans/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Addressfinder%20Australia%20Plans&utm_content=Which%20Addressfinder%20plan%20is%20right%20for%20you)
-
-= Many more FAQ questions and answers
-
-The Addressfinder website has a large [FAQ section](https://addressfinder.com.au/faq/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=FAQ%20section&utm_content=Addressfinder%20FAQ%20NZ) with many questions answered.
+If you don’t find what you’re looking for, you can [get help here](https://addressfinder.com/contact?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=get+help+here).
 
 == Changelog ==
+= 1.7.8 =
+* Fix compatibility with latest Block Checkout page
+* Confirm compatibility with Wordpress up to version 6.8.1
+* Confirm compatibility with WooCommerce up to version 9.8.3
+= 1.7.7 =
+* Improvement to Fix Email and Phone Validation support
+* Updated assets and readme
 = 1.7.6 =
 * Fix Email and Phone Validation support
 = 1.7.5 =
@@ -299,10 +321,10 @@ The Addressfinder website has a large [FAQ section](https://addressfinder.com.au
 
 == Screenshots ==
 
-1. Autocomplete billing and shipping address in checkout page.
-2. In the Admin section of your Wordpress website, navigate to *Plugins* -> *Installed Plugins* and activate the plugin by pressing Activate on Addressfinder.
-3. Find your Addressfinder API key at [https://portal.addressfinder.net](https://portal.addressfinder.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=plugin&utm_term=Find%20your%20Addressfinder%20API%20key&utm_content=Screenshots)
-4. In the Admin interface, navigate to the *WooCommerce* -> *Settings* -> *Checkout* page and enter your API key/s in the new section for Addressfinder settings. Leaving either the New Zealand or Australia field blank will simply disable autocompletion for the respective country.
+1. Address autocomplete in checkout
+2. Address widget settings
+3. Email widget settings
+4. Phone widget settings
 
 
 == Contributors ==
