@@ -5,7 +5,7 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.7.8"
+      this.version = "1.7.9"
 
       // Manages the mapping of the form configurations to the DOM.
       this.PageManager = null
