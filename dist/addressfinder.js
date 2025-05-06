@@ -2141,7 +2141,28 @@ function _objectValues(obj) {
   return values;
 }
 
+function _objectEntries(obj) {
+  var entries = [];
+  var keys = Object.keys(obj);
+
+  for (var k = 0; k < keys.length; k++) entries.push([keys[k], obj[keys[k]]]);
+
+  return entries;
+}
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2210,29 +2231,57 @@ var FormManager = /*#__PURE__*/function () {
         // Sometimes there is no countryElement (WooCommerce). Not calling the changeHandler means that the widget can remain enabled.
         this._setActiveCountry(this.widgetConfig.defaultCountry);
       }
-    } // Matches the value of the countryElement with the countryValue for this configuration. If it finds a match this will become the active country.
+    } // Matches the value of the countryElement with the countryValue(s) for this configuration. If it finds a match this will become the active country.
 
   }, {
     key: "_countryChanged",
     value: function _countryChanged() {
-      var activeCountry;
+      var _this$formHelperConfi, _this$formHelperConfi2;
 
-      switch (this.formHelperConfig.countryElement.value) {
-        case this.formHelperConfig.nz.countryValue:
-          activeCountry = "nz";
-          break;
+      var rawCountryValue = (_this$formHelperConfi = (_this$formHelperConfi2 = this.formHelperConfig.countryElement) === null || _this$formHelperConfi2 === void 0 ? void 0 : _this$formHelperConfi2.value) !== null && _this$formHelperConfi !== void 0 ? _this$formHelperConfi : "";
+      var countryValue = rawCountryValue.toLowerCase();
+      var activeCountry = "null";
 
-        case this.formHelperConfig.au.countryValue:
-          activeCountry = "au";
-          break;
+      var normalizeArray = function normalizeArray(value) {
+        return Array.isArray(value) ? value.map(function (v) {
+          return v.toLowerCase();
+        }) : [value.toLowerCase()];
+      };
 
-        case "":
-        case null:
-          activeCountry = "null";
-          break;
+      var matchCountry = function matchCountry(input, options) {
+        return normalizeArray(options).includes(input);
+      };
 
-        default:
-          activeCountry = this.formHelperConfig["int"].countryValue[this.formHelperConfig.countryElement.value] || "null";
+      var _this$formHelperConfi3 = this.formHelperConfig,
+          nz = _this$formHelperConfi3.nz,
+          au = _this$formHelperConfi3.au,
+          _this$formHelperConfi4 = _this$formHelperConfi3["int"],
+          _int = _this$formHelperConfi4 === void 0 ? {} : _this$formHelperConfi4;
+
+      if (matchCountry(countryValue, nz.countryValue)) {
+        activeCountry = "nz";
+      } else if (matchCountry(countryValue, au.countryValue)) {
+        activeCountry = "au";
+      } else if (countryValue === "") {
+        activeCountry = "null";
+      } else {
+        var intMap = _int.countryValue || {};
+
+        var matchFromKey = _objectEntries(intMap).find(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 1),
+              key = _ref2[0];
+
+          return key.toLowerCase() === countryValue;
+        });
+
+        var matchFromValue = _objectEntries(intMap).find(function (_ref3) {
+          var _ref4 = _slicedToArray(_ref3, 2),
+              val = _ref4[1];
+
+          return val.toLowerCase() === countryValue;
+        });
+
+        activeCountry = (matchFromKey === null || matchFromKey === void 0 ? void 0 : matchFromKey[1]) || (matchFromValue === null || matchFromValue === void 0 ? void 0 : matchFromValue[1]) || "null";
       }
 
       this._setActiveCountry(activeCountry);
@@ -2469,7 +2518,7 @@ function page_manager_objectValues(obj) {
   return values;
 }
 
-function _objectEntries(obj) {
+function page_manager_objectEntries(obj) {
   var entries = [];
   var keys = Object.keys(obj);
 
@@ -2478,19 +2527,19 @@ function _objectEntries(obj) {
   return entries;
 }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = page_manager_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function page_manager_slicedToArray(arr, i) { return page_manager_arrayWithHoles(arr) || page_manager_iterableToArrayLimit(arr, i) || page_manager_unsupportedIterableToArray(arr, i) || page_manager_nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function page_manager_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function page_manager_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return page_manager_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return page_manager_arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function page_manager_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function page_manager_iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function page_manager_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function page_manager_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2509,7 +2558,7 @@ var page_manager_PageManager = /*#__PURE__*/function () {
 
     page_manager_classCallCheck(this, PageManager);
 
-    this.version = "2.1.3"; // Each formHelper is an instance of the FormManager class
+    this.version = "2.1.4"; // Each formHelper is an instance of the FormManager class
 
     this.formHelpers = []; // An object containing identifying information about an address form, such as the id values
 
@@ -2633,8 +2682,8 @@ var page_manager_PageManager = /*#__PURE__*/function () {
       var filteredElements = {};
 
       if (['au', 'nz'].includes(countryCode)) {
-        _objectEntries(config[countryCode].elements).forEach(function (_ref2) {
-          var _ref3 = _slicedToArray(_ref2, 2),
+        page_manager_objectEntries(config[countryCode].elements).forEach(function (_ref2) {
+          var _ref3 = page_manager_slicedToArray(_ref2, 2),
               key = _ref3[0],
               element = _ref3[1];
 
@@ -2645,8 +2694,8 @@ var page_manager_PageManager = /*#__PURE__*/function () {
           }
         });
       } else {
-        _objectEntries(config['int'].elements).forEach(function (_ref4) {
-          var _ref5 = _slicedToArray(_ref4, 2),
+        page_manager_objectEntries(config['int'].elements).forEach(function (_ref4) {
+          var _ref5 = page_manager_slicedToArray(_ref4, 2),
               key = _ref5[0],
               element = _ref5[1];
 
@@ -4012,7 +4061,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   countryIdentifier: '#components-form-token-input-0',
   searchIdentifier: '#shipping-address_1',
   nz: {
-    countryValue: "New Zealand",
+    countryValue: ["New Zealand", "NZ"],
     elements: {
       address1: '#shipping-address_1',
       address2: null,
@@ -4024,7 +4073,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     regionMappings: region_mappings('#components-form-token-input-1')
   },
   au: {
-    countryValue: "Australia",
+    countryValue: ["Australia", "AU"],
     elements: {
       address1: '#shipping-address_1',
       address2: '#shipping-address_2',
@@ -4087,7 +4136,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   countryIdentifier: '#components-form-token-input-2',
   searchIdentifier: '#billing-address_1',
   nz: {
-    countryValue: "New Zealand",
+    countryValue: ["New Zealand", "NZ"],
     elements: {
       address1: '#billing-address_1',
       address2: null,
@@ -4099,7 +4148,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     regionMappings: region_mappings('#components-form-token-input-3')
   },
   au: {
-    countryValue: "Australia",
+    countryValue: ["Australia", "AU"],
     elements: {
       address1: '#billing-address_1',
       address2: '#billing-address_2',
@@ -4168,12 +4217,9 @@ var FindBlockCheckoutIds = /*#__PURE__*/function () {
   _createClass(FindBlockCheckoutIds, [{
     key: "findElements",
     value: function findElements(formConfigurations) {
-      var shippingCountry = this._getElementId('shipping-country');
-
+      var shippingCountry = this._getElementId('shipping-country') || "#shipping-country";
       var shippingState = this._getElementId('shipping-state') || "#shipping-state";
-
-      var billingCountry = this._getElementId('billing-country');
-
+      var billingCountry = this._getElementId('billing-country') || "#billing-country";
       var billingState = this._getElementId('billing-state') || "#billing-state"; // Set the shipping and billing ids for the elements which are known to change on the block checkout.
 
       formConfigurations.forEach(function (configuration) {
@@ -4297,7 +4343,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.7.6"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.7.7"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the email mapping of the form configurations to the DOM.
 
