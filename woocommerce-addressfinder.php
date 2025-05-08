@@ -3,7 +3,7 @@
 	Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: Addressfinder
 	Plugin URI: https://github.com/AddressFinder/addressfinder-woocommerce
-	Version: 1.7.9
+	Version: 1.7.10
 	Author: Addressfinder
 	Description: Woocommerce address finder plugin for autocompleting addresses in New Zealand and Australia
 
@@ -15,7 +15,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.7.9' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.7.10' );
+}
+
+// Place this near the top of your main plugin file (outside any conditionals).
+register_activation_hook( __FILE__, 'addressfinder_initialize_defaults' );
+
+/**
+ * Configure default settings if they are not set
+ */
+function addressfinder_initialize_defaults() {
+	$defaults = array(
+		'af-widget-enabled'              => 'yes',
+		'af-au-widget-options'           => 'postal_and_physical',
+		'af-au-widget-pobox'             => 'yes',
+		'af-nz-widget-options'           => 'postal_and_physical',
+		'af-nz-widget-pobox'             => 'yes',
+		'af-default-country'             => 'AU',
+		'af-ev-widget-enabled'           => 'no',
+		'af-ev-widget-public'            => 'yes',
+		'af-ev-widget-role'              => 'yes',
+		'af-pv-widget-enabled'           => 'no',
+		'af-pv-widget-default-country'   => '',
+		'af-pv-widget-allowed-countries' => '',
+		'af-pv-widget-non-mobile'        => 'yes',
+		'af-pv-widget-disallowed-country' => 'yes',
+		'af-pv-widget-format-number'     => 'none',
+		'af-debug'                       => 'no',
+	);
+
+	foreach ( $defaults as $key => $value ) {
+		if ( get_option( $key ) === false ) {
+			update_option( $key, $value );
+		}
+	}
 }
 
 /**
