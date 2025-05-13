@@ -33,6 +33,8 @@ We use Vultr to set up and run test server
 
 There are two ways to swap out the Woocommerce plugin javascript for your own local javascript. The first method only works for Test Server One
 
+There is also the [Additional Method](#additional-method) that allows you to install a develper version of the plugin to test.
+
 ## Method One
 
 1. Visit the test server (https://45.32.247.160/wp-admin, credentials available in 1Password)
@@ -69,6 +71,14 @@ visiting the checkout.
 
 Another method is to just copy and paste your changes into the WooCommerce file counter parts on the store.
 Go to Tools -> Plugin File Editor and copy your WooCommerce PHP file and the minified WooCommerce pluigin .js file. This is often a good way for someone else in the team to test the changes before release.
+
+## Additional Method
+
+For a more complete test of your code, you can build a package and install just like any other plugin.
+
+Run `./bin/build_and_package_developer_plugin.sh` which will build a zip file `addressfinder-woo-developer.zip` in the project directory.
+
+You can then use the WordPress plugin installer to install this file.
 
 ### Switching between the checkouts
 WooCommerce has two types of checkouts.
