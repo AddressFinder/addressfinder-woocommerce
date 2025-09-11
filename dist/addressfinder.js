@@ -4343,7 +4343,7 @@ function woocommerce_plugin_createClass(Constructor, protoProps, staticProps) { 
     function WooCommercePlugin() {
       woocommerce_plugin_classCallCheck(this, WooCommercePlugin);
 
-      this.version = "1.7.11"; // Manages the mapping of the form configurations to the DOM.
+      this.version = "1.7.12"; // Manages the mapping of the form configurations to the DOM.
 
       this.PageManager = null; // Manages the email mapping of the form configurations to the DOM.
 
