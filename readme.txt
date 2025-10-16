@@ -14,7 +14,7 @@ Prevent failed deliveries and streamline checkout with verified address autocomp
 
 Prevent costly shipping errors and failed deliveries with [Addressfinder](https://addressfinder.com/?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=addressfinder); Australia and New Zealand’s leading address autocomplete and verification provider.
 
-The Addressfinder plugin for WooCommerce adds verified address autocomplete capability to the shipping and billing address fields of your online store. 
+The Addressfinder plugin for WooCommerce adds verified address autocomplete capability to the shipping and billing address fields of your online store.
 
 The plugin suggests verified addresses to your customers as they type and auto-fills the correct address elements into the appropriate fields on selection.
 
@@ -26,7 +26,7 @@ The addresses are validated before customers place their order, ensuring accurat
 
 No more mistakes. The Addressfinder address database is the most comprehensive address dataset in Australia and New Zealand with support for international addresses in over 15 countries.
 
-Other services such as Google autocomplete just suggests addresses and often don't provide accurate PO Box or unit and level number addresses which make up ~37% of all Australian postal addresses. Addressfinder makes it easy, handling local complexities and only displaying addresses that local carriers such as Australia Post and NZ Post accept - so every package gets delivered. 
+Other services such as Google autocomplete just suggests addresses and often don't provide accurate PO Box or unit and level number addresses which make up ~37% of all Australian postal addresses. Addressfinder makes it easy, handling local complexities and only displaying addresses that local carriers such as Australia Post and NZ Post accept - so every package gets delivered.
 
 = Access the latest addresses =
 
@@ -74,7 +74,7 @@ Customer success is core to what we do. Our support team are here to help you th
 
 = Pricing =
 
-No setup fee, no credit card or commitment required. Cancel anytime. 
+No setup fee, no credit card or commitment required. Cancel anytime.
 
 We have a variety of [plan sizes](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=plan+sizes) to suit any retailer. Trial Addressfinder for free then upgrade to a paid plan for ongoing access to the service and additional features.
 
@@ -131,7 +131,7 @@ You can also go to our [WooCommerce integration guide](https://addressfinder.com
 
 1. In the WordPress Admin Menu, go to **WooCommerce > Settings > Addressfinder**.
 
-2. Paste your Addressfinder license key and click **Save changes**. 
+2. Paste your Addressfinder license key and click **Save changes**.
 
 3. (Optional) Adjust the default behaviour of each widget in the corresponding tab.
 
@@ -156,14 +156,16 @@ After installing the plugin, you can enable Address Autocomplete in your checkou
 = Can I try it first? How much does it cost? =
 Yes. We offer a free trial with full access to Addressfinder services. [Learn more](https://addressfinder.com/pricing?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=pricing+plans)
 
-During the trial you can upgrade to a monthly or annual subscription at any point. 
+During the trial you can upgrade to a monthly or annual subscription at any point.
 
 = What if I have more questions? =
-Try searching for what you need in our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site. 
+Try searching for what you need in our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site.
 
 If you don’t find what you’re looking for, you can [get help here](https://addressfinder.com/contact?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=get+help+here).
 
 == Changelog ==
+= 1.7.13 =
+* Update script insert method to use wp_add_inline_script instead of echoing inline script tags
 = 1.7.12 =
 * WooCommerce Listing name update.
 = 1.7.11 =
