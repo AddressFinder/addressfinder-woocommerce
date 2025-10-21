@@ -3,7 +3,7 @@
 	Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 	Plugin Name: Addressfinder
 	Plugin URI: https://github.com/AddressFinder/addressfinder-woocommerce
-	Version: 1.7.12
+	Version: 1.7.13
 	Author: Addressfinder
 	Description: Addressfinder plugin for autocompleting addresses in WooCommerce for New Zealand and Australia
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ADDRESSFINDER_WOOCOMMERCE_VERSION' ) ) {
-	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.7.12' );
+	define( 'ADDRESSFINDER_WOOCOMMERCE_VERSION', '1.7.13' );
 }
 
 // Add callback for when the plugin is activated.
@@ -125,59 +125,60 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		$af_pv_widget_format_number = esc_attr( get_option( 'af-pv-widget-format-number' ) );
 		$af_pv_widget_rules = get_option( 'af-pv-widget-rules' );
 
-		echo "<script>\nvar AddressFinderConfig = {};\n";
+		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
+
+		$cfg  = "var AddressFinderConfig = {};\n";
 
 		// general.
 		if ( $af_key_nz ) {
-			printf( "AddressFinderConfig.key_nz = '%s';\n", esc_js( $af_key_nz ) );
+			$cfg .= sprintf( "AddressFinderConfig.key_nz = '%s';\n", esc_js( $af_key_nz ) );
 		}
-
 		if ( $af_key_au ) {
-			printf( "AddressFinderConfig.key_au = '%s';\n", esc_js( $af_key_au ) );
+			$cfg .= sprintf( "AddressFinderConfig.key_au = '%s';\n", esc_js( $af_key_au ) );
 		}
 
 		// address widget.
 		if ( 'yes' == $af_widget_enabled || '1' == $af_widget_enabled ) {
-			echo "AddressFinderConfig.address_widget_enabled = true;\n";
+			$cfg .= "AddressFinderConfig.address_widget_enabled = true;\n";
 
 			if ( $af_default_country ) {
-				printf( "AddressFinderConfig.default_country = '%s';\n", esc_js( $af_default_country ) );
+				$cfg .= sprintf( "AddressFinderConfig.default_country = '%s';\n", esc_js( $af_default_country ) );
 			}
 
 			if ( null !== $af_widget_options && ! empty( trim( $af_widget_options ) ) ) {
-				printf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
+				$cfg .= sprintf( "AddressFinderConfig.widget_options = '%s';\n", wp_json_encode( json_decode( $af_widget_options ) ) );
 			} else {
 				if ( 'postal_and_physical' == $af_au_widget_options ) {
 					if ( 'yes' == $af_au_widget_pobox ) {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf"}}' ) ) );
 					} else {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", "post_box": "0"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf,paf", "post_box": "0"}}' ) ) );
 					}
 				} else if ( 'postal' == $af_au_widget_options ) {
 					if ( 'yes' == $af_au_widget_pobox ) {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf"}}' ) ) );
 					} else {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf", "post_box": "0"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "paf", "post_box": "0"}}' ) ) );
 					}
 				} else if ( 'physical' == $af_au_widget_options ) {
 					if ( 'yes' == $af_au_widget_pobox ) {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf"}}' ) ) );
 					} else {
-						printf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf", "post_box": "0"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.au_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"source": "gnaf", "post_box": "0"}}' ) ) );
 					}
 				}
 
 				if ( 'postal_and_physical' == $af_nz_widget_options ) {
 					if ( 'yes' == $af_nz_widget_pobox ) {
-						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {}}' ) ) );
 					} else {
-						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"post_box": "0"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"post_box": "0"}}' ) ) );
 					}
 				} else if ( 'postal' == $af_nz_widget_options ) {
 					if ( 'yes' == $af_nz_widget_pobox ) {
-						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1"}}' ) ) );
 					} else {
-						printf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1", "post_box": "0"}}' ) ) );
+						$cfg .= sprintf( "AddressFinderConfig.nz_widget_options = '%s';\n", wp_json_encode( json_decode( '{"address_params": {"delivered": "1", "post_box": "0"}}' ) ) );
 					}
 				}
 			}
@@ -185,53 +186,49 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		// email widget.
 		if ( 'yes' == $af_ev_widget_enabled || '1' == $af_ev_widget_enabled ) {
-			echo "AddressFinderConfig.email_widget_enabled = true;\n";
-			echo "AddressFinderConfig.email = {};\n";
+			$cfg .= "AddressFinderConfig.email_widget_enabled = true;\n";
+			$cfg .= "AddressFinderConfig.email = {};\n";
 
 			if ( null !== $af_ev_widget_rules && ! empty( trim( $af_ev_widget_rules ) ) ) {
-				printf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode( $af_ev_widget_rules ) ) );
+				$cfg .= sprintf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode( $af_ev_widget_rules ) ) );
 			} else {
 				$public_rule     = ( 'yes' == $af_ev_widget_public ) ? 'allow' : 'block';
 				$role_rule       = ( 'yes' == $af_ev_widget_role ) ? 'allow' : 'block';
 				$disposable_rule = ( 'yes' == $af_ev_widget_disposable ) ? 'allow' : 'block';
 				$unverified_rule = ( 'yes' == $af_ev_widget_unverified ) ? 'allow' : 'block';
-
-				printf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode( '{"public": {"rule": "' . $public_rule . '"}, "role": {"rule": "' . $role_rule . '"}, "disposable": {"rule": "' . $disposable_rule . '"}, "unverified": {"rule": "' . $unverified_rule . '"}}' ) ) );
+				$cfg .= sprintf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode( '{"public": {"rule": "' . $public_rule . '"}, "role": {"rule": "' . $role_rule . '"}, "disposable": {"rule": "' . $disposable_rule . '"}, "unverified": {"rule": "' . $unverified_rule . '"}}' ) ) );
 			}
 		}
 
 		// phone widget.
 		if ( 'yes' == $af_pv_widget_enabled || '1' == $af_pv_widget_enabled ) {
-			echo "AddressFinderConfig.phone_widget_enabled = true;\n";
-			echo "AddressFinderConfig.phone = {};\n";
-			printf( "AddressFinderConfig.phone.formatNumber = '%s';\n", esc_js( $af_pv_widget_format_number ) );
+			$cfg .= "AddressFinderConfig.phone_widget_enabled = true;\n";
+			$cfg .= "AddressFinderConfig.phone = {};\n";
+			$cfg .= sprintf( "AddressFinderConfig.phone.formatNumber = '%s';\n", esc_js( $af_pv_widget_format_number ) );
 
 			if ( $af_pv_default_country ) {
-				printf( "AddressFinderConfig.phone.defaultCountryCode = '%s';\n", esc_js( $af_pv_default_country ) );
+				$cfg .= sprintf( "AddressFinderConfig.phone.defaultCountryCode = '%s';\n", esc_js( $af_pv_default_country ) );
 			}
 
 			if ( $af_pv_allowed_countries ) {
-				printf( "AddressFinderConfig.phone.allowedCountryCodes = '%s';\n", esc_js( $af_pv_allowed_countries ) );
+				$cfg .= sprintf( "AddressFinderConfig.phone.allowedCountryCodes = '%s';\n", esc_js( $af_pv_allowed_countries ) );
 			}
 
 			if ( null !== $af_pv_widget_rules && ! empty( trim( $af_pv_widget_rules ) ) ) {
-				printf( "AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode( json_decode( $af_pv_widget_rules ) ) );
+				$cfg .= sprintf( "AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode( json_decode( $af_pv_widget_rules ) ) );
 			} else {
 				$non_mobile_rule         = ( 'yes' == $af_pv_widget_non_mobile ) ? 'allow' : 'block';
 				$disallowed_country_rule = ( 'yes' == $af_pv_widget_disallowed_country ) ? 'allow' : 'block';
 				$unverified_phone_rule   = ( 'yes' == $af_pv_widget_unverified ) ? 'allow' : 'block';
-
-				printf( "AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode( json_decode( '{"nonMobile": {"rule": "' . $non_mobile_rule . '"}, "countryNotAllowed": {"rule": "' . $disallowed_country_rule . '"}, "unverified": {"rule": "' . $unverified_phone_rule . '"}}' ) ) );
+				$cfg .= sprintf( "AddressFinderConfig.phone.rules = '%s';\n", wp_json_encode( json_decode( '{"nonMobile": {"rule": "' . $non_mobile_rule . '"}, "countryNotAllowed": {"rule": "' . $disallowed_country_rule . '"}, "unverified": {"rule": "' . $unverified_phone_rule . '"}}' ) ) );
 			}
 		}
 
 		if ( 'yes' == $af_debug ) {
-			echo "AddressFinderConfig.debug = true;\n";
+			$cfg .= "AddressFinderConfig.debug = true;\n";
 		}
 
-		echo "\n</script>";
-
-		wp_enqueue_script( 'addressfinder_js', plugins_url( 'addressfinder.js', __FILE__ ), array(), ADDRESSFINDER_WOOCOMMERCE_VERSION, true );
+		wp_add_inline_script( 'addressfinder_js', rtrim( $cfg ), 'before' );
 	}
 
 	/**
