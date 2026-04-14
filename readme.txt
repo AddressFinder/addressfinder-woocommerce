@@ -117,7 +117,7 @@ WooCommerce Addressfinder requires:
 == Installation ==
 Follow the instructions below to configure Addressfinder for WooCommerce and start verifying data in minutes.
 
-You can also go to our [WooCommerce integration guide](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=woocommerce+integration_guide) for a step-by-step installation video.
+You can also go to our [WooCommerce integration guide](https://addressfinder.com/docs/integrations/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=woocommerce+integration_guide) for a step-by-step installation video.
 
 = Install =
 
@@ -139,7 +139,7 @@ To get a license key, [sign up for a free trial](https://addressfinder.com/prici
 
 Already have a subscription? Find your key on the [Addressfinder portal](https://portal.addressfinder.net/sessions/login?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=addressfinder+portal).
 
-Visit our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site to learn more about Addressfinder for WooCommerce.
+Visit our [Documentation](https://addressfinder.com/docs/integrations/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site to learn more about Addressfinder for WooCommerce.
 
 
 == Frequently Asked Questions ==
@@ -159,7 +159,7 @@ Yes. We offer a free trial with full access to Addressfinder services. [Learn mo
 During the trial you can upgrade to a monthly or annual subscription at any point.
 
 = What if I have more questions? =
-Try searching for what you need in our [Documentation](https://addressfinder.com/docs/plugins/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site.
+Try searching for what you need in our [Documentation](https://addressfinder.com/docs/integrations/woocommerce?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=documentation) site.
 
 If you don’t find what you’re looking for, you can [get help here](https://addressfinder.com/contact?utm_source=woocommerce&utm_medium=plugin_listing&utm_campaign=woocommerce_listing&utm_term=get+help+here).
 
