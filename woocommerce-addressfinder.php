@@ -47,22 +47,24 @@ function addressfinder_update_check() {
  */
 function addressfinder_initialize_defaults() {
 	$defaults = array(
-		'af-widget-enabled'              => 'yes',
-		'af-au-widget-options'           => 'postal_and_physical',
-		'af-au-widget-pobox'             => 'yes',
-		'af-nz-widget-options'           => 'postal_and_physical',
-		'af-nz-widget-pobox'             => 'yes',
-		'af-default-country'             => 'AU',
-		'af-ev-widget-enabled'           => 'no',
-		'af-ev-widget-public'            => 'yes',
-		'af-ev-widget-role'              => 'yes',
-		'af-pv-widget-enabled'           => 'no',
-		'af-pv-widget-default-country'   => '',
-		'af-pv-widget-allowed-countries' => '',
-		'af-pv-widget-non-mobile'        => 'yes',
-		'af-pv-widget-disallowed-country' => 'yes',
-		'af-pv-widget-format-number'     => 'none',
-		'af-debug'                       => 'no',
+		'af-widget-enabled'                => 'yes',
+		'af-au-widget-options'             => 'postal_and_physical',
+		'af-au-widget-pobox'               => 'yes',
+		'af-nz-widget-options'             => 'postal_and_physical',
+		'af-nz-widget-pobox'               => 'yes',
+		'af-default-country'               => 'AU',
+		'af-ev-widget-enabled'             => 'no',
+		'af-ev-widget-verification-method' => 'full',
+		'af-ev-widget-public'              => 'yes',
+		'af-ev-widget-role'                => 'yes',
+		'af-pv-widget-enabled'             => 'no',
+		'af-pv-widget-verification-method' => 'full',
+		'af-pv-widget-default-country'     => '',
+		'af-pv-widget-allowed-countries'   => '',
+		'af-pv-widget-non-mobile'          => 'yes',
+		'af-pv-widget-disallowed-country'  => 'yes',
+		'af-pv-widget-format-number'       => 'none',
+		'af-debug'                         => 'no',
 	);
 
 	foreach ( $defaults as $key => $value ) {
@@ -109,6 +111,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		// email widget.
 		$af_ev_widget_enabled = esc_attr( get_option( 'af-ev-widget-enabled' ) );
+		$af_ev_widget_verification_method = esc_attr( get_option( 'af-ev-widget-verification-method' ) );
 		$af_ev_widget_public = esc_attr( get_option( 'af-ev-widget-public' ) );
 		$af_ev_widget_role = esc_attr( get_option( 'af-ev-widget-role' ) );
 		$af_ev_widget_disposable = esc_attr( get_option( 'af-ev-widget-disposable' ) );
@@ -117,6 +120,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		// phone widget.
 		$af_pv_widget_enabled = esc_attr( get_option( 'af-pv-widget-enabled' ) );
+		$af_pv_widget_verification_method = esc_attr( get_option( 'af-pv-widget-verification-method' ) );
 		$af_pv_default_country = esc_attr( get_option( 'af-pv-widget-default-country' ) );
 		$af_pv_allowed_countries = esc_attr( get_option( 'af-pv-widget-allowed-countries' ) );
 		$af_pv_widget_non_mobile = esc_attr( get_option( 'af-pv-widget-non-mobile' ) );
@@ -189,6 +193,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			$cfg .= "AddressFinderConfig.email_widget_enabled = true;\n";
 			$cfg .= "AddressFinderConfig.email = {};\n";
 
+			if ( 'lite' == $af_ev_widget_verification_method ) {
+				$cfg .= "AddressFinderConfig.email.check = 'format';\n";
+			}
+
 			if ( null !== $af_ev_widget_rules && ! empty( trim( $af_ev_widget_rules ) ) ) {
 				$cfg .= sprintf( "AddressFinderConfig.email.rules = '%s';\n", wp_json_encode( json_decode( $af_ev_widget_rules ) ) );
 			} else {
@@ -205,6 +213,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			$cfg .= "AddressFinderConfig.phone_widget_enabled = true;\n";
 			$cfg .= "AddressFinderConfig.phone = {};\n";
 			$cfg .= sprintf( "AddressFinderConfig.phone.formatNumber = '%s';\n", esc_js( $af_pv_widget_format_number ) );
+
+			if ( 'lite' == $af_pv_widget_verification_method ) {
+				$cfg .= "AddressFinderConfig.phone.verifyFormatOnly = true;\n";
+			}
 
 			if ( $af_pv_default_country ) {
 				$cfg .= sprintf( "AddressFinderConfig.phone.defaultCountryCode = '%s';\n", esc_js( $af_pv_default_country ) );
@@ -480,6 +492,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		);
 
 		$settings[] = array(
+			'name' => __( 'Verification method', 'text-domain' ),
+			'id'      => 'af-ev-widget-verification-method',
+			'default' => 'full',
+			'type'    => 'radio',
+			'options' => array(
+				'full' => __( 'Full - checks format, domain and connection', 'text-domain' ),
+				'lite' => __( 'Lite - checks format only (free)', 'text-domain' ),
+			),
+		);
+
+		$settings[] = array(
 			'name' => __( 'Allowed Email Types', 'text-domain' ),
 			'id'   => 'af-ev-widget-public',
 			'type' => 'checkbox',
@@ -542,6 +565,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			'id'   => 'af-pv-widget-enabled',
 			'type' => 'checkbox',
 			'desc' => __( 'Verify phone numbers at the point of capture', 'text-domain' ),
+		);
+
+		$settings[] = array(
+			'name' => __( 'Verification method', 'text-domain' ),
+			'id'      => 'af-pv-widget-verification-method',
+			'default' => 'full',
+			'type'    => 'radio',
+			'options' => array(
+				'full' => __( 'Full - checks format, range and connection status', 'text-domain' ),
+				'lite' => __( 'Lite - checks format only (free)', 'text-domain' ),
+			),
 		);
 
 		$settings[] = array(
