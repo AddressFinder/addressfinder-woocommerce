@@ -1,0 +1,30 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Matches the node:12 image the release build uses (docker-compose.yml)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 12
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer:v2
+      - run: composer install --no-interaction --no-progress
+      - run: vendor/bin/phpcs --standard=WooCommerce-Core -n woocommerce-addressfinder.php

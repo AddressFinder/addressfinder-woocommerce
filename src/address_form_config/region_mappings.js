@@ -1,5 +1,5 @@
 export default (state_field) => {
-  const element = document.querySelector(state_field)
+  const element = document.querySelector(state_field);
 
   const three_letter_mapping = {
     'Auckland Region': 'AUK',
@@ -41,9 +41,9 @@ export default (state_field) => {
     'No Region (Chatham Islands)': null
   };
 
-  if (element && Array.from(element.querySelectorAll("option")).map((el) => el.value).filter((val) => val.length > 0)[0]?.length == 2) {
+  if (element && Array.from(element.querySelectorAll('option')).map((el) => el.value).filter((val) => val.length > 0)[0]?.length == 2) {
     return two_letter_mapping;
   }
 
   return three_letter_mapping;
-}
+};

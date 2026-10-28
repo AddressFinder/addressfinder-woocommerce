@@ -1,46 +1,46 @@
-import ConfigManager from './config_manager'
-import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools'
+import ConfigManager from './config_manager';
+import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from '@addressfinder/addressfinder-webpage-tools';
 
 (function (d, w) {
   class WooCommercePlugin {
     constructor() {
 
-      this.version = "1.7.17"
+      this.version = '1.7.17';
 
       // Manages the mapping of the form configurations to the DOM.
-      this.PageManager = null
+      this.PageManager = null;
 
-       // Manages the email mapping of the form configurations to the DOM.
-       this.EmailPageManager = null
+      // Manages the email mapping of the form configurations to the DOM.
+      this.EmailPageManager = null;
 
-       // Manages the phone mapping of the form configurations to the DOM.
-       this.PhonePageManager = null
+      // Manages the phone mapping of the form configurations to the DOM.
+      this.PhonePageManager = null;
 
       // Manages the form configurations, and creates any dynamic forms
-      this.ConfigManager = null
+      this.ConfigManager = null;
 
-      this._initPlugin = this._initPlugin.bind(this)
+      this._initPlugin = this._initPlugin.bind(this);
 
-      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this)
-      w.addressfinderDebugMode = this.addressfinderDebugMode
+      this.addressfinderDebugMode = this.addressfinderDebugMode.bind(this);
+      w.addressfinderDebugMode = this.addressfinderDebugMode;
 
-      this._initOnDOMLoaded()
+      this._initOnDOMLoaded();
     }
 
     mutationEventHandler() {
       // When the form mutates, reload our form configurations, and reload the form helpers in the page manager.
-      let addressFormConfigurations = this.ConfigManager.load()
+      let addressFormConfigurations = this.ConfigManager.load();
       if (this.PageManager) {
-        this.PageManager.reload(addressFormConfigurations)
+        this.PageManager.reload(addressFormConfigurations);
       }
 
       if (this.EmailPageManager) {
-        this.EmailPageManager.reload(this.ConfigManager.loadEmailConfigurations())
+        this.EmailPageManager.reload(this.ConfigManager.loadEmailConfigurations());
       }
 
       if (this.PhonePageManager) {
         // notify country has changed:
-        this.PhonePageManager.reload(this.ConfigManager.loadPhoneConfigurations())
+        this.PhonePageManager.reload(this.ConfigManager.loadPhoneConfigurations());
       }
     }
 
@@ -67,27 +67,27 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
       // If AddressFinder is added before this event it will clear the user's existing address details from the address fields.
       // This function makes sure AddressFinder is initalised after this event.
 
-      repetitions = repetitions || 10
+      repetitions = repetitions || 10;
 
-      if (d.readyState == "complete" && typeof w.AddressFinder != 'undefined') {
+      if (d.readyState == 'complete' && typeof w.AddressFinder != 'undefined') {
         setTimeout(() => {
-          console.log('ready state')
-          this._initPlugin()
-        }, 1000)
-        return
+          console.log('ready state');
+          this._initPlugin();
+        }, 1000);
+        return;
       }
 
       if (repetitions == 0) {
         // if 5 seconds have passed and the DOM still isn't ready, initalise AddressFinder
-        console.log('repetition zero')
-        this._initPlugin()
-        return
+        console.log('repetition zero');
+        this._initPlugin();
+        return;
       }
 
       setTimeout(() => {
         // if less than 5 seconds have passed and the DOM isn't ready, recall the function to check again
-        this._initOnDOMLoaded('ignoredEvent', repetitions - 1)
-      }, 1000)
+        this._initOnDOMLoaded('ignoredEvent', repetitions - 1);
+      }, 1000);
     }
 
     _initPlugin() {
@@ -108,31 +108,31 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         pvWidgetOptions: {...parsedPvWidgetOptions, ...clientVersion},
         defaultCountry: w.AddressFinderConfig.default_country || 'nz',
         debug: w.AddressFinderConfig.debug || false,
-      }
+      };
 
-      this.ConfigManager = new ConfigManager()
+      this.ConfigManager = new ConfigManager();
 
       // Watches for any mutations to the DOM, so we can reload our configurations when something changes.
       new MutationManager({
         widgetConfig: widgetConfig,
         mutationEventHandler: this.mutationEventHandler.bind(this),
-        ignoredClass: "af_list"
-      })
+        ignoredClass: 'af_list'
+      });
 
       if (window.AddressFinderConfig.address_widget_enabled) {
-        this._initAddressWidget(widgetConfig)
+        this._initAddressWidget(widgetConfig);
       }
 
       if (window.AddressFinderConfig.email_widget_enabled) {
         widgetConfig.evWidgetOptions.rules = this._safeParseJSONObject(w.AddressFinderConfig.email.rules);
-        this._initEmailWidget(widgetConfig)
+        this._initEmailWidget(widgetConfig);
       }
 
       if (window.AddressFinderConfig.phone_widget_enabled) {
         widgetConfig.pvWidgetOptions.rules = this._safeParseJSONObject(w.AddressFinderConfig.phone.rules);
         // need to map some country names found in the HTML
-        widgetConfig.pvWidgetOptions.countryMappings = {"United Kingdom (UK)" : "GB", "United States (US)" : "US"}
-        this._initPhoneWidget(widgetConfig)
+        widgetConfig.pvWidgetOptions.countryMappings = {'United Kingdom (UK)' : 'GB', 'United States (US)' : 'US'};
+        this._initPhoneWidget(widgetConfig);
       }
     }
 
@@ -144,16 +144,16 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         formFieldChangeEventToDispatch: 'change',
         // An event listener with this event type is attached to country element. When the country changes the active country for the widget is set.
         countryChangeEventToListenFor: 'blur'
-      })
+      });
 
-      this._setVersionNumbers()
+      this._setVersionNumbers();
     }
 
     _initEmailWidget(widgetConfig) {
       this.EmailPageManager = new EmailPageManager({
         formConfigurations: this.ConfigManager.loadEmailConfigurations(),
         widgetConfig
-      })
+      });
     }
 
     _initPhoneWidget(widgetConfig) {
@@ -162,13 +162,13 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
         widgetConfig,
         // An event listener with this event type is attached to country element. When the country changes the default country code for the widget is set.
         countryChangeEventToListenFor: 'blur'
-      })
+      });
     }
 
     _setVersionNumbers() {
       // rename webpage tools version from 'version' to 'webpageToolsVersion'
-      this.PageManager['webpageToolsVersion'] = this.PageManager.version
-      this.PageManager.version = this.version
+      this.PageManager['webpageToolsVersion'] = this.PageManager.version;
+      this.PageManager.version = this.version;
     }
 
     /*
@@ -176,26 +176,26 @@ import { PageManager, EmailPageManager, PhonePageManager, MutationManager } from
     * This allows us to debug more easily on customer sites.
     */
     addressfinderDebugMode() {
-      w.AddressFinderConfig.debug = true
-      this._initPlugin()
+      w.AddressFinderConfig.debug = true;
+      this._initPlugin();
     }
   }
 
   function loadAddressfinderScript(script, callback) {
-    let s = document.createElement('script')
-    s.src = script
-    s.async = 1
-    s.onload = callback
-    document.body.appendChild(s)
+    let s = document.createElement('script');
+    s.src = script;
+    s.async = 1;
+    s.onload = callback;
+    document.body.appendChild(s);
   }
 
   // Nested callbacks to load our scripts asynchronously and sequentially.
   loadAddressfinderScript('https://api.addressfinder.io/assets/v3/widget.js',
     function () { loadAddressfinderScript('https://api.addressfinder.io/assets/email/v2/widget.js',
       function () { loadAddressfinderScript('https://api.addressfinder.io/assets/phone/v2/widget.js',
-        function() { new WooCommercePlugin }
-      )}
-    )}
-  )
+        function() { new WooCommercePlugin; }
+      );}
+    );}
+  );
 
-})(document, window)
+})(document, window);

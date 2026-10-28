@@ -1,13 +1,13 @@
-import regionMappings from './region_mappings'
-import internationalStateMappings from './international_state_mappings'
+import regionMappings from './region_mappings';
+import internationalStateMappings from './international_state_mappings';
 
 export default {
-  label: "Block Billing Checkout",
-  layoutSelectors: ["#billing-address_1"],
+  label: 'Block Billing Checkout',
+  layoutSelectors: ['#billing-address_1'],
   countryIdentifier: '#components-form-token-input-2',
   searchIdentifier: '#billing-address_1',
   nz: {
-    countryValue: ["New Zealand", "NZ"],
+    countryValue: ['New Zealand', 'NZ'],
     elements: {
       address1: '#billing-address_1',
       address2: null,
@@ -19,7 +19,7 @@ export default {
     regionMappings: regionMappings('#components-form-token-input-3')
   },
   au: {
-    countryValue: ["Australia", "AU"],
+    countryValue: ['Australia', 'AU'],
     elements: {
       address1: '#billing-address_1',
       address2: '#billing-address_2',
@@ -41,4 +41,4 @@ export default {
     stateMappings: internationalStateMappings('blockForm'),
     optionalElements: {'be': ['address_line_2', 'state_territory'], 'ca': ['address_line_2'], 'cz': ['address_line_2', 'state_territory'], 'de': ['address_line_2', 'state_territory'], 'fr': ['address_line_2'], 'dk': ['address_line_2', 'state_territory'], 'ie': ['address_line_2'], 'nl': ['address_line_2', 'state_territory'], 'pt': ['address_line_2', 'state_territory'], 'sg': ['address_line_2', 'state_territory'], 'es': ['address_line_2'], 'se': ['address_line_2', 'state_territory'], 'gb': ['address_line_2'], 'us': ['address_line_2']}
   }
-}
+};

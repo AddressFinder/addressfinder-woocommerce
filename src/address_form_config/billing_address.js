@@ -1,13 +1,13 @@
-import regionMappings from './region_mappings'
-import internationalStateMappings from './international_state_mappings'
+import regionMappings from './region_mappings';
+import internationalStateMappings from './international_state_mappings';
 
 export default {
-  label: "Billing Checkout",
-  layoutSelectors: ["#billing_address_1"],
+  label: 'Billing Checkout',
+  layoutSelectors: ['#billing_address_1'],
   countryIdentifier: '#billing_country',
   searchIdentifier: '#billing_address_1',
   nz: {
-    countryValue: "NZ",
+    countryValue: 'NZ',
     elements: {
       address1: '#billing_address_1',
       address2: null,
@@ -19,7 +19,7 @@ export default {
     regionMappings: regionMappings('#billing_state')
   },
   au: {
-    countryValue: "AU",
+    countryValue: 'AU',
     elements: {
       address1: '#billing_address_1',
       address2: '#billing_address_2',
@@ -41,4 +41,4 @@ export default {
     stateMappings: internationalStateMappings('standardForm'),
     optionalElements: {'be': ['address_line_2', 'state_territory'], 'ca': ['address_line_2'], 'cz': ['address_line_2'], 'de': ['address_line_2', 'state_territory'], 'fr': ['address_line_2'], 'dk': ['address_line_2'], 'ie': ['address_line_2'], 'nl': ['address_line_2', 'state_territory'], 'pt': ['address_line_2', 'state_territory'], 'sg': ['address_line_2', 'state_territory'], 'es': ['address_line_2'], 'se': ['address_line_2'], 'gb': ['address_line_2'], 'us': ['address_line_2']}
   }
-}
+};

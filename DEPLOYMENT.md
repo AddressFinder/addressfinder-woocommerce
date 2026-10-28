@@ -1,7 +1,10 @@
 # Deployment
 
 ## Pass code checks
-WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it. - Install [https://getcomposer.org/](composer)
+WooCommerce run an automated phpcs check on the plugin, we need to make sure we can pass it before submitting it. The `Checks` GitHub Actions workflow runs it, along with `npm run lint`, on every pull request and push to master. Make sure it's green before releasing.
+
+To run phpcs locally:
+- Install [composer](https://getcomposer.org/)
 - Run `composer install` to fetch dependencies
 - Run `vendor/bin/phpcs --standard=WooCommerce-Core -n woocommerce-addressfinder.php` and fix any errors reported
 - You can use bundled `phpcbf` to fix any errors marked with `[x]` by running `vendor/bin/phpcbf --standard=WooCommerce-Core -n woocommerce-addressfinder.php`
