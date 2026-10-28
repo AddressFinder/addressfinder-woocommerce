@@ -20,24 +20,18 @@ In a separate window, run:
 
 Then whenever a file is edited, it will be re-compiled and available for reloading.
 
-# Test Servers
-We use Vultr to set up and run test server
-
-## Addressfinder WooCommerce Staging
- - Wordpress v6.6
- - Woocommerce v9.1.2
- - Test store: https://45.32.247.160/
- - Server access: ssh ubuntu@45.32.247.160
+# Test store
+Test changes on a throwaway WooCommerce server, following [TEST_STORE.md](TEST_STORE.md).
 
 # Developing and testing
 
-There are two ways to swap out the Woocommerce plugin javascript for your own local javascript. The first method only works for Test Server One
+There are two ways to swap out the Woocommerce plugin javascript for your own local javascript.
 
 There is also the [Additional Method](#additional-method) that allows you to install a develper version of the plugin to test.
 
 ## Method One
 
-1. Visit the test server (https://45.32.247.160/wp-admin, credentials available in 1Password)
+1. Visit your test store's wp-admin (see [TEST_STORE.md](TEST_STORE.md))
 1. If the AddressFinder plugin is installed and acitve. Click Tools -> Plugin File Editor. Otherwise install it by clicking the 'Add New' button under plugins.
 1. Edit the plugin file `woocommerce-addressfinder.php`.
   - Comment out this line
@@ -78,7 +72,7 @@ For a more complete test of your code, you can build a package and install just 
 
 Run `./bin/build_and_package_developer_plugin.sh` which will build a zip file `addressfinder-woo-developer.zip` in the project directory.
 
-You can then use the WordPress plugin installer to install this file.
+You can then use the WordPress plugin installer to install this file. On a test store, step 4 of [TEST_STORE.md](TEST_STORE.md) builds and installs it in one go.
 
 ### Switching between the checkouts
 WooCommerce has two types of checkouts.
